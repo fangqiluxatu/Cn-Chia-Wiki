@@ -1,3 +1,3 @@
 * [中文](/README)
-* [En](/en/)
+* [En](https://github.com/Chia-Network/chia-blockchain/wiki)
 * [chialisp](/chialisp/basics)
