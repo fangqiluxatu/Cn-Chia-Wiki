@@ -31,7 +31,7 @@ Chia软件由多个功能不一的服务进程组成，对于初学者来说，�
 
 开始“耕种”（挖矿）意味着你已经拥有了一些“农田”（plots），同时还需要运行Chia软件来定期验证它们是否找到了最优的证明。
 
-在这里，我们需要先区分一下**GB（10<sup>9</sup> 字节）和GiB（2<sup>30</sup> 字节）**：因为在接下来讲解中，GiB格式会大量使用。你只需要知道，1 GiB约等于1.073 GB(2^30^除以10^9^)。大多数的硬盘的容量都是用GB来描述的，这是需要注意的一件事情。
+在这里，我们需要先区分一下**GB（10<sup>9</sup> 字节）和GiB（2<sup>30</sup> 字节）**：因为在接下来讲解中，GiB格式会大量使用。你只需要知道，1 GiB约等于1.074 GB(2<sup>30</sup> 除以10<sup>9</sup> )。大多数的硬盘的容量都是用GB来描述的，这是需要注意的一件事情。
 
 Chia安装完毕以后，用户就可以使用Chia应用程序来生成“农田”（plos）文件了。根据你的硬件状况，一块农田（plot）的制作时间将花费4至12小时乃至更长（目前单任务开垦农田有更快的方式，使用了CPU多线程来加快开垦速度，有兴趣的自行研究[madMAx43v3r的chia-plotter](https://github.com/madMAx43v3r/chia-plotter)）。每块“农田"的大小将在大约101[Gib](https://simple.wikipedia.org/wiki/Gibibyte)（108GB）.使用计算设备储存这些已生成的“农田"并开始“耕种”（挖矿），就可以开始赚取区块代币了（XCH）。
 每一个“农田”（plot）文件包含大量的预制算力，它们被存储在链表中的哈希单元格内。依靠预制算力内符合工作证明的哈希值，使得赢取代币XCH成为可能。区块奖励的发放会在2至3秒内完成，以便用户在赢取区块奖励代币（XCH）后交易使用。“农田”（plots）文件内有非常多的哈希值，你不需要删除为你赢得区块奖励的农田，它可以持续不断的“耕种”（挖矿）下去。就当前区块网络的情况来看，农田至少可以耕种五年而不失效。
@@ -73,7 +73,7 @@ Chia的[命令行界面](CLI-Commands-Reference.md)相较于命令行GUI客户�
 
 你创建的农田会在这里显示。正常且主网认可的最小农田文件每个大小差不多是101 GiB。又称为k32-农田（101 GiB/109 GB）。
 
-- *GiB* ：全称：gibibytes，是一种老的容量计算格式。现在通常用，尤其是硬盘厂商使用GB（gigabytes）来计算容量。由于GB（gigabytes）格式是1000字节的倍数，GiB(gibibytes)格式是1024字节的倍数。所以，1 GiB=1.074 GB。
+- *GiB* ：全称：gibibytes，是一种老的容量计算格式。现在通常用，尤其是硬盘厂商使用GB（gigabytes）来计算容量。前面的章节阐述过，1 GiB ≈ 1.074 GB。
 - *关于农田* ：每个农田文件可以当作是一个彩票集，里面的每张彩票都有机会赢取区块奖励。制作的农田文件大小大概是101 GiB（差不多108 GB）。里面有很多哈希表数据（类似于excel表格），表中的每个哈希单元格都随机对应其他表中的哈希单元格。计算机在制作农田的过程中不断地计算，并将可能的符合证明条件的答案塞进数以百万计的哈希单元格内，这就是为什么制作一个农田文件需要花费大量时间。就目前Chia区块网络的发展状态来看，K32-101 GiB格式的农田文件大概可以用5~10年。现在只用K32格式的农田文件就够了，K33以及更大格式的农田文件并非必须。
 
 ![Aaron Swartz](./images/plots-1.png)
@@ -181,9 +181,10 @@ Chia软件在耕种过程中会尝试去挑战证明（可以理解成刮刮彩�
 * \#初学者（beginner）  -- 初学者多看看，能看到很多新手问题的问答。
 * \#耕种设备（farming hardware）
 * \#综合问题（general）
-* \#P图设备（plotting-hardware）
+* \#中文区(lang_zh)
+* \#农田开垦（plotting）
 * \#杂谈（random） 
-* \#测试网（testnet ）
+* \#测试网（support ）
 
 ## 常见问题
 
@@ -219,19 +220,15 @@ Chia软件的配置信息都在config.yaml里。
 config.yaml的文件路径：c:/Users/ (Your username)/.chia/mainnet/config.yaml
 
 修改配置文件之前先关闭Chia软件。
-使用记事本打开配置文件，你可以修改* log_level: WARNING *参数，WARNING可以改成
+使用记事本打开配置文件，在中间可以看到 * log_level: WARNING *这个参数，关闭config文件。运行Chia一段时间，打开log文件，你需要重点关注是否有WARNING相关信息的出现。
 
-Shut down Chia software before config access.
-Open Config with notepad. In the middle  * log_level: WARNING * change wording of WARNING to INFO. 
- Save File and exit. Start up Chia-- give it 20 minutes to run
+log文件的路径：c:/Users/ (Your username)/.chia/mainnet/log/debug.log  日志文件的信息是非常有用的，当一个日志文件达到20MB了，会自动创建一个新的日志文件继续记录。如果你觉得日志文件太多了，可以删除这些历史日志。
 
-Can access the log files and read activity, while Chia is running. It's located in c:/Users/ (Your username)/.chia/mainnet/log/debug.log
-Log files are very informative. Once a log fills to 20mb another is created. If there are too many you can delete some of them.
-
-Inside what you are looking for are these lines
+日志文件里可以看到类似的信息：
 *07:02:41.663 harvester src.harvester.harvester:INFO     1 plots were eligible for farming f53c496e80... Found 0 proofs. Time: 0.00500 s. Total 8 plots*
 
-This means Chia is working--  The filter system is 2 parts. Chia found that 1 plot passed the (1st) part, now it looks inside to determine if a pre-formulated "proof" will be able to do a transaction in fastest time (2-3 seconds) if it secures one in your plot then you win 1 proof means you won a coin. Many times it will say 0 proofs. But it shows it's working. This is where luck/time comes into play. At the end of that line it will indicate how many plots the software registers.
+意思是:Chia正在运行中-- Chia证明筛选机包含了2个部分，这里表示Chia有一个农田通过了初筛，现在正在这块预存算力（哈希值）的农田内寻找符合当前挑战的证明。大多数时候会显示找到0个证明。但系统依旧是正常运转着的，能否赢得区块就涉及到前面讲的期望值了。该行日志的最后，显示你当前耕种的农田总数（符合主网要求的）。
+
 
 ### 日志文件
 

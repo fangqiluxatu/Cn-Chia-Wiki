@@ -2,7 +2,7 @@
 * [目录](./)
 * [新手指南](Beginners-Guide)
 * [安装说明](INSTALL)
-* [快速开始](Quick-Start-Guide)
+* [快速入门](Quick-Start-Guide)
 * [FAQ-实时更新](FAQ)
 * [矿池协议FAQ](Pooling-FAQ)
 * [矿池指南](Pooling-User-Guide)

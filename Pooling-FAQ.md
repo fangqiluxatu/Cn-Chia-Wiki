@@ -1,53 +1,60 @@
-- [General FAQ](#general-faq)
-- [Technical FAQ](#technical-faq)
-***
+# 一般问题
 
-# General FAQ
+## 如何加入矿池？
 
-## How can I start pooling?
-You can update by installing Chia 1.2+ and following the instructions in the [Pooling User Guide](https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-User-Guide).
+需要将Chia升级到1.2.0版本以上，然后查阅[Pooling User Guide](Pooling-User-Guide)中的说明。
 
+## 加入官方矿池协议的矿池（后续统称为：新版矿池）的话就必须要重新开垦农田（P图）吗？
 
-## Will I need to replot to use the official pooling protocol?
-Yes. Anyone who wants to join a pool will need to create new K32 or above portable plots. This new plot format allows you to switch between pools and self-pooling with a cooldown of ~30 minutes (100 blocks) between each switch. Each switch between pools will require a transaction with a smart contract on the blockchain. Our recommendation is to slowly replace your existing plots with portable plots one by one, so you still have a chance to win XCH while you convert to all portable plots.
+是的，想要加入并使用新版矿池，就需要创建新的K32格式农田或者更高格式的（K33等）。新格式的农田可以在矿池和自耕种池中自由切换，每次切换需要等待30分钟左右（100个区块时间），因为切换矿池需要向主网的智能合约发送信息。建议大家可以慢慢地把从老的农田一个一个的切换成新格式的农田，所以在你重新开垦农田的过程中依旧有机会赢取区块奖励（XCH）。
 
-## What is a plot NFT?
-A plot NFT (Non Fungible Token), is a smart coin or token on the blockchain, which allows a user to manage their membership in a pool. User's can assign the plot NFT to any pool they want, at any point. When plotting, a plot NFT can be selected, and the plot will be tied to that plot NFT forever. NFTs are "non-fungible" because they are not interchangeable; each plot NFT represents a unique pool contract.
+## 什么是农田产权证（含有非同质化代币的农田，plot NFT）
 
+农田产权证是一种主网发行的智能通证（代币），用来帮助用户管理农田与矿池的关系。用户可以在任何时间通过使用农田产权证，来将自己的农田分配给自己想要加入的矿池。当你开垦农田时，需要选择你所创建的农田产权证，这样你所开垦的农田会永久地绑定在该农田产权证上。不同的农田产权证（plot NFTS）是不可互相替代的，每一个农田产权证可以当作是一个独一无二的矿池智能合约。
 
-## Will I need pay XCH to create a plot NFT or switch pools?
-Each plot NFT you create will require a minimum of 1 mojo (1 trillionth of a XCH) + transaction fee. For switching pools, you need to pay only a transaction fee. to switch pools. On the first few days of pool launch on mainnet, it's likely you can use 0 transaction fee. For those who don't have any XCH, you can get 100 mojos from Chia's official faucet: https://faucet.chia.net/
+## 创建农田产权证或者切换矿池的时候需要付手续费吗？
 
-## Can I farm with both OG (original) plots and portable plots?
-Yes. The farmer will support both OG plots and portable plots on one machine. For OG plots, the 0.25XCH and 1.75XCH will both be sent to the farmer. The OG plots will not be affected in any way by the plot NFTs or new plots that you create.
+创建农田产权证最少需要1mojo的XCH（0.000000000001 XCH）作为创建智能合约的费用，以及主网转账手续费（目前不需要）。切换矿池只需要支付一点儿转账手续费，在矿池协议刚上线的这段时间里，切换矿池可能不需要手续费。如果你没有XCH的话，可以去官方空投网站里填写你的XCH地址，领取100mojo: https://faucet.chia.net/ 。
 
-## How do I assign portable plots to a pool?
-First you will create a Plot NFT (devs call this singleton in their code) in the new pools tab in the GUI. When you create a new portable plot, you must assign it a specific Plot NFT (for those using CLI, this replaces the Pool Public Key `-p` with a Pool Contract Address `-c`). All plots created with the same Plot NFT can then be assigned to a pool for farming. You can have many plot NFTs on the same key.
+## 可以同时耕种老版农田以及新版农田（带农田产权证的）吗？
 
-## What is the difference between a "Key" and a "Wallet" in the Chia GUI and CLI?
-A user can have one or more keys on a machine running Chia. A key is represented by the private information (24 words) and the public identifier called the `fingerprint`. When using the GUI or the CLI, you can only log in to one key at a time. Each key must be synced separately, and you can check if it is synced by clicking on the "wallet" tab. Each key can also have 1 or more wallets associated with it. The standard wallet, which controls your Chia, is created by default. You can also create as many Plot NFTs as you want, which are also wallets, and each have their own "wallet id" as well, and they are tied to the key that you used to create them. In the CLI, you use both `fingerprint` and `wallet_id` to perform operations on Plot NFTs, which represent the key and wallet ID for that Plot NFT.
+可以。支持农民同时耕种老版农田以及新版农田。老图如果赢得了挑战，0.25XCH（农民奖励）和1.75XCH（矿池奖励）都会发送给农民。老的农田和新的农田可以一起耕种，互相不受影响。
 
-## How is Chia pooling different from other cryptos?
-Chia has three major differences from most other crypto pooling protocol: 1) Joining pools are permissionless. You do not need to sign up to an account on a pool server before joining. 2) Farmers receive 1/8th of XCH rewards plus transaction fees, while the pool receives 7/8th of XCH rewards to redistribute (minus pool fees) amongst all pool participants. 3) The farmer with the winning proof will farm the block, not the pool server.
+## 如何为新开垦的农田添加产权证，以便后续加入矿池？
+首先，你需要在农业合作社（POOL）分栏里创建一个农田产权证。当你开垦一个新版农田时，需要为农田分配一个农田产权证（使用命令行CLI工具开垦的话，需要将-p参数更换为-c参数，-c参数后面填写你生成农田产权证时所生成的XCH地址），被赋予相同农田产权证的农田可以被分配给同一个矿池里进行耕种。当然了，一个账号可以生成多个农田产权证。
 
-## How can I start my own pool?
-If you have experience writing pool server code for another crypto, adapting that pool code with Chia's reference pool code will be straight forward. We only recommend people who have good OPSEC and business experience to run public pool servers. Depending what country you operate your pooling business, you may be subject to tax, AML and KYC laws specific to your jurisdiction. All pools will be targeted by hackers due to the profitability of XCH and you may be legally liable if you have any losses.
+## 密钥及钱包在Chia中的区别？
+一台运行Chia的计算机可以生成一个或多个密钥（key），密钥由私钥信息（助记词）及公共指纹（身份）组成。当你使用客户端或者命令行时，一次只能操作一个账号（密钥）。不同密钥（账号）的钱包账本（区块）数据是不一样的，所以需要在“钱包”分栏确认是否已同步至最新区块高度。每个密钥（账号）可以分配多个钱包地址。打开软件登录账号以后的默认钱包是Chia自动生成的钱包地址，就像农田产权证一样，你也可以创建多个钱包，每个钱包都有不一样的地址（XCH开头），这些你所生成的钱包及农田产权证都是跟你的密钥所绑定的。
 
-## Where can I find a list of Chia pools?
-A crypto community site lists all upcoming Chia pools: https://miningpoolstats.stream/chia
+# Chia官方矿池协议与其他加密货币项目有什么不同？
+主要有三个区别：
+* 加入矿池无需签名授权，也不需要在矿池供应商注册账号。
+* 农民挑战证明成功爆块后获得0.25个XCH（需扣除转账手续费），余下的1.75个XCH（需扣除矿池手续费）与矿池内所有的农民平分。
+* 挑战成功并获得区块奖励的是农民，而不是矿池供应商，农民与矿池之间通过智能合约（农田产权证）来进行管理。
 
-## Can I advertise my pool in Keybase?
-You can only advertise your pool in Keybase @chia_network.public#pools once a day. If you're spammy, mods will warn you and then ban you if you persist.
+## 我如何自行运营矿池？
+如果你有其他加密货币项目的矿池服务器运维经验，可以根据Chia矿池源代码来进行定制化修改。我们只会给大家推荐一些安全、有经验的矿池供应商。如果你运营了矿池，请遵守当地的法律法规，不限于纳税、反洗钱、客户身份等。同时，所有的Chia矿池都有可能成为黑客攻击的目标（主要是服务器方面的，例如DDOS攻击、安全漏洞等），如果矿池内的农民有任何损失，你需要承担相应的责任。
 
-## Why shouldn't I join the original Hpool pool?
-Hpool initially created their own version of Chia client that has no source code released with it. There is no telling what kind of malicious activity that client can do. Chia Network Inc discourages everyone from joining any pool that requires custom closed source clients however Hpool has since opened a pool using the official pooling protocol and you should feel free to consider that as you look at which pool to use.
+## 矿池列表在哪看？
+社区做了一个Chia矿池列表网站：https://miningpoolstats.stream/chia
+
+## 我能在官方讨论组里为我的矿池打广告吗？
+你一天只能在Keybase @chia_network.public的pools频道里为你的矿池打一次广告。如果你滥发广告会受到管理员的警告直至禁言。
+
+## 为什么不推荐加入Hpool的老版农田矿池？
+Hpool在一开始重新构建了一个Chia客户端版本（1.2.0以前的版本），但他们没有开源这些修改内容，所以也就不知道这个客户端是否含有不安全的修改。Chia项目官方不支持任何人加入由封闭未开源软件所构建的矿池，不过Hpool已经针对新版官方矿池协议开设了矿池，你可以根据你自己的意向来选择是否加入hpool的新矿池。
+
+## 为什么官方不运营自己的矿池？
+
 
 ## Why doesn't Chia run their own official pool?
-We want there to be a healthy ecosystem of competing pools with no privileged official one having an unfair advantage over the others.
+我们希望构建一个健康、无特权且有活力的矿池生态环境，官方如果开始矿池了的话，对其它矿池不公平。
 
-## Can I name my pool chiapool.com?
-We are not going to allow pools to use "Chia" as the first word or its equivalent (the chia pool). You can say things like "a Chia pool" though that will probably need a free and easy to get license. Go to https://www.chia.net/terms/ to get more information on obtaining a license.
+## 我的矿池能起名叫chiapool吗？
+我们不允许矿池起以Chia、the chia pool开头的名字。你可以起名叫“a chia pool”，不过需要申请一下许可证，请浏览https://www.chia.net/terms/ 来获取关于许可证的更多信息。
 
+## 如果某个矿池获得了51%的全网空间（算力），他们可以篡改主网吗？
+不行，Chia矿池协议设计的是由农民
 ## If a pool gets 51% of netspace, can they take over the network?
 No, Chia's pooling protocol is designed where the blocks are farmed by individual farmer, but the pooling rewards go to the pool operator's wallet. This ensures that even if a pool has 51% netspace, they would also need to control ALL of the farmer nodes (with the 51% netspace) to do any malicious activity. This will be very difficult unless ALL the farmers (with the 51% netspace) downloaded the same malicious Chia client programmed by a Bram like level genius.
 

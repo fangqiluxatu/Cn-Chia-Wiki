@@ -1,10 +1,10 @@
 # Chia中文维基
 * [x] [主页（Home）](README)
 * [x] [新手指南（Beginners Guide）](Beginners-Guide)
-* [ ] [安装说明（Install instructions）](INSTALL)
-* [ ] [快速开始（Quick Start Guide）](Quick-Start-Guide)
+* [x] [安装说明（Install instructions）](INSTALL)
+* [x] [快速入门（Quick Start Guide）](Quick-Start-Guide)
 * [ ] [常见问题（FAQ 实时更新）](FAQ)
-* [ ] [矿池协议FAQ（Pooling FAQ）](Pooling-FAQ)
+* [x] [矿池协议FAQ（Pooling FAQ）](Pooling-FAQ)
 * [ ] [矿池使用指南（Pooling User Guide）](Pooling-User-Guide)
 * [ ] [Chia官方答疑（Chia Project FAQ）](Chia-FAQ)
 * [ ] [“农田开垦”基础知识（Plotting Basics）](https://www.chia.net/2021/02/22/plotting-basics.html)
