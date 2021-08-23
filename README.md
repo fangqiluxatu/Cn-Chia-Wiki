@@ -1,14 +1,21 @@
 # Chia中文维基
+如大陆境内的朋友访问GitHub存在疑问，建议阅读此文,建议收藏：[盘点提高国内访问 GitHub 的速度的 9 种方案](https://mp.weixin.qq.com/s/0_56sjtHEL5It9TyJcmOtQ)
+
+本文档还在持续更新整理中且不局限于官方WIKI内容，欢迎右上角访问GitHub提出改进意见。
+
+捐助地址：
+- XCH : xch1k9kdhz0mu673gwq4xl63u4r4n538ercfkmuercde2nlme6tdu8wstr3rfv
+- XFX : xfx1xfen8glrk6u5cg9shsgcwghup05ty4wuaj6cknvmgtpwapkathesh99m3w
+
 * [x] [主页（Home）](README)
 * [x] [新手指南（Beginners Guide）](Beginners-Guide)
 * [x] [安装说明（Install instructions）](INSTALL)
 * [x] [快速入门（Quick Start Guide）](Quick-Start-Guide)
-* [ ] [常见问题（FAQ 实时更新）](FAQ)
+* [x] [常见问题（FAQ 实时更新）](FAQ)
 * [x] [矿池协议FAQ（Pooling FAQ）](Pooling-FAQ)
-* [ ] [矿池使用指南（Pooling User Guide）](Pooling-User-Guide)
+* [x] [矿池使用指南（Pooling User Guide）](Pooling-User-Guide)
 * [ ] [Chia官方答疑（Chia Project FAQ）](Chia-FAQ)
 * [ ] [“农田开垦”基础知识（Plotting Basics）](https://www.chia.net/2021/02/22/plotting-basics.html)
-* [ ] [madMAx快速P图使用指南](madMAx)
 * [ ] [“农田”格式解析（Plot Sizes (k-sizes)）](k-sizes)
 * [ ] [命令行使用（CLI Commands Reference）](CLI-Commands-Reference)
 * [ ] [Windows下注意事项（Windows Tips & Tricks）](Windows-Tips-and-Tricks)
@@ -24,4 +31,7 @@
 * [ ] [版本说明（Release Notes）](https://www.chia.net/releases/)
 * [ ] [RPC接口说明（RPC Interfaces）](RPC-Interfaces)
 * [ ] [节点同步问题-8444端口（Sync Issues - Port 8444）](Resolving-Sync-Issues---Port-8444)
-* [ ] [日志（Logging Messages Reference）](Logging-Messages-Reference)
+* [x] [日志（Logging Messages Reference）](Logging-Messages-Reference)
+* [x] [madMAx快速P图使用指南](madMAx)
+
+

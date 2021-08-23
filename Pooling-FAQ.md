@@ -24,7 +24,7 @@
 首先，你需要在农业合作社（POOL）分栏里创建一个农田产权证。当你开垦一个新版农田时，需要为农田分配一个农田产权证（使用命令行CLI工具开垦的话，需要将-p参数更换为-c参数，-c参数后面填写你生成农田产权证时所生成的XCH地址），被赋予相同农田产权证的农田可以被分配给同一个矿池里进行耕种。当然了，一个账号可以生成多个农田产权证。
 
 ## 密钥及钱包在Chia中的区别？
-一台运行Chia的计算机可以生成一个或多个密钥（key），密钥由私钥信息（助记词）及公共指纹（身份）组成。当你使用客户端或者命令行时，一次只能操作一个账号（密钥）。不同密钥（账号）的钱包账本（区块）数据是不一样的，所以需要在“钱包”分栏确认是否已同步至最新区块高度。每个密钥（账号）可以分配多个钱包地址。打开软件登录账号以后的默认钱包是Chia自动生成的钱包地址，就像农田产权证一样，你也可以创建多个钱包，每个钱包都有不一样的地址（XCH开头），这些你所生成的钱包及农田产权证都是跟你的密钥所绑定的。
+一台运行Chia的计算机可以生成一个或多个密钥（key），密钥由私钥信息（助记词）及公共指纹（身份）组成。当你使用客户端或者命令行时，一次只能操作一个账号（密钥）。不同密钥（账号）的钱包账本（区块）数据是不一样的，所以需要在“钱包”分栏确认是否已同步至最新区块高度。每个密钥（账号）可以分配多个钱包地址。打开软件登录账号以后的默认钱包是Chia自动生成的钱包地址，就像农田产权证一样，你也可以创建多个钱包，每个钱包都有不一样的地址（XCH开头），这些你所生成的钱包及农田产权证都是跟你的密钥所绑定的，“钱包”分栏内所显示的余额是你所有钱包地址余额的合计。
 
 # Chia官方矿池协议与其他加密货币项目有什么不同？
 主要有三个区别：
@@ -45,9 +45,6 @@
 Hpool在一开始重新构建了一个Chia客户端版本（1.2.0以前的版本），但他们没有开源这些修改内容，所以也就不知道这个客户端是否含有不安全的修改。Chia项目官方不支持任何人加入由封闭未开源软件所构建的矿池，不过Hpool已经针对新版官方矿池协议开设了矿池，你可以根据你自己的意向来选择是否加入hpool的新矿池。
 
 ## 为什么官方不运营自己的矿池？
-
-
-## Why doesn't Chia run their own official pool?
 我们希望构建一个健康、无特权且有活力的矿池生态环境，官方如果开始矿池了的话，对其它矿池不公平。
 
 ## 我的矿池能起名叫chiapool吗？
@@ -58,6 +55,7 @@ Hpool在一开始重新构建了一个Chia客户端版本（1.2.0以前的版本
 ## If a pool gets 51% of netspace, can they take over the network?
 No, Chia's pooling protocol is designed where the blocks are farmed by individual farmer, but the pooling rewards go to the pool operator's wallet. This ensures that even if a pool has 51% netspace, they would also need to control ALL of the farmer nodes (with the 51% netspace) to do any malicious activity. This will be very difficult unless ALL the farmers (with the 51% netspace) downloaded the same malicious Chia client programmed by a Bram like level genius.
 
+## 我还有疑问，在哪咨询？
 ## I have more questions, where do I ask?
 Join our dedicated Keybase room: @chia_network.public#pools
 

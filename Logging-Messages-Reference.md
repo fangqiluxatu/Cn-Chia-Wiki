@@ -1,20 +1,20 @@
-# debug.log
+# 日志文件（debug.log）
 A Chia blockchain node consists of several components that each handle different aspects of farming, harvesting, the wallet and general management of a node.  Each component creates entries in a single log file `debug.log`.  
 
-## Log file location:
+## 日志文件路径
 |OS|Location|
 |---|---|
 |Linux|`~/.chia/mainnet/log/debug.log`|
 |Windows|`%systemdrive% %homepath% \.chia\mainnet\debug.log` (C:\Users\<username>\.chia…)|
 |MacOS|`/Users/<username>/.chia/mainnet/log/debug.log`|
 
-## Log file management:
+## 日志文件管理
 By default, Chia allows debug.log to grow to 20MB, and then rotates the file by closing debug.log, renaming it to debug.log.1, and renames any existing older log files to debug.log.x, to a maximum of 7 old log files.  If a log rotation is required and all 7 old log files exist, the oldest log file is overwritten with the next earliest file; resulting in a maximum of 160MB of the most recent messages being stored.  
 
-## Log detail level:
+## 日志级别详情
 Chia is shipped with the debug.log only containing messages at the WARN or ERROR level.  Many of the messages needed to fully monitor a node are only visible at the INFO level.  Changes to the logging level can be done in the `config.yaml` file in the `mainnet/config` folder.
 
-## Change the log level output:
+## 修改日志级别的输出
 You are looking for the first reference to logging in the file that looks like this:
 ```
 farmer:
