@@ -95,7 +95,7 @@ Note that in the dev build the commands are `chia plots create` and `chia plots 
 # Run a timelord
 
 *Note*
-If you want to run a Timelord on Linux, see [BUILD_TIMELORD.md](https://github.com/Chia-Network/chia-blockchain/blob/main/BUILD_TIMELORD.md). Information on blue boxes coming soon.
+If you want to run a Timelord on Linux, see [Building-timelords](Building-timelords). Information on blue boxes coming soon.
 
 Timelords execute sequential verifiable delay functions (proofs of time or VDFs), that get added to
 blocks to make them valid. This requires fast CPUs and a few cores per VDF as well as completing the install steps above and running the following from the chia-blockchain directory:

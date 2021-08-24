@@ -1,5 +1,5 @@
 # Chia中文维基
-如大陆境内的朋友访问GitHub存在疑问，建议阅读此文,建议收藏：[盘点提高国内访问 GitHub 的速度的 9 种方案](https://mp.weixin.qq.com/s/0_56sjtHEL5It9TyJcmOtQ)
+大陆境内朋友访问GitHub如存在疑问，建议阅读并收藏此文：[盘点提高国内访问 GitHub 的速度的 9 种方案](https://mp.weixin.qq.com/s/0_56sjtHEL5It9TyJcmOtQ)
 
 本文档还在持续更新整理中且不局限于官方WIKI内容，欢迎右上角访问GitHub提出改进意见。
 

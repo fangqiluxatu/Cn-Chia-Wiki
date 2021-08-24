@@ -191,32 +191,31 @@ pip install --extra-index-url https://hosted.chia.net/simple/ chia-blockchain==1
 # WSL2
 
 在WSL2（适用于 Linux 的 Windows 子系统，自行百度使用，win10可用）中的Ubuntu 20.04 LTS系统也可以运行Chia客户端。
-You can run chia-blockchain in Ubuntu 20.04 LTS via WSL2 on Windows.
 
 注意：在WSL2中开垦农田只比在windows系统上快一点点，不过需要你做较多正确的配置才能达到加快开垦速度。如果你觉得这么做比较麻烦，建议你还是使用windows客户端。
 
-**无法开启带图形界面的客户端** 因为WSL2不为子系统提供系统桌面支持。
+**无法开启带图形界面的客户端** 因为WSL2不为子系统提供系统桌面。
 
 ## 检查你的windows系统是否安装了WSL1或者WSL2:
 打开PowerShell, 输入:
 ```
 wsl -l -v
 ```
+如果得到的是关于WSL命令的帮助信息，说明本机自带的是WSL1，需要升级为WSL2。如何[升级至WSL2？](https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2) 
+如果得到的是空白结果或者已安装Linux版本的列表，说明已安装WSL2，请继续。
 
-If you get a listing of help topics for wsl commands, you have WSL1, and need to upgrade. To upgrade, [follow the instructions here](https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2). If you get a blank result or a listing of installed Linux versions, you have WSL2 and are OK to proceed.
-
-## If WSL is not installed:
-From an Administrator PowerShell:
+## 如果WSL没有安装：
+管理员身份打开PowerShell：
 ```
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all
 ```
-You will be prompted to reboot. 
+安装完后需要重新启动。
 
-## Installing a new WSL2 instance:
-Install Ubuntu 20.04 LTS from the Microsoft Store and run it and complete its initial install steps. You now have a linux bash shell environment that can run linux native software on Windows.
+##安装新的WSL2实例
+从微软应用商店中安装 Ubuntu 20.04 LTS 系统并运行后，你的Windows就拥有了Linux内核交互环境，也就可以运行基于Linux的软件了。
 
-Then follow the steps below which are the same as the usual Ubuntu instructions above with a target of Python 3.8.
+接下来安装Chia就跟在Ubuntu系统的使用方式一样，也需要Python 3.8的运行环境。
 ```bash
 sudo apt-get update
 sudo apt-get upgrade -y
@@ -229,31 +228,30 @@ sh install.sh
 . ./activate
 
 ```
-Running a standalone Windows wallet gui is deprecated but may return in later versions. You can run the Windows version and share keys. You can also plot in WSL2 and migrate the plots to a Windows farmed plot directory.
+建议在WSL2的Linux系统中开垦完农田以后，然后将农田迁移到Windows系统的目录中进行耕种（挖矿）。
 
-## Increasing the WSL Maximum Storage Capacity
-WSL2 uses a Virtual Hardware Disk (VHD) to store files, and it automatically resizes as files grow. **However, the VHD has an initial maximum size of 256 GB.** Therefore, the default WSL2 VHD is probably only capable of plotting k=30 plots. To plot anything larger, you will need to increase the maximum allowable size. [Follow the guide here.](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#expanding-the-size-of-your-wsl-2-virtual-hardware-disk)
+## 给WSL子系统空间进行扩容
+WSL2使用的是虚拟硬盘作为存储空间，会随着文件的增加而自动调整大小。**尽管如此，虚拟硬盘有一个256GB的初始最大值。**因此，WSL2的默认虚拟硬盘只够开垦K30格式的农田。开垦更大格式的农田就需要给WSL2子系统扩容,[点击查看扩容方式。](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#expanding-the-size-of-your-wsl-2-virtual-hardware-disk)
 
-## Setting a maximum limit to WSL2 memory access
-If you try plotting Chia in WSL2 without limiting the memory access, WSL2 will use 100% of your available machine's memory, and your computer will get bogged down and begin swapping memory to your hard drive. This will severely cripple your plotting speeds. To set the maximum memory that WSL2 is allowed to use, create a configuration file [as described in this guide](https://www.bleepingcomputer.com/news/microsoft/windows-10-wsl2-now-allows-you-to-configure-global-options/).
+## 设置WSL2子系统最大内存使用限制
+如果你使用WLS2子系统进行Chia的开垦任务而没有设置内存使用量限制，那WSL2会占用你所有的内存，你的计算机会变得卡顿并且开始使用硬盘里的交换内存，从而严重影响农田的开垦速度。所以要根据本机的情况来设置WLS2的最大内存限制，请按照此[指南说明](https://www.bleepingcomputer.com/news/microsoft/windows-10-wsl2-now-allows-you-to-configure-global-options/)来创建相关配置文件。
 
-## WSL VHD Plotting Nuances
-Plotting within WSL2 can write to either the native VHD (which is EXT4) or to any other drive, which can be NTFS or any other FS-type. Writing to the native VHD is faster than writing out to another drive.
+## 使用WSL进行开垦的区别
+在WSL2子系统中进行开垦任务时，缓存的读写盘可以是虚拟硬盘（EXT4格式）也可以是其他本地的挂载盘（NTFS或者别的格式文件系统）。但在虚拟硬盘中的读写速度要比其他的更快一些。
 
-Plotting uses three commands for directory control:
+开垦任务使用3个参数命令来控制相关目录
 
-`-t` for initial temp directory. Phases 1 and 2 happen here.
+`-t` 第一缓存目录，第一阶段及第二阶段缓存读写目录。
 
-`-2` for secondary temp directory. Phase 3 (compression) happens here.
+`-2` 第二缓存目录，用于第三阶段压缩过程中使用。
 
-`-d` for final destination. Phase 4 happens here.
+`-d` 最终目录，第四阶段使用。
 
-Plotting works such that `-t` and `-2` require the exact same amount of storage space. Therefore, if `-t` and `-2` point to the same drive, that drive needs 2x the final file size + 1x the max working file size.
+开垦任务时，针对`-t` 和 `-2`需要精确计算所需要的储存空间。因此，如果两个目录使用的时同一块硬件储存设备，需要至少需要三倍农田文件大小的空间。
 
-For maximum speed, `-t` and `-2` should be inside the WSL2 filesystem. Something like: `-t ~/chia_temp -2 ~/chia_temp`. Just beware that the WSL2 VHD will need a much larger maximum capacity.
+为了最大化开垦速度，`-t` 和 `-2`必须时WSL2子系统内的文件目录。比如：`-t ~/chia_temp -2 ~/chia_temp`。只需要注意虚拟硬盘的空间是否设置了足够大小。
 
-`-d` can point to any other drive for the final destination.
-
+-d` 可以分配任意挂载盘来充当最终农田文件目录。
 
 # Amazon Linux 2
 
@@ -269,7 +267,7 @@ sh install.sh
 . ./activate
 
 
-# Or install chia-blockchain as a binary package
+# 或者以二进制包（binary package）的形式安装Chia
 curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
 sudo yum install -y nodejs
 
@@ -282,7 +280,8 @@ pip install -i https://download.chia.net/simple/ miniupnpc==2.1 setproctitle==1.
 pip install chia-blockchain==1.2.1
 ```
 
-# Other install methods and environments
+# 其他系统环境下的Chia安装方式
+
 * [Raspberry Pi 4](https://github.com/Chia-Network/chia-blockchain/wiki/Raspberry-Pi)
 * [Docker](https://github.com/orgs/Chia-Network/packages/container/package/chia)
 * [FreeBSD Install](https://github.com/Chia-Network/chia-blockchain/wiki/FreeBSD-Install)
@@ -290,37 +289,31 @@ pip install chia-blockchain==1.2.1
 * [OpenBSD Install](https://github.com/Chia-Network/chia-blockchain/wiki/OpenBSD-Install)
 
 
-You need Python 3.7 or newer.
+需要系统的python环境版本至少为3.7及以上。
 
 Chia strives to provide [binary wheels](https://pythonwheels.com/) for modern systems. If your system does not have binary wheels, you may need to install development tools to build some Python extensions from source. If you're attempting to install from source, setting the environment variable BUILD_VDF_CLIENT to N will skip trying to build Timelord components that aren't very cross platform, e.g. `export BUILD_VDF_CLIENT=N`.
 
-## Create a virtual environment
+## 创建虚拟环境来运行Chia软件
+如果你想在[虚拟环境](https://docs.python-guide.org/dev/virtualenvs/)中运行Chia软件的话。
 
-Your installation goes inside a [virtual environment](https://docs.python-guide.org/dev/virtualenvs/).
-
-There are lots of ways to create and manage a virtual environment. This is just one.
-
+有很多方式管理运行一个虚拟环境，这里只介绍其中一种。
 ```bash
 python3.7 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
 ```
 
-Wheels can be in source or binary format. Binary wheels are specific to an operating system and python version number. Source wheels require development tools.
-
-Chia hosts some binary wheels that are not available from [PyPI](https://pypi.org/). This step is optional, but it may succeed where building from source can take a while or fail in hard-to-debug ways. If wheels are not available for your system, this step will fail. But you can try it anyway.
-
+此项为可选项，如果你的pip安装或者升级不成功的话。
 ```bash
 pip install -i https://hosted.chia.net/simple/ miniupnpc==2.1 setproctitle==1.1.10
 ```
 
-Install chia-blockchain.
+安装Chia程序
 
 ```bash
 pip install chia-blockchain==1.2.1
 ```
-
-Before you use chia-blockchain in future, you must "enter" your virtual environment.
+在你使用Chia程序之前，你必须进入到虚拟环境。
 
 ```bash
 source venv/bin/activate
@@ -328,6 +321,5 @@ chia -h
 ```
 
 
-# Testnets
-To join the testnets, we recommend you keep a separate environment by prepending `CHIA_ROOT="~/.chia/testnetx"` to all
-of your cli commands. For example, `CHIA_ROOT="~/.chia/testnet7 chia init`. An easier way to do this, is to just `export CHIA_ROOT="~/.chia/testnet7"` so all commands will use testnet7 instead of mainnet.  You should also update all config values to the testnet values, by doing `chia configure -t true`. 
+# 测试网
+想要加入使用测试网的话，建议你预先设置一个独立的系统环境。在使用所有的Chia命令时，都在前面加上`CHIA_ROOT="~/.chia/testnetx"`。举个例子，`CHIA_ROOT="~/.chia/testnet7 chia init`。也可以使用命令 `export CHIA_ROOT="~/.chia/testnet7"` ，这样后续所有的命令都将在测试网上运行。同时你还需要执行`chia configure -t true`命令，来将所有的配置更新为测试网的。
