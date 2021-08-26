@@ -3,10 +3,6 @@
 
 本文档还在持续更新整理中且不局限于官方WIKI内容，欢迎右上角访问GitHub提出改进意见。
 
-捐助地址：
-- XCH : xch1k9kdhz0mu673gwq4xl63u4r4n538ercfkmuercde2nlme6tdu8wstr3rfv
-- XFX : xfx1xfen8glrk6u5cg9shsgcwghup05ty4wuaj6cknvmgtpwapkathesh99m3w
-
 * [x] [主页（Home）](README)
 * [x] [新手指南（Beginners Guide）](Beginners-Guide)
 * [x] [安装说明（Install instructions）](INSTALL)
@@ -33,5 +29,6 @@
 * [ ] [节点同步问题-8444端口（Sync Issues - Port 8444）](Resolving-Sync-Issues---Port-8444)
 * [x] [日志（Logging Messages Reference）](Logging-Messages-Reference)
 * [x] [madMAx快速P图使用指南](madMAx)
+* [ ] [矿池协议API](Chia-Pool-Protocol-1.0)
 
 

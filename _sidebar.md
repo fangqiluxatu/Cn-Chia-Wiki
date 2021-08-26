@@ -8,7 +8,6 @@
 * [矿池指南](Pooling-User-Guide)
 * [Chia官方答疑](https://www.chia.net/faq/)
 * [“农田开垦”基础知识](https://www.chia.net/2021/02/22/plotting-basics.html)
-* [madMAx快速P图使用指南](madMAx)
 * [“农田”格式解析](k-sizes)
 * [命令行使用](CLI-Commands-Reference)
 * [Windows下注意事项](Windows-Tips-and-Tricks)
@@ -25,3 +24,5 @@
 * [RPC接口](RPC-Interfaces)
 * [节点同步问题-8444端口](Resolving-Sync-Issues---Port-8444)
 * [日志](Logging-Messages-Reference)
+* [madMAx快速P图使用指南](madMAx)
+* [矿池协议API](Chia-Pool-Protocol-1.0)

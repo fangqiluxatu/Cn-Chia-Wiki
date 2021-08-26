@@ -51,36 +51,36 @@ Hpool在一开始重新构建了一个Chia客户端版本（1.2.0以前的版本
 我们不允许矿池起以Chia、the chia pool开头的名字。你可以起名叫“a chia pool”，不过需要申请一下许可证，请浏览https://www.chia.net/terms/ 来获取关于许可证的更多信息。
 
 ## 如果某个矿池获得了51%的全网空间（算力），他们可以篡改主网吗？
-不行，Chia矿池协议设计的是由农民
-## If a pool gets 51% of netspace, can they take over the network?
-No, Chia's pooling protocol is designed where the blocks are farmed by individual farmer, but the pooling rewards go to the pool operator's wallet. This ensures that even if a pool has 51% netspace, they would also need to control ALL of the farmer nodes (with the 51% netspace) to do any malicious activity. This will be very difficult unless ALL the farmers (with the 51% netspace) downloaded the same malicious Chia client programmed by a Bram like level genius.
+不行，Chia矿池协议是这样设计的，农民与矿池之间是通过农田产权证的智能合约来相互绑定的，区块的打包及区块奖励挑战依旧是由农民完成的，但由于与矿池做了智能合约绑定，所以农民的矿池奖励（1.75XCH）会自动发送到已绑定矿池的钱包地址。这个机制的优点是，即使有矿池拥有全网51%的算力空间，那它还需要控制全网51%农民的节点，以便对主网进行恶意操作（51%攻击）。这是相当难以完成的事情，除非全网51%的农民下载运行了同一个恶意修改过的Chia客户端。（官方还在这尬吹了一下Bram Cohen ==！）
 
 ## 我还有疑问，在哪咨询？
-## I have more questions, where do I ask?
-Join our dedicated Keybase room: @chia_network.public#pools
+加入官方Keybase讨论组：[@chia_network.public#pools](https://keybase.io/team/chia_network.public)
 
-Friendly reminder: do NOT at `@` or Direct Message (DM) developers or mods. Just post your questions in Keybase and we will answer when we have a moment.
+友情提示：别在群里瞎艾特官方开发人员以及管理员，直接陈述问题就行了，有空会回复你的。
 
-# Technical FAQ
+# 技术问题
+## 在哪查看Chia矿池案例的源代码？
+Github上查看： https://github.com/Chia-Network/pool-reference.
 
-## Where can I see the Chia Pool Reference Code?
-You can find it here: https://github.com/Chia-Network/pool-reference.
-The README contains an explanation of how it works, and the specification contains details of how to implement it.
+自述文件概述了矿池的运行原理、解析以及建立运行矿池的细节。
 
-## What programming language is the reference pool code written in?
+## 矿池案例的是用什么语言开发的？
 Python
 
-## How hard is it to adapt Chia's reference pool code to my pool code?
-If you've written pool code before, the reference pool code will be easy to understand. It's just replacing PoW concepts with Chia's method of evaluating each farmer's participation via PoST and adapting collection and distribution of XCH using Chia's smart contracts.
+## 根据矿池案例代码进行定制化困难吗？
+如果你有矿池方面的开发经验，那么这对你来说很容易上手。只需要把POW挖矿概念替换成chia的POST挖矿方式，通过农民与矿池之间的智能合约来完成区块奖励（XCH）的收集与分配。
 
-## I am a programmer, but never wrote pool code, will I be able to run a pool with Chia's reference pool code?
-If it's your first time writing pool code, we recommend you look at established BTC or ETH pools source code and features they provide users. You are likely going to compete with big time pool operators from those crypto communities who will provide feature rich pools for Chia on day one. Examples of features: leaderboards, wallet explorer, random prizes, tiered pool fees, etc.
+## 我是个程序员，但从来没有写过矿池的代码，可以根据矿池案例代码定制化自己的矿池吗？
+如果你第一次开发矿池，建议你先看一下BTC或者ETH矿池的源代码及用户端的功能。你的矿池可能会面临来自加密社区的大型矿池供应商挑战，他们将在矿池协议上线的第一天就提供了丰富的功能，例如：排行榜、区块钱包浏览器、随机空投、阶梯手续费等等。
 
-## Variable names used in pooling code
-- puzzle_hash: an address but in a different format. Addresses are human readable.
-- singleton: a smart coin (contract) that guaranteed to be unique and controlled by the user.
-- launcher_id: unique ID of the singleton.
-- points: represent the amount of farming that a farmer has done. It is calculated by number of proofs submitted, weighted by difficulty. One k32 farms 10 points per day. To accumulate 1000 points you need 10 TiB farming for a day. This is equivalent to shares in PoW pools.
+## 矿池代码中的变量名
+- puzzle_hash: 交易地址一种不同的格式. Addresses are human readable.
+- singleton: 一种智能合约（通证），用来保证这是独一无二并由用户控制。
+- launcher_id: 智能合约的ID号（独一无二的）
+- points: 表示农民已完成的耕作量。它根据用户提交的证明（农田）数量以及难度进行加权计算的。一个K32的农田每天可以获得10个点，一天想要获得1000点就需要10TiB的农田。这个就相当于POW矿池中的算力占比。
+
+## 如何计算农民的空间算力大小？
+
 
 ## How does one calculate a farmer's netspace?
 A farmer's netspace can be estimated by the number of points submitted over each unit of time, or points/second.  Each k32 gets on average 10 points per day. So `10 / 86400 = 0.0001157 points/second` for each plot. Per byte, that is `L = 0.0001157 / 106364865085 = 1.088 * 10^-15`. To calculate total space `S`, take the total number of points found `P`, and the time period in seconds `T` and do `S = P / (L*T)`.  
@@ -138,7 +138,7 @@ the code can automatically assign this singleton to the user who submitted it.
 
 ## What are the API methods a pool server needs to support Chia clients?
 There are a few API methods that a pool needs to support. They are documented here:
-https://github.com/Chia-Network/pool-reference/blob/main/SPECIFICATION.md
+[矿池协议API](Chia-Pool-Protocol-1.0)
 
 ## Where can I see the video Technical Q&A on Chia Pooling:
 For those interested in the Chia Pools for Pool Operators video and presentation, you can find it here: 
