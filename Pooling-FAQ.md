@@ -28,12 +28,12 @@
 
 # Chia官方矿池协议与其他加密货币项目有什么不同？
 主要有三个区别：
-* 加入矿池无需签名授权，也不需要在矿池供应商注册账号。
+* 加入矿池无需签名授权，也不需要在矿池运营商注册账号。
 * 农民挑战证明成功爆块后获得0.25个XCH（需扣除转账手续费），余下的1.75个XCH（需扣除矿池手续费）与矿池内所有的农民平分。
-* 挑战成功并获得区块奖励的是农民，而不是矿池供应商，农民与矿池之间通过智能合约（农田产权证）来进行管理。
+* 挑战成功并获得区块奖励的是农民，而不是矿池运营商，农民与矿池之间通过智能合约（农田产权证）来进行管理。
 
 ## 我如何自行运营矿池？
-如果你有其他加密货币项目的矿池服务器运维经验，可以根据Chia矿池源代码来进行定制化修改。我们只会给大家推荐一些安全、有经验的矿池供应商。如果你运营了矿池，请遵守当地的法律法规，不限于纳税、反洗钱、客户身份等。同时，所有的Chia矿池都有可能成为黑客攻击的目标（主要是服务器方面的，例如DDOS攻击、安全漏洞等），如果矿池内的农民有任何损失，你需要承担相应的责任。
+如果你有其他加密货币项目的矿池服务器运维经验，可以根据Chia矿池源代码来进行定制化修改。我们只会给大家推荐一些安全、有经验的矿池运营商。如果你运营了矿池，请遵守当地的法律法规，不限于纳税、反洗钱、客户身份等。同时，所有的Chia矿池都有可能成为黑客攻击的目标（主要是服务器方面的，例如DDOS攻击、安全漏洞等），如果矿池内的农民有任何损失，你需要承担相应的责任。
 
 ## 矿池列表在哪看？
 社区做了一个Chia矿池列表网站：https://miningpoolstats.stream/chia
@@ -71,76 +71,66 @@ Python
 如果你有矿池方面的开发经验，那么这对你来说很容易上手。只需要把POW挖矿概念替换成chia的POST挖矿方式，通过农民与矿池之间的智能合约来完成区块奖励（XCH）的收集与分配。
 
 ## 我是个程序员，但从来没有写过矿池的代码，可以根据矿池案例代码定制化自己的矿池吗？
-如果你第一次开发矿池，建议你先看一下BTC或者ETH矿池的源代码及用户端的功能。你的矿池可能会面临来自加密社区的大型矿池供应商挑战，他们将在矿池协议上线的第一天就提供了丰富的功能，例如：排行榜、区块钱包浏览器、随机空投、阶梯手续费等等。
+如果你第一次开发矿池，建议你先看一下BTC或者ETH矿池的源代码及用户端的功能。你的矿池可能会面临来自加密社区的大型矿池运营商挑战，他们将在矿池协议上线的第一天就提供了丰富的功能，例如：排行榜、区块钱包浏览器、随机空投、阶梯手续费等等。
 
 ## 矿池代码中的变量名
-- puzzle_hash: 交易地址一种不同的格式. Addresses are human readable.
-- singleton: 一种智能合约（通证），用来保证这是独一无二并由用户控制。
+- puzzle_hash: 由交易地址转化而成，一种供Chia客户端读取的格式.
+- singleton: 即农田产权证，一种智能合约（通证），用来保证这是独一无二并由用户控制。
 - launcher_id: 智能合约的ID号（独一无二的）
 - points: 表示农民已完成的耕作量。它根据用户提交的证明（农田）数量以及难度进行加权计算的。一个K32的农田每天可以获得10个点，一天想要获得1000点就需要10TiB的农田。这个就相当于POW矿池中的算力占比。
 
 ## 如何计算农民的空间算力大小？
+一个农民的总空间算力可以根据单位时间内获得的积分点数来估算，比如一秒获得多少个积分点。每个K32农田一天可以获得10点积分，所以每个K32农田每秒可以获得0.0001157点积分（10 / 86400 = 0.0001157），每字节就获得1.088 * 10^-15 点积分（L = 0.0001157 / 106364865085 = 1.088 * 10^-15）。假设所有的空间算力为'S'，这些算力在'T'时间内总共获得了'P'积分，所以'S = P / (L*T)'。
 
+比如：6小时内获得了340点积分，使用公式'P=340，T=6*60*60=21600, L=1.088 * 10^-15'， 'S = 340/(21600*1.088e-15) = 14465621651619 字节 = 13.15 TiB'。
 
-## How does one calculate a farmer's netspace?
-A farmer's netspace can be estimated by the number of points submitted over each unit of time, or points/second.  Each k32 gets on average 10 points per day. So `10 / 86400 = 0.0001157 points/second` for each plot. Per byte, that is `L = 0.0001157 / 106364865085 = 1.088 * 10^-15`. To calculate total space `S`, take the total number of points found `P`, and the time period in seconds `T` and do `S = P / (L*T)`.  
-For example for 340 points in 6 hours, use `P=340, T=21600, L=1.088e-15`, `S = 340/(21600*1.088e-15) = 14465621651619 bytes`. Dividing by `1024^4` we get `13.15 TiB`. 
+## 难度是如何影响计算农民的空间总算力？
+随着难度的提升，加入矿池的农民会降低寻找证明的频率及数量，但这并不会影响农田在单位时间内所获得的积分点数。对于K32农田来说，难度为1时每天给矿池发送10份证明，难度为10时，每天给矿池发送1份证明。作为矿池运营商，你是希望每天收到1份还是10份（相对于K32）？这就是为什么，协议允许矿池运营商设置一个最小难度，为了此减少农民发送的证明数量，以此证明农民的空间算力大小。
 
-## How does difficulty affect farmer's netspace calculation?
-As difficulty goes up, a farmer does less lookups and finds less proofs, but does not receive more points per unit of time. Imagine this scenario: Obtaining 10 proofs a day with difficulty 1 for a k32, is equivalent to obtaining 1 proof a day with difficulty 10. As a pool server, you prefer to receive 1 proof a day per K32 with difficulty 10. This is why we allow pool servers to set a minimum difficulty level to reduce the number of proofs each farmer needs to send to prove their netspace.
+## 如何识别农民所提交的证明？
+农民加入矿池时会生成一个启动器ID，矿池也会验证农民提交的空间证明中的签名，以确保后续只有真实存在的农民才能获得奖励。
 
-## How do you identify the farmer that submitted partial proofs?
-The farmer will provide their launcher_id which is the ID of that farmer's pool group. The pool also verifies the proof of space and the farmer's signature, to make sure that only real farmers are compensated.
+## 矿池服务器需要持续追踪记录所有农民及其获得的奖励吗？
+是的，矿池运营商需要自行编写脚本代码来跟踪所有农民的信息及其获得的奖励。因为Chia矿池协议的设定是不需要注册就能加入矿池使用的，所以矿池服务器需要根据启动器ID来追踪那些提交了有效证明的农民。
 
-## Will pool servers need to keep track of all farmers and their share of rewards?
-Yes, the pool operator will need to write code to keep track of all farmers and their share of rewards. Chia's pool protocol assumes no registration is needed to join a pool, so every launcher_id that submits a valid partial proof needs to be tracked by the pool server.
+## 农田产权证（singleton ≈ Plot NFT）可以执行哪些操作？
+- 切换矿池（需要签名交易）
+- 取消连接矿池（需要签名交易）
+- 领取奖励（不需要签名交易，奖励会发送到与农田产权证绑定的地址）
 
-## What actions can singleton take?
-There are a few things you can do to the singleton:
-- Change pool (needs owner signature)
-- Escape pool, this is announcing that you will change pool (needs owner signature)
-- Claim rewards (does not need any signature, it goes to the specified address in the singleton)
+## 矿池如何收集区块奖励？
+- 农民加入矿池，农田产权证（Plot NFT）会被分配到所加入矿池的智能合约哈希地址（pool_puzzle_hash）。
+- 当农民赢得区块奖励时，矿池部分奖励会发送到你的矿池合约哈希地址（p2_singleton_puzzle_hash ≈ Plot NFT的地址）。
+- 矿池会扫描区块网络，通过农田产权证合约地址，找到收到矿池部分奖励的农民。
+- 矿池会向已绑定的农田产权证发送申请奖励的智能合约操作。
+- 农民的农田产权证智能合约就会把矿池部分奖励（1.75XCH），发送到所加入矿池的智能合约哈希地址。
+- 矿池会定期根据农民获得的积分点数占比，来分配所有的矿池奖励。
 
-## How do pool collect rewards?
-- Farmer joins a pool, they will assign their singleton to the pool_puzzle_hash.
-- When a farmer wins a block, the pool rewards will be sent to the p2_singleton_puzzle_hash.
-- Pool will scan blockchain to find new rewards sent to Farmer's singletons.
-- The pool will send a request to claim rewards to the winning Farmer's singleton.
-- Farmer's singleton will send pool rewards XCH to pool_puzzle_hash.
-- Pool will periodically distribute rewards to farmers that have points
+## 如何判断矿池服务器从农民这里收到了足够多的有效证明？
+提交的证明数矿池运营商唯一可以从你这所获得的信息，矿池无法获悉农民确切的空间算力。空间算力是根据积分点来反推计算的，一个K32农田在主网上每天可以获得10点积分。这就表示，如果难度为1，1个K32农田每天提供10个有效证明，如果难度为10，1个K32农田每天提供1个有效证明。难度不影响每天获得积分点数。
 
-## How can I tell if the server is receiving enough partials from a particular client? 
-The number of partials received is the only thing the pool is aware of, the pool does not know the exact total space
-of the farmer. The space can be computed using the fact that each k32 plot will earn on average 10 points a day, on 
-mainnet. That means if the difficulty is set to 1, that's 10 partials per day, if the difficulty is 10, 1 partial per 
-day per k32 plot.
+## 为什么测试网上获得的矿池点数多于主网的？
+K32农田在主网的矿池里每天可以获得10点积分，这是基于主网的“难度系数”为2<sup>67</sup>。在测试网中，K32农田每天所获得的积分也是基于“困难系数”2<sup>67</sup>进行分配的，在“config.yaml”配置文件中设置，分配的点数相对于主网乘以10，也就是100点。这样是为了方便K25格式农田可以在测试网上使用。
 
-## Why am I receiving more points in testnet than mainnet?
-The 10 points per day per k32 plot only applies to mainnet, which has a `DIFFICULTY_CONSTANT_FACTOR` of 2^67. To get
-the points per day per k32 on testnet, divide 2^67 by the testnet `DIFFICULTY_CONSTANT_FACTOR`, found in `config.yaml`, and
-multiply by 10. This allows participating easily with k25s on testnet.
-
+## K32农田与K25农田的期望值有何区别？
+查看源代码中的 `win_simulation.py` 文件。
 ## What is the expected ratio between a k32 and a k25? 
 Look at the file `win_simulation.py` on this repo. This uses the function `_expected_plot_size` from chia blockchain,
 which uses the formula:  `((2 * k) + 1) * (2 ** (k - 1))` to compute plot size. Plug in your k values and divide.
 
-## How to calculate how many partials with X difficulty a certain plot with Y size can get in Z time?
-Look at the `win_simulation.py` file.
+## 如何计算在 X 难度下，有 Y 大小的算力，Z 时间内，能获得多少矿池的区块奖励？
+请自行查看‘win_simulation.py’文件。
 
-## Can I use testnet pooling plots on mainnet?
-No, you can only use plots created for mainnet in mainnet, and same for testnet.
+## 测试网中开垦的新农田可以用到主网上吗？
+不行，只有在主网下开垦的农田才能在主网上进行耕种，测试网也是一样。
 
-## Does that mean that forks of Chia cannot use these pooling plots?
-Forks of Chia can easily use these pooling plots by sending the 1.75XCH to the farmer target address, making them
-all solo plots. If the alternate blockchain wants to do pooling as well, they need to create a special transaction
-which `reserves` a singleton by providing the `launcher_id`, and launcher spend (including owner signature). Then
-the code can automatically assign this singleton to the user who submitted it.
+## 由Chia分叉出去的那些项目是否无法使用农田产权证相关的功能？
+由Chia分叉出去的项目可以很方便的使用Chia的矿池版本农田，把矿池部分的奖励（1.75XCH）发送到农民的钱包地址，类似于原版中的独自耕种（挖矿）不加入矿池的模式。如果这些项目也想实现矿池的形式耕种的话，那就需要创建一个特殊的“储备金池”，根据“启动器ID”以及启动器开销（包含了启动器所有者的签名），向其中提交信息的用户，可以根据自己所占矿池算力的比例，来自动分配到矿池部分的奖励。
 
-## What are the API methods a pool server needs to support Chia clients?
-There are a few API methods that a pool needs to support. They are documented here:
-[矿池协议API](Chia-Pool-Protocol-1.0)
+## 支持Chia客户端的矿池服务API有哪些？
+此处查看[矿池API](Chia-Pool-Protocol-1.0)相关信息。
 
-## Where can I see the video Technical Q&A on Chia Pooling:
-For those interested in the Chia Pools for Pool Operators video and presentation, you can find it here: 
-https://youtu.be/XzSZwxowPzw
-https://www.chia.net/assets/presentations/2021-06-02_Pooling_for_Pool_Operators.pdf
+## 在哪可以看到关于矿池技术的讲解？
+这里为对Chia矿池运营感兴趣的人提供了视频讲解。
+- https://youtu.be/XzSZwxowPzw
+- https://www.chia.net/assets/presentations/2021-06-02_Pooling_for_Pool_Operators.pdf
