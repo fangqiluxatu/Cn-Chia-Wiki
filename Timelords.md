@@ -1,4 +1,4 @@
-## Types of Timelords
+## 时戳机类型
 
 There are two primary types of Timelords: Regular and Blueboxes.
 
