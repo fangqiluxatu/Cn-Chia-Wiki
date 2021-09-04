@@ -8,5 +8,5 @@
 - 收录转载优质内容
 - 一起学习一起Chia！
 
-[GitHub](https://github.com/fangqiluxatu/Chia-Blockchain-Wiki-CN)
+[GitHub](https://github.com/Chia-Network/chia-blockchain/wiki)
 [开始阅读](./README)

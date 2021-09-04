@@ -2,8 +2,6 @@
 这是一份更简洁的指南。如果你不太了解Chia的话，建议先阅读[新手指南](Beginners-Guide)。
 
 # 安装
-
-# Install
 查看[安装教程](INSTALL),根据你的系统选择相应的方式来安装Chia客户端。只支持64位操作系统。
 
 所有的配置文件及都储存在 $CHIA_ROOT 环境目录下或者在 ~/.chia/mainnet/（linux就在/home/user/.chia/mainnet/，Windows的话就在C:\Users\user\.chia\mainnet）下，目录下有区块数据以及日志文件。你也可以把chia目录添加到系统环境变量中去，这样就可以更方便的使用chia命令。如果你更改了Chia的环境目录，需要手动迁移配置文件，或者通过命令 `chia init` 来迁移配置文件。
@@ -57,7 +55,6 @@ or
 如果你是通过源代码编译安装的，只需要激活python虚拟环境，直接运行Chia即可。
 
 ## 源代码编译安装
-
 如果你是通过安装包安装的，可以跳过此步骤。
 
 当你完成安装以后，请开启 **[python的虚拟环境](https://docs.python-guide.org/dev/virtualenvs/)**来运行相应安装目录下的Chia软件。进入虚拟环境目录后，输入命令 `.   ./activate`来激活虚拟空间并使用。这两个点不要漏了，当你正确执行命令后，你的CLI命令行界面会提示类似的`(venv) username@machine:~$`，前面会加上``(venv)``前缀，代表已处于虚拟环境下。
@@ -65,14 +62,12 @@ or
 如果你想退出虚拟环境，输入命令 `deactivate` 。如果你不想使用`.   ./activate`方式运行虚拟空间，也可以进入 `venv/bin/` 目录执行 `./activate` 命令来进入虚拟环境。
 
 ### 迁移或创建配置文件
-
 ```bash
 chia init
 ```
 
 ### 生成密钥
 如果你没有Chia密钥的话，使用以下命令进行创建：
-
 ```bash
 chia keys generate
 ```
@@ -109,7 +104,7 @@ sh install-timelord.sh
 chia start timelord &
 ```
 
-# 局部仿真模拟
+# 局部仿真模拟（暂定，这段有点迷🤣）
 你可以运行仿真模拟区块系统，会启动所有的服务（钱包、农民、收割机、时戳机）以及多个本地节点。注意：这个仿真系统仅限于本地运行，同时需要安装时戳机。新加入的节点只知道全节点的局域网IP，所以无法向外网广播正确的IP。这个功能只能在MacOS和Linux上使用。
 
 # Alternatively run the local simulation

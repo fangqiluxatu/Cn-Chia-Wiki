@@ -1,4 +1,5 @@
 # 日志文件（debug.log）
+
 A Chia blockchain node consists of several components that each handle different aspects of farming, harvesting, the wallet and general management of a node.  Each component creates entries in a single log file `debug.log`.  
 
 ## 日志文件路径

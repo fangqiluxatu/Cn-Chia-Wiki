@@ -20,6 +20,7 @@
 * [Chialisp 官方文档](https://chialisp.com/)
 * [Chialisp 说明](ChiaLisp)
 * [时戳机和时戳机集群](Timelords)
+* [构建时戳机](Building-timelords)
 * [版本说明](https://www.chia.net/releases/)
 * [RPC接口](RPC-Interfaces)
 * [节点同步问题-8444端口](Resolving-Sync-Issues---Port-8444)

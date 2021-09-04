@@ -1,4 +1,7 @@
 ## 时戳机类型
+一共有两种时戳机类型：常规时戳机、蓝盒时戳机。
+
+第一种是最基本最核心的时戳机，
 
 There are two primary types of Timelords: Regular and Blueboxes.
 
@@ -36,6 +39,11 @@ Having an open source ASIC Timelord that everyone can buy inexpensively is the C
 
 One of the things that is great about the [Chia new consensus](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit) is that it makes it almost impossible for a Farmer with a maliciously faster Timelord to selfishly Farm. Due to the way new consensus works, a Farmer with a faster Timelord is basically compelled to prove time for all the farmers winning blocks around him also. Having an "evil" faster Timelord can give a benefit when attempting to 51% attack the network, so it is still important that over time we push the Timelord speeds as close to the maximum speeds of the silicon processes available. We expect to have the time and the resources to do that right and make open source hardware versions widely available.
 
+## 专业术语
+* VDF：可验证延迟函数，或者称之为 "时间证明"
+* 时戳机启动器：
+* VDF客户端：
+* 时戳机：
 ## Terminology
 * VDF: verifiable delay function, another way to say "proof of time"
 * Timelord launcher: a small program which launches "vdf client" processes over and over, to perform the actual vdf calculations.
