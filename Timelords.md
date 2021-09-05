@@ -1,18 +1,17 @@
 ## 时戳机类型
-一共有两种时戳机类型：常规时戳机、蓝盒时戳机。
+一共有两种时戳机类型：通用时戳机、蓝盒时戳机。
 
-第一种是最基本最核心的时戳机，
+第一种是最基本且核心的时戳机，通过使用高频CPU来尽可能快地开展串行顺序型运算，即，在未知阶数的群组数中连续做平方运算([class group of unknown order](https://github.com/Chia-Network/vdf-competition/blob/master/classgroups.pdf))。此外，每一个VDF（在源程序中称之为 vdf_client ）还是时间证明的生成装置，用于验证正确完成迭代次数计算（阶）的证明。
 
-There are two primary types of Timelords: Regular and Blueboxes.
+第二种是蓝盒时戳机。蓝盒可以是很多设备，比如旧服务器，游戏主机等，从历史区块中查找未压缩的时间证明，这样区块网络得以快速运行。通用时戳机使用更快的方式来生成时间证明，但是会导致证明文件太大，以至于类似于树莓派这样的设备同步验证区块网络时需要花费大量的时间。蓝盒时戳机挑选出未压缩的时间证明并重新创建，但这次会消耗更多的时间，最终生成更紧凑的证明。然后将这些压缩过的时间证明传播给区块网络的每一个节点，以便他们使用比之前更紧凑的时间证明，来加快同步验证区块的速度。
 
-The first is the core Timelord that takes in Proofs of Space and uses a single fastest core to doing squaring in a [class group of unknown order](https://github.com/Chia-Network/vdf-competition/blob/master/classgroups.pdf) as fast as possible. Beside each running VDF (referred to as a vdf_client in the application and source) is a set of proof generation threads that accumulate the proof that the time calculation's number of iterations was done correctly.
-
-The second are Bluebox Timelords. Blueboxes are most any machine - especially things like old servers or gaming machines - that scour the historical chain looking for uncompressed proofs of time. So that the chain moves quickly, the regular Timelords use a faster method of generating proofs of time but the proofs are larger and take your Raspberry Pi that you're trying to sync up a lot more time and effort to validate and sync the blockchain. A Bluebox picks up an uncompressed Proof of Time and recreates it, but this time with the slower and more compact proofs generated at the end. Those are then gossiped around to everyone so they can replace the large and slow to verify Proofs of Time with the compact and much quicker to validate version of exactly the same thing.
-
-## The Fastest Timelords
+## 
+## 最快的时戳机
+目前已知有3个最快的时戳机。
 
 There are three known fastest Timelords seen so far. The fastest known and seen on the testnet blockchain was in approximately September of 2020 where it was generating VDF iterations at about 360,000 iterations per second (or ips.) It disappeared after a few weeks. We speculate that it was an Intel cloud customer playing with pre-release Rocket Lake CPUs that have two channels of [AVX-512 IFMA](https://en.wikipedia.org/wiki/AVX-512#IFMA) support. The Timelord source code has an implementation of IFMA but it's not enabled by default as the very few CPUs that do have one channel of IFMA don't gain much speed from it - primarily because they're mostly found in power saving laptops. The second "known" fast Timelord is an [academic research project](https://ieeexplore.ieee.org/abstract/document/9301680). They and we speculate that it may be in the 400k-500k ips range once modified to run our 1024 bit width version. They used the [TSMC](https://www.tsmc.com/english) 28-nm CMOS technology for their prototype. Until Rocket Lake is generally available (which is soon as of this writing in early March) the fastest Timelord is a water cooled Intel Core i9-10900K running un-overclocked with 16 GiB or RAM. Sooner or later we will overclock it... It maintains about 200k-210k ips.
 
+## 运行时戳机
 ## Running a Timelord
 
 First of all, the network only requires one running Timelord to keep moving (liveness.) The way Timelords race is like they are on a series of 100 meter dashes. Each one takes off with the last good Proof of Space and tries to get to the total number of iterations required to complete a given Proof of Space. Better Proofs of Space require less iterations to prove. When the fastest Timelord announces the Proof of Time for this Proof of Space all of the other Timelords stop racing and are magically teleported to the starting line of the next 100 meter dash to start it all over again.
@@ -41,9 +40,9 @@ One of the things that is great about the [Chia new consensus](https://docs.goog
 
 ## 专业术语
 * VDF：可验证延迟函数，或者称之为 "时间证明"
-* 时戳机启动器：
-* VDF客户端：
-* 时戳机：
+* 时戳机启动器(Timelord launcher)：
+* VDF客户端(VDF client)：
+* 时戳机(Timelord)：
 ## Terminology
 * VDF: verifiable delay function, another way to say "proof of time"
 * Timelord launcher: a small program which launches "vdf client" processes over and over, to perform the actual vdf calculations.
