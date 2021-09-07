@@ -1,6 +1,6 @@
 # 官方文档
 
-官方文档地址在[这里]
+官方文档地址在[这里](chialisp/basics)
 # Official Documentation
 
 The official documentation is [here](https://chialisp.com/)

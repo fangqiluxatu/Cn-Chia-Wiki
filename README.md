@@ -9,7 +9,7 @@
 * [x] [快速开始（Quick Start Guide）](Quick-Start-Guide)
 * [ ] [常见问题（FAQ 实时更新）](FAQ)
 * [x] [矿池协议FAQ（Pooling FAQ）](Pooling-FAQ)
-* [ ] [矿池使用指南（Pooling User Guide）](Pooling-User-Guide)
+* [x] [矿池使用指南（Pooling User Guide）](Pooling-User-Guide)
 * [ ] [Chia官方答疑（Chia Project FAQ）](Chia-FAQ)
 * [ ] [“农田开垦”基础知识（Plotting Basics）](https://www.chia.net/2021/02/22/plotting-basics.html)
 * [ ] [“农田”格式解析（Plot Sizes (k-sizes)）](k-sizes)
@@ -31,5 +31,5 @@
 * [ ] [日志（Logging Messages Reference）](Logging-Messages-Reference)
 * [x] [madMAx快速P图使用指南](madMAx)
 * [ ] [矿池协议API](Chia-Pool-Protocol-1.0)
-
+* [ ] [Chia的DEFI愿景](A-Vision-for-DeFi-in-Chia)
 

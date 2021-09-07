@@ -27,3 +27,4 @@
 * [日志](Logging-Messages-Reference)
 * [madMAx快速P图使用指南](madMAx)
 * [矿池协议API](Chia-Pool-Protocol-1.0)
+* [Chia的DEFI愿景](A-Vision-for-DeFi-in-Chia)

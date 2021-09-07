@@ -20,31 +20,32 @@ It's good to have a few Timelords out there. There can be things like routing fl
 
 The Company plans to run a few Timelords around the world - and some backups too - just to make sure that all Farmers and nodes can hear the beat that the Timelords are calling.
 
-## Installing a Timelord
+## 安装时戳机
 
-### Regular Timelords
+### 通用时戳机
+
+
 
 Due to restrictions on how [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B) handles 128 bit numbers and how Python relies upon MSVC, it is not possible to build and run Timelords of all types on Windows - yet. We have a plan to use GCC and some tools to enable vdf_client on Windows in a way that will be compatible with a Windows install of chia-blockchain. However it's a bit convoluted to get it working right. On MacOS x86_64 and all Linux distributions, building a Timelord is as easy as running `sh install-timelord.sh` in the venv of a `git clone` style chia-blockchain install. Try `./vdf_bench square_asm 400000` once you've built Timelord to give you a sense of your optimal and unloaded ips. Each run of `vdf_bench` can be surprisingly variable and, in production, the actual ips you will obtain will usually be about 20% lower due to load of creating proofs. The default configuration for Timelords is good enough to just let you start it up. Set your log level to INFO and then grep for "Estimated IPS:" to get a sense of what actual ips your Timelord is achieving. We will shortly modify the Timelord build process to support MacOS ARM64 as well - which is a cakewalk compared to Windows...
 
-### Bluebox Timelords
+### 蓝盒时戳机
 
 For now, Blueboxes are also restricted to basically anything but Windows. Our plans to port to Windows will make Blueboxes available there as well though. Once you build the Timelord with `sh install-timelord.sh` in the venv, you will need to make two changes to `~/.chia/VERSION/config.yaml`. In the `timelord:` section you will want to set `sanitizer_mode:` to `True`. Then you need to proceed to the `full_node:` section and set `send_uncompact_interval:` to something greater than 0. We recommend `300` seconds there so that your Bluebox has some time to prove through a lot of the un-compacted Proofs of Time before the node drops more into its lap. The default settings may otherwise work but if the total effort is a little too much for whatever machine you are on you can also lower the `process_count:` from 3 to 2, or even 1, in the `timelord_launcher:` section. You know it is working if you see `VDF Client: Sent proof` in your logs at INFO level.
+
+## 未来计划
+
 
 ## The Future of Timelords
 
 Having an open source ASIC Timelord that everyone can buy inexpensively is the Company's goal. We had originally expected that we would proceed from general purpose CPUs to FPGAs and then ASICs. It turns out that squaring in class groups of unknown order at 1024 bit widths is both FPGA hard and slightly ASIC hard. It also was a pleasant surprise that Intel's AVX-512 IFMA was almost perfectly created for this application. As such we will be fostering ASIC efforts over the medium term. We are happy to lose money on an ongoing project to create and enhance an open source PCI card that would be available for say $250 for anyone who wishes to run the fastest Timelords in the world too.
 
+## 时戳机作恶风险
 ## Timelords and Attacks
 
 One of the things that is great about the [Chia new consensus](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit) is that it makes it almost impossible for a Farmer with a maliciously faster Timelord to selfishly Farm. Due to the way new consensus works, a Farmer with a faster Timelord is basically compelled to prove time for all the farmers winning blocks around him also. Having an "evil" faster Timelord can give a benefit when attempting to 51% attack the network, so it is still important that over time we push the Timelord speeds as close to the maximum speeds of the silicon processes available. We expect to have the time and the resources to do that right and make open source hardware versions widely available.
 
 ## 专业术语
-* VDF：可验证延迟函数，或者称之为 "时间证明"
-* 时戳机启动器(Timelord launcher)：
-* VDF客户端(VDF client)：
-* 时戳机(Timelord)：
-## Terminology
-* VDF: verifiable delay function, another way to say "proof of time"
-* Timelord launcher: a small program which launches "vdf client" processes over and over, to perform the actual vdf calculations.
-* VDF client: a c++ process which performs a VDF computation and then shuts down
-* Timelord: The timelord is communicates with the node, and is what decides which VDF tasks to assign to which clients. The vdf clients connect through HTTP to the timelord. So you can have the timelord in a separate machine as the timelord launcher
+* VDF：可验证延迟函数，或称之为 "时间证明"
+* 时戳机启动器(Timelord launcher)：用于自行启动 "vdf client" 的小程序，以便其能执行 VDF 运算。
+* VDF客户端(VDF client)：一个执行完一次 VDF 运算就会自动的C++进程。
+* 时戳机(Timelord)：时戳机与各个节点进行通信，并将 VDF 任务分配给不同的 vdf clients ， vdf clients 则通过HTTP连接到时戳机。所以你可以独立运行一个时戳机来作为时戳机启动器。
