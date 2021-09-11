@@ -8,14 +8,14 @@
 - [补充信息](#补充信息)
   - [多个农田产权证](#多个农田产权证)
   - [多机操作](#多机操作)
-  - [Multiple Keys](#multiple-keys)
-  - [Pool Fees](#pool-fees)
-  - [Blockchain Fees](#blockchain-fees)
-  - [Invalid State](#invalid-state)
-  - [Payout addresses](#payout-addresses)
-  - [Self Pooling](#self-pooling)
-  - [Remote Harvesters](#remote-harvesters)
-  - [Command Line Interface](#command-line-interface)
+  - [多账户耕种](#多账户耕种)
+  - [矿池手续费](#矿池手续费)
+  - [主网手续费](#主网手续费)
+  - [无效状态](#无效状态)
+  - [支付地址](#支付地址)
+  - [自耕种](#自耕种)
+  - [远程收割](#远程收割)
+  - [命令行工具](#命令行工具)
 
 矿池协议相关问题可以查看此[文档](Pooling-FAQ)
 
@@ -88,43 +88,34 @@ chia plotnft create -s pool -u https://bar.examplepool.org
 同一个账户（密钥）可以有多个农田产权证，不同农田产权证下的农田可以同时在线耕种。老版农田一样也可以同时在线耕种（自耕种，非矿池）。
 
 ### 多机操作
-
-You can take your 24 words and enter them into a different computer, and when it is synched, the current Plot NFTs and
-pool information will be automatically downloaded from the blockchain. All information about your pool, plot NFTs, and smart contract addresses is completely backed up on the blockchain, and can be recovered using the 24 words.
-Make sure to read the important note on step 1, about updating to new version on all computers.
-
-### Multiple Keys
-You can also have multiple keys farming at the same time, but be careful with this. Each key has to sync separately,
-and if you change pools in one computer (computer A), then you must sync up your wallet on computer B in order to farm
-it separately. If computer B has multiple keys, make sure to sync each key up to the latest changes in the Plot NFT.
+当你在其他计算机上使用你的私钥（24个助记词）登陆Chia软件并同步到最新区块高度以后，你的农田产权证及所加入矿池的信息都会同步显示。也就是说，关于矿池（农业合作社）分栏这里的信息是与主网实时同步的，你可以在任何计算机上使用你的私钥来恢复。确保你的操作遵循第一步中的介绍，已将所使用计算的Chia软件升级到新版本（1.2.0以上）。
 
 
-### Pool Fees
-Pool fees refer to the small cut that pools take when they distribute rewards to farmers. 
+### 多账户耕种
+你可以同时耕种多个私钥（账号）的农田。但需要注意的是，假设你在本机耕种了A、B两个账号的农田，且都加入了矿池，你主界面是登录的A账号。如果你在其他的机子上切换了账号B所加入的矿池，那么你需要在本机单独登录B账号，将钱包数据同步到完成切换矿池的区块高度，这样，你本机B账号下的农田才能加入到新的矿池中去，并开始耕种。
 
-### Blockchain Fees
-Blockchain fees are fees are paid to the creator of the block (farmers), to incentivize them to include your transaction. Fees are currently 0, but they are likely to rise as the blockchain gets more usage. When fees rise, you might have to
-pay small amounts of Chia to make transactions. Sending XCH to an address is a blockchain transaction, but creating a plot NFT, or changing pools is also a transaction, which requires fees. The user interface will be updated to include fields for fee amounts, and guidance will be provided here when fees become necessary.
+### 矿池手续费
+矿池手续费由矿池收取，会在给农民分配奖励的时候扣除，手续费的比例由矿池拟定，详情咨询矿池供应商。 
 
-### Invalid State
-If you enter into an invalid state, you need to re-join or change to self-pooling again. This can happen if you close
-the GUI before a pool switching operation has finalized. Please click "change pool", and re-enter the pool URL, or switch to self pooling. Sometimes you might need to wait a bit for the pool switching timeout to finish.
+### 主网手续费
+主网手续费是支付农民的，他们将你的交易信息打包到区块。这个手续费暂时为0，但在未来手续费会随着主网的使用量增长而增长。手续费上涨以后，你可能需要支付小额度的XCH用来完成你的交易操作。转账、创建农田产权证、切换矿池等这些操作都会涉及到XCH的消耗及交易，也就意味着需要手续费。手续费这里的显示界面将会更新，在需要手续费时，系统会给出提示指引。
 
+### 无效状态
+如果切换矿池的操作没有反应，你需要重新加入矿池或切换成自耕种。这可能是因为你在切换矿池未完成之前，关闭了Chia软件。请点击“切换农业合作社”，重新输入矿池地址，或者切换到自耕种。切换过程中请耐心等待。
 
-### Payout addresses
-The block reward is divided into two components, the 1.75 XCH pool portion and the 0.25 XCH farmer portion. The 0.25 XCH will go to your farmer target address, which is the same as the OG plots. This is configurable in the Farm tab of the GUI, or in the `config.yaml` under farmer.xch_target_address.
-The 1.75XCH gets paid out to the pool, and the payout instructions that the pool will use to pay you can be set in the config file in the pool_list section.
+### 支付地址
+区块奖励分为两部分，1.75 XCH为矿池奖励，0.25 XCH 为农民奖励。赢得区块奖励后，农民部分的0.25 XCH将直接发送到你的钱包，就像你用老图爆块了一样。这个地址可以在农场分栏修改，也可以在 `config.yaml` 配置文件的 xch_target_address 参数处修改。矿池部分的1.75 XCH会支付给矿池供应商，付款说明（pay instructions）将在矿池给你分配奖励时使用，可以在配置文件的 'pool_list section' 这一节中找到并修改。
 
-
-### Self Pooling
-If you are self-pooling, you will additionally need to claim your rewards after winning a block. This can be done from the GUI or CLI as well. There is no time limit for this, but if you do not claim your rewards before switching to a pool, the pool will be able to claim those rewards, and you will lose these funds.
-
-### Remote Harvesters
-Remote harvesters work the same way as always. They do not need to have any keys, and you can plot directly on another machine with the `-f` and `-c` arguments. The farmer machine needs to have the private key for the `-f` key, and the private key for the wallet that created the plot NFT. Your harvesters will find proofs more often when pooling, since the difficulty is lower. Remote harvester plots will now be visible by doing `chia farm summary`.
+### 自耕种
+如果你准备独自耕种的话，当你爆块的时候，你需要单独去领取一下奖励，可以在GUI界面上点击“领取奖励”来完成操作，也可以使用CLI工具。领取奖励的操作没有时间限制，什么时候都可以领，但需要注意的是，在你切换到矿池耕种之前必须领掉，不然矿池会把这部分奖励领走。
 
 
-### Command Line Interface
-Using the CLI, you can perform the same operations as with the GUI. There is a new command, called `chia plotnft`. Type `chia plotnft -h` to see all the available sub-commands:
+### 远程收割
+远程收割耕种跟之前一样，你可以直接使用其他的机器上使用 `-f` 以及 `-c` 参数来进行农田的开垦工作，然后开始收割，不需要使用账号私钥。但你内网的农民主机需要使用私钥登录，以便节点、钱包及农田产权证的状态同步到最新。当农田产权证显示的难度越低，你的收割机向矿池提交的证明就会越频繁。你可以使用 `chia farm summary` 来查看内网中收割机正在耕种的农田总数。
+
+
+### 命令行工具
+图形界面能完成的操作，CLI工具一样可以做到。Chia新增了 `chia plotnft` 命令，输入 `chia plotnft -h` 可以查看该命令的所有子命令。
 
 ```
 » chia plotnft -h
@@ -133,17 +124,18 @@ Using the CLI, you can perform the same operations as with the GUI. There is a n
 选项:
   -h, --help  显示帮助信息.
 
-Commands:
-  claim           claim reward from a plot NFT，从农田产权证领取矿池部分奖励（一个块1.75xch，仅自耕种状态）
-  create          create a plot NFT，创建农田
+命令:
+  claim            Claim reward from a plot NFT，从农田产权证领取矿池部分奖励（一个块1.75xch，仅自耕种状态）
+  create           Create a plot NFT，创建农田
   get_login_link   Create a login link for a pool. To get the launcher id, use plotnft show.创建一个矿池登陆链接，使用'chia plotnft show获取启动器ID'
 
-  inspect         Get Detailed plotnft information as JSON，获取农田产权证的详细信息（JSON格式）
-  join            Join a plot NFT to a Pool，将某个农田产权证分配给一个矿池
-  leave           Leave a pool and return to self-farming，退出矿池，回到自耕种状态
-  show            Show plotnft information，显示农田产权证详细信息
+  inspect          Get Detailed plotnft information as JSON，获取农田产权证的详细信息（JSON格式）
+  join             Join a plot NFT to a Pool，将某个农田产权证分配给一个矿池
+  leave            Leave a pool and return to self-farming，退出矿池，回到自耕种状态
+  show             Show plotnft information，显示农田产权证详细信息
 ```
+创建一个直接加入矿池的农田产权证（后期可自行切换矿池），使用命令 `chia plotnft create -u https://所加入矿池的url地址`,也可以创建自耕种（后期可以自行切换矿池）的农田产权证，使用命令 `chia plotnft create -s local`。
 
-To create a Plot NFT, use `chia plotnft create -u https://poolnamehere.com`, entering the URL of the pool you want to use. To create a plot NFT in self-farming mode, do `chia plotnft create -s local`.
-To switch pools, you can use `chia plotnft join`, and to leave a pool (switch to self farming), use `chia plotnft leave`.
-The `show` command can be used to check your current points balance. CLI plotting with `create_plots` is the same as before, but the `-p` is replaced with `-c`, and the pool contract address from `chia plotnft show` should be used here.
+切换矿池使用命令 `chia plotnft join` ，离开矿池回到自耕种状态使用命令 `chia plotnft leave`。使用 `chia plotnft show` 命令可以查看农田产权证在当前农民下所获得的积分点数。
+
+使用 `create_plots`命令开垦农田跟之前一样，但如果你要开垦矿池协议的新农田，需要使用 `-c` 参数来代替 `-p` 参数。

@@ -1,7 +1,7 @@
 ## 请先浏览新手指南
 这是一份更简洁的指南。如果你不太了解Chia的话，建议先阅读[新手指南](Beginners-Guide)。
 
-# 安装
+## 安装
 查看[安装教程](INSTALL),根据你的系统选择相应的方式来安装Chia客户端。只支持64位操作系统。
 
 所有的配置文件及都储存在 $CHIA_ROOT 环境目录下或者在 ~/.chia/mainnet/（linux就在/home/user/.chia/mainnet/，Windows的话就在C:\Users\user\.chia\mainnet）下，目录下有区块数据以及日志文件。你也可以把chia目录添加到系统环境变量中去，这样就可以更方便的使用chia命令。如果你更改了Chia的环境目录，需要手动迁移配置文件，或者通过命令 `chia init` 来迁移配置文件。
@@ -12,7 +12,7 @@
 
 如果你想要更多更好的网络连接质量，你需要将你路由器的8444端口保持打开状态，以便网络上其他人也能与你连接。参照[这个比特币端口指南](https://bitcoin.org/en/full-node#port-forwarding)，使用的8444端口而不是8333端口。这样是为了区块网络更加去中心化。更多关于同步及8444端口的问题，查阅[节点同步问题-8444端口](Resolving-Sync-Issues---Port-8444)。
 
-# 使用命令行界面（CLI）
+## 使用命令行界面（CLI）
 使用Chia的CLI工具可以帮助你更好更精准的操作Chia软件。关于命令行的更多细节，请查阅 [命令行使用参考](CLI-Commands-Reference)。
 
 ## Windows系统下使用
@@ -93,7 +93,7 @@ chia plots create -k 32 -n 2
 chia plots check -n 30
 ```
 
-# 运行一个时戳机
+## 运行一个时戳机
 
 *注释 ： 如果你想在Linux系统上运行一个时戳机，查阅[构建时戳机](Building-timelords)文档。关于蓝盒时戳机的更多信息即将更新。* 
 
@@ -104,10 +104,10 @@ sh install-timelord.sh
 chia start timelord &
 ```
 
-# 局部仿真模拟（暂定，这段有点迷🤣）
+## 局部仿真模拟（暂定，这段有点迷🤣）
 你可以运行仿真模拟区块系统，会启动所有的服务（钱包、农民、收割机、时戳机）以及多个本地节点。注意：这个仿真系统仅限于本地运行，同时需要安装时戳机。新加入的节点只知道全节点的局域网IP，所以无法向外网广播正确的IP。这个功能只能在MacOS和Linux上使用。
 
-# Alternatively run the local simulation
+Alternatively run the local simulation
 You can instead run the simulation, which runs all servers and multiple full nodes, locally. Note the the simulation is local only and requires installation of timelords and VDFs. The introducer will only know the local ips of the full nodes, so it cannot broadcast the correct ips to external peers. This should work on MacOS and Linux.
 ```bash
 chia start simulator
@@ -121,6 +121,6 @@ UPnP默认是打开的（enabled），占用8444端口，作用是介绍区块�
 如果因为UPnP出了问题，可以在 `config.yaml` 中设置为 'disable' 。或者你可以通过命令关闭： `chia configure -upnp false`。
 有些路由器需要做端口转发，或者在路由器设置中启用UPnP功能。
 
-# RPC接口
+## RPC接口
 节点的RPC接口信息查看[文档](RPC-Interfaces)。
 
