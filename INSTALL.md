@@ -19,10 +19,7 @@ Chia的K32农田大小为108GB(101GiB)。农田需要储存在支持大容量格
 
 Chia在开垦农田的过程中需要好几个小时才能完成。如果开垦过程中，如果计算机或者硬盘休眠/关闭了，开垦任务将会失败，需要重新开始。在启动开垦任务之前，请先确定你的计算机以及硬盘是否关闭了睡眠，休眠还有节能模式。在未来的版本中，可以继续开垦已中断的任务。但现在，如果开垦过程遇到了错误，请删除缓存目录中所有tmp文件，然后重新开垦任务。
 
-## 测试版已升级至正式版，不做阐述
-
-
-# Windows
+## Windows
 
 Windows安装包 - [Chia Blockchain Windows](https://download.chia.net/latest/Setup-Win64.exe)
 
@@ -30,7 +27,7 @@ Windows安装包 - [Chia Blockchain Windows](https://download.chia.net/latest/Se
 
 现在你可以开始[快速入门](Quick-Start-Guide)。
 
-# macOS
+## macOS
 
 macOS需要Mojave系统10.14.x以上版本。
 
@@ -55,7 +52,7 @@ cd chia-blockchain-gui
 npm run electron &
 ```
 
-# Ubuntu/Debian
+## Ubuntu/Debian
 
 这里有编译好的测试版带图形界面的[安装包](https://download.chia.net/latest/x86_64-Ubuntu-gui),仅供X86架构64位系统的Ubuntu 18.04及以上桌面版，还有Debian Buster及以上带GUI的版本使用。同时也提供了ARM架构64位系统的[带GUI安装包](https://download.chia.net/latest/ARM64-Ubuntu-gui) ，适用于树莓派Ubuntu及Debian的64位系统。
 
@@ -125,7 +122,7 @@ npm run electron &
 
 ```
 
-### 故障排除
+## 故障排除
 
 在升级安装新版本之前如果有遗留的进程还在运行的话，会导致安装出错。所以先确认Chia进程是否已经关闭结束，然后再将进行升级安装操作。
 
@@ -133,7 +130,7 @@ npm run electron &
 
 如果失败了，请使用重启大法。
 
-# CentOS/Red Hat/Fedora
+## CentOS/Red Hat/Fedora
 
 为RH/CentOS 8.0 and Fedora 28以上的版本系统提供了带GUI的[安装包](https://download.chia.net/latest/x86_64-Redhat-gui)。
 
@@ -188,7 +185,7 @@ Or, combining the last two steps into one, try
 pip install --extra-index-url https://hosted.chia.net/simple/ chia-blockchain==1.2.1 miniupnpc==2.1
 ```
 
-# WSL2
+## WSL2
 
 在WSL2（适用于 Linux 的 Windows 子系统，自行百度使用，win10可用）中的Ubuntu 20.04 LTS系统也可以运行Chia客户端。
 
@@ -196,7 +193,7 @@ pip install --extra-index-url https://hosted.chia.net/simple/ chia-blockchain==1
 
 **无法开启带图形界面的客户端** 因为WSL2不为子系统提供系统桌面。
 
-## 检查你的windows系统是否安装了WSL1或者WSL2:
+### 检查你的windows系统是否安装了WSL1或者WSL2:
 打开PowerShell, 输入:
 ```
 wsl -l -v
@@ -204,7 +201,7 @@ wsl -l -v
 如果得到的是关于WSL命令的帮助信息，说明本机自带的是WSL1，需要升级为WSL2。如何[升级至WSL2？](https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2) 
 如果得到的是空白结果或者已安装Linux版本的列表，说明已安装WSL2，请继续。
 
-## 如果WSL没有安装：
+### 如果WSL没有安装：
 管理员身份打开PowerShell：
 ```
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
@@ -230,13 +227,13 @@ sh install.sh
 ```
 建议在WSL2的Linux系统中开垦完农田以后，然后将农田迁移到Windows系统的目录中进行耕种（挖矿）。
 
-## 给WSL子系统空间进行扩容
+### 给WSL子系统空间进行扩容
 WSL2使用的是虚拟硬盘作为存储空间，会随着文件的增加而自动调整大小。**尽管如此，虚拟硬盘有一个256GB的初始最大值。**因此，WSL2的默认虚拟硬盘只够开垦K30格式的农田。开垦更大格式的农田就需要给WSL2子系统扩容,[点击查看扩容方式。](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#expanding-the-size-of-your-wsl-2-virtual-hardware-disk)
 
-## 设置WSL2子系统最大内存使用限制
+### 设置WSL2子系统最大内存使用限制
 如果你使用WLS2子系统进行Chia的开垦任务而没有设置内存使用量限制，那WSL2会占用你所有的内存，你的计算机会变得卡顿并且开始使用硬盘里的交换内存，从而严重影响农田的开垦速度。所以要根据本机的情况来设置WLS2的最大内存限制，请按照此[指南说明](https://www.bleepingcomputer.com/news/microsoft/windows-10-wsl2-now-allows-you-to-configure-global-options/)来创建相关配置文件。
 
-## 使用WSL进行开垦的区别
+### 使用WSL进行开垦的区别
 在WSL2子系统中进行开垦任务时，缓存的读写盘可以是虚拟硬盘（EXT4格式）也可以是其他本地的挂载盘（NTFS或者别的格式文件系统）。但在虚拟硬盘中的读写速度要比其他的更快一些。
 
 开垦任务使用3个参数命令来控制相关目录
@@ -253,7 +250,7 @@ WSL2使用的是虚拟硬盘作为存储空间，会随着文件的增加而自�
 
 -d` 可以分配任意挂载盘来充当最终农田文件目录。
 
-# Amazon Linux 2
+## Amazon Linux 2
 
 ```bash
 sudo yum update -y
@@ -280,7 +277,7 @@ pip install -i https://download.chia.net/simple/ miniupnpc==2.1 setproctitle==1.
 pip install chia-blockchain==1.2.1
 ```
 
-# 其他系统环境下的Chia安装方式
+## 其他系统环境下的Chia安装方式
 
 * [Raspberry Pi 4](https://github.com/Chia-Network/chia-blockchain/wiki/Raspberry-Pi)
 * [Docker](https://github.com/orgs/Chia-Network/packages/container/package/chia)
@@ -321,5 +318,5 @@ chia -h
 ```
 
 
-# 测试网
+## 测试网
 想要加入使用测试网的话，建议你预先设置一个独立的系统环境。在使用所有的Chia命令时，都在前面加上`CHIA_ROOT="~/.chia/testnetx"`。举个例子，`CHIA_ROOT="~/.chia/testnet7 chia init`。也可以使用命令 `export CHIA_ROOT="~/.chia/testnet7"` ，这样后续所有的命令都将在测试网上运行。同时你还需要执行`chia configure -t true`命令，来将所有的配置更新为测试网的。

@@ -1,13 +1,7 @@
-## Note
-
-The information on this page is out of date. The core consensus components of Chia are changing to version 1.1 as documented in our [new consensus working doc](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit).
-
-
-
+## 注释
+本章内容是未及时更新的。关于Chia的核心共识已经发布至1.1版了，相关内容在谷歌在线文档中保持更新，[Chia共识文档](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit)。
 ***
-
-
-![block-format](images/chia-block-format2.png)
+![block-format](images/chia-block-format2.png)z
 
 ## Trunk and Foliage
 Chia's blockchain is based on a trunk and a foliage. The trunk is canonical, and contains proofs of time and proofs of space. The foliage is not canonical, and contains the rest of the block header, transaction generator, and transaction filter. Arrows in the diagram represent hash pointers - a hash of the data pointed to. The foliage and trunk combined form a full block.

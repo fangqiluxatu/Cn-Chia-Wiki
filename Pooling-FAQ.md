@@ -111,11 +111,8 @@ Python
 ### 为什么测试网上获得的矿池点数多于主网的？
 K32农田在主网的矿池里每天可以获得10点积分，这是基于主网的“难度系数”为2<sup>67</sup>。在测试网中，K32农田每天所获得的积分也是基于“困难系数”2<sup>67</sup>进行分配的，在“config.yaml”配置文件中设置，分配的点数相对于主网乘以10，也就是100点。这样是为了方便K25格式农田可以在测试网上使用。
 
-### K32农田与K25农田的期望值有何区别？
-查看源代码中的 `win_simulation.py` 文件。
-### What is the expected ratio between a k32 and a k25? 
-Look at the file `win_simulation.py` on this repo. This uses the function `_expected_plot_size` from chia blockchain,
-which uses the formula:  `((2 * k) + 1) * (2 ** (k - 1))` to compute plot size. Plug in your k values and divide.
+### 如何计算K32农田与K25农田两者占比差别？
+查看源代码中的 `win_simulation.py` 文件。Chia主网通过使用 `_expected_plot_size` 的函数（ `((2 * k) + 1) * (2 ** (k - 1))` ）来计算农田格式。
 
 ### 如何计算在 X 难度下，有 Y 大小的算力，Z 时间内，能获得多少矿池的区块奖励？
 请自行查看‘win_simulation.py’文件。

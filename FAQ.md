@@ -163,7 +163,7 @@ Please note that the speed of your lookups when passing the plot filter should b
 
 ## Can I join a farming pool?
 
-Not yet. Currently the plots you generate are plotted to your own self pool key. Bram has much more on our [plans around pooling](https://www.chia.net/2020/11/10/pools-in-chia.html) and pool support will become high priority as soon as mainnet is released. You will not be able to change the pool of your current plots so you can just continue to farm them or slowly replace them over time with new plots using one of the upcoming pooling methods.
+Yes you can. Please check the [Pooling User Guide](Pooling-User-Guide).
 
 ## I have heard that it's recommended that a winning plot be deleted on mainnet?
 

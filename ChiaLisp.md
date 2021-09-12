@@ -1,11 +1,8 @@
-# 官方文档
+## 官方文档
 
 官方文档地址在[这里](chialisp/basics)
-# Official Documentation
 
-The official documentation is [here](https://chialisp.com/)
-
-Additional notes may appear in the wiki and merged into official documentation later.
+Wiki会讲述一些关于chialisp的内容，这些都会合并到官方文档中。
 
 ## Operators
 

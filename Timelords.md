@@ -1,9 +1,9 @@
 ## 时戳机类型
-一共有两种时戳机类型：通用时戳机、蓝盒时戳机。
+一共有两种时戳机类型：常规时戳机（regular timelord）、时戳压缩机（Bluebox timelord）。
 
 第一种是最基本且核心的时戳机，通过使用高频CPU来尽可能快地开展串行顺序型运算，即，在未知阶数的群组数中连续做平方运算([class group of unknown order](https://github.com/Chia-Network/vdf-competition/blob/master/classgroups.pdf))。此外，每一个VDF（在源程序中称之为 vdf_client ）还是时间证明的生成装置，用于验证正确完成迭代次数计算（阶）的证明。
 
-第二种是蓝盒时戳机。蓝盒可以是很多设备，比如旧服务器，游戏主机等，从历史区块中查找未压缩的时间证明，这样区块网络得以快速运行。通用时戳机使用更快的方式来生成时间证明，但是会导致证明文件太大，以至于类似于树莓派这样的设备同步验证区块网络时需要花费大量的时间。蓝盒时戳机挑选出未压缩的时间证明并重新创建，但这次会消耗更多的时间，最终生成更紧凑的证明。然后将这些压缩过的时间证明传播给区块网络的每一个节点，以便他们使用比之前更紧凑的时间证明，来加快同步验证区块的速度。
+第二种是时戳压缩机（Bluebox timelord）。蓝盒可以是很多设备，比如旧服务器，游戏主机等，从历史区块中查找未压缩的时间证明，这样区块网络得以快速运行。常规时戳机（regular timelord）使用更快的方式来生成时间证明，但是会导致证明文件太大，以至于类似于树莓派这样的设备同步验证区块网络时需要花费大量的时间。时戳压缩机（Bluebox timelord）挑选出未压缩的时间证明并重新创建，但这次会消耗更多的时间，最终生成更紧凑的证明。然后将这些压缩过的时间证明传播给区块网络的每一个节点，以便他们使用比之前更紧凑的时间证明，来加快同步验证区块的速度。
 
 ## 
 ## 最快的时戳机
@@ -22,13 +22,13 @@ The Company plans to run a few Timelords around the world - and some backups too
 
 ## 安装时戳机
 
-### 通用时戳机
+### 常规时戳机（regular timelord）
 
 
 
 Due to restrictions on how [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B) handles 128 bit numbers and how Python relies upon MSVC, it is not possible to build and run Timelords of all types on Windows - yet. We have a plan to use GCC and some tools to enable vdf_client on Windows in a way that will be compatible with a Windows install of chia-blockchain. However it's a bit convoluted to get it working right. On MacOS x86_64 and all Linux distributions, building a Timelord is as easy as running `sh install-timelord.sh` in the venv of a `git clone` style chia-blockchain install. Try `./vdf_bench square_asm 400000` once you've built Timelord to give you a sense of your optimal and unloaded ips. Each run of `vdf_bench` can be surprisingly variable and, in production, the actual ips you will obtain will usually be about 20% lower due to load of creating proofs. The default configuration for Timelords is good enough to just let you start it up. Set your log level to INFO and then grep for "Estimated IPS:" to get a sense of what actual ips your Timelord is achieving. We will shortly modify the Timelord build process to support MacOS ARM64 as well - which is a cakewalk compared to Windows...
 
-### 蓝盒时戳机
+### 时戳压缩机（Bluebox timelord）
 
 For now, Blueboxes are also restricted to basically anything but Windows. Our plans to port to Windows will make Blueboxes available there as well though. Once you build the Timelord with `sh install-timelord.sh` in the venv, you will need to make two changes to `~/.chia/VERSION/config.yaml`. In the `timelord:` section you will want to set `sanitizer_mode:` to `True`. Then you need to proceed to the `full_node:` section and set `send_uncompact_interval:` to something greater than 0. We recommend `300` seconds there so that your Bluebox has some time to prove through a lot of the un-compacted Proofs of Time before the node drops more into its lap. The default settings may otherwise work but if the total effort is a little too much for whatever machine you are on you can also lower the `process_count:` from 3 to 2, or even 1, in the `timelord_launcher:` section. You know it is working if you see `VDF Client: Sent proof` in your logs at INFO level.
 
