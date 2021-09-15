@@ -1,3 +1,6 @@
+翻译自[2021年8月17日版本-173#](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ/08b5b10bff1cdd416b59d6a8428ff31180f6ecc8)
+***
+
 ## Table of Contents
 
 - [Vocabulary](#vocabulary)

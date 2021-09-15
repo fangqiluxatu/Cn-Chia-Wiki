@@ -1,3 +1,6 @@
+翻译自[2021年7月20日版本-99#](https://github.com/Chia-Network/chia-blockchain/wiki/Quick-Start-Guide/04a88f3e7262516d443d0e4700f1350463092faf)
+***
+
 ## 请先浏览新手指南
 这是一份更简洁的指南。如果你不太了解Chia的话，建议先阅读[新手指南](Beginners-Guide)。
 

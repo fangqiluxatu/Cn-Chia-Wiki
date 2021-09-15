@@ -1,3 +1,5 @@
+翻译自[2021年7月31日版本-202#](https://github.com/Chia-Network/chia-blockchain/wiki/INSTALL/a9bfa264ac671465685d104e0841474c39c2b5cd)
+***
 根据你的操作系统来选择相应的Chia客户端安装方式。
 安装完后，按照[快速开始](Quick-Start-Guide)里的教程来运行软件。同时还需要关注[版本](releases)的变化信息以及[常见问题](FAQ)的答疑。
 
@@ -94,7 +96,7 @@ chia stop -d all
 deactivate
 git fetch
 git checkout latest
-git reset --hard FETCH_HEAD
+git reset --hard FETCH_HEAD --recurse-submodules
 
 # If you get RELEASE.dev0 then delete the package-lock.json in chia-blockchain-gui and install.sh again
 

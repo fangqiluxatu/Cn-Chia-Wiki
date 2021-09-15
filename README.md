@@ -12,7 +12,7 @@
 * [x] [矿池使用指南（Pooling User Guide）](Pooling-User-Guide)
 * [ ] [Chia官方答疑（Chia Project FAQ）](Chia-FAQ)
 * [x] [“农田开垦”基础知识（Plotting Basics）](Chia-plotting-basics)
-* [ ] [“农田”格式解析（Plot Sizes (k-sizes)）](k-sizes)
+* [x] [“农田”格式解析（Plot Sizes (k-sizes)）](k-sizes)
 * [ ] [命令行使用（CLI Commands Reference）](CLI-Commands-Reference)
 * [x] [Windows下注意事项（Windows Tips & Tricks）](Windows-Tips-and-Tricks)
 * [ ] [如何排查客户端异常（How to Check if Everything is Working (or Not)）](How-to-Check-If-Everything-is-Working-(.or-Not))

@@ -1,3 +1,6 @@
+翻译自[2021年5月27日版本-6061#](https://github.com/Chia-Network/chia-blockchain/blob/39aebe7b14abdcbd79b1c9b1c8fcb1fe1f7f3ca1/BUILD_TIMELORD.md)
+***
+
 Linux及MacOS系统的chiavdf二进制文件需要安装[时戳机](Timelords)以后才能运行。
 
 如果你想在Linux及MacOS系统上运行一个时戳机，你必须在python的虚拟环境中从源码编译安装（安装过程中可能需要安装额外的依赖包）。

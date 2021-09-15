@@ -1,3 +1,6 @@
+翻译自[2021年7月17日版本-40#](https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-User-Guide/bcef5b867c3a29375874a48e900a003889f6a8e7)
+***
+
 - [六步加入矿池](#六步加入矿池)
   - [第一步-同步全节点及钱包](#第一步-同步全节点及钱包)
   - [第二步-获取手续费](#第二步-获取手续费)

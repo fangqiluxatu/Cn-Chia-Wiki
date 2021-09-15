@@ -1,3 +1,6 @@
+翻译自[2021年5月10日版本-18#](https://github.com/Chia-Network/chia-blockchain/wiki/Windows-Tips-and-Tricks/60ab0bb95a09ff9915ed51687ff03bd571ddcb25)
+***
+
 在Windows系统中，你可以通过 Windows PowerShell 使用Chia的CLI工具，以便更加灵活方便地使用Chia软件。PowerShell 类似于SSH一样的工具，输入命令，然后回车，可以切换目录，移动文件，运行类似于Chia的软件程序等等。
 
 
