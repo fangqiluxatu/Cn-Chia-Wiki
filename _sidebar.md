@@ -12,7 +12,7 @@
 * [命令行使用参考](CLI-Commands-Reference)
 * [Windows下注意事项](Windows-Tips-and-Tricks)
 * [如何排查客户端异常](How-to-Check-If-Everything-is-Working-(or-Not))
-* [SSD寿命概况](SSD-Endurance) - Info on SSD's and plotting
+* [SSD寿命概况](SSD-Endurance)
 * [开垦农田的设备](Reference-Plotting-Hardware)
 * [耕种设备](Reference-Farming-Hardware)
 * [多机集群耕种](Farming-on-many-machines)

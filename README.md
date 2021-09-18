@@ -1,6 +1,8 @@
 # Chia中文维基
 大陆境内朋友访问GitHub如存在疑问，建议阅读并收藏此文：[盘点提高国内访问 GitHub 的速度的 9 种方案](https://mp.weixin.qq.com/s/0_56sjtHEL5It9TyJcmOtQ)
 
+如果在访问连接使用了 Cloudflare 服务器或者CDN 的网站时，速度特别慢的话，可以查阅[Cloudflare-speed教程](cloudflare-speed)。
+
 本文档还在持续更新整理中且不局限于官方WIKI内容，欢迎右上角访问GitHub提出改进意见。
 
 * [x] [主页（Home）](README)
@@ -13,7 +15,7 @@
 * [ ] [Chia官方答疑（Chia Project FAQ）](Chia-FAQ)
 * [x] [“农田开垦”基础知识（Plotting Basics）](Chia-plotting-basics)
 * [x] [“农田”格式解析（Plot Sizes (k-sizes)）](k-sizes)
-* [ ] [命令行使用（CLI Commands Reference）](CLI-Commands-Reference)
+* [x] [命令行使用（CLI Commands Reference）](CLI-Commands-Reference)
 * [x] [Windows下注意事项（Windows Tips & Tricks）](Windows-Tips-and-Tricks)
 * [ ] [如何排查客户端异常（How to Check if Everything is Working (or Not)）](How-to-Check-If-Everything-is-Working-(.or-Not))
 * [ ] [SSD寿命概况（SSD Endurance）](SSD-Endurance)（使用SSD进行P图的需要重点关注）

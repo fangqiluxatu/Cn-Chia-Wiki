@@ -1,90 +1,87 @@
-翻译自[2021年8月31日版本-67#](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference/d2165e9af8a8afafa507e5d3d529ee082928b4db)
+翻译自[2021年8月31日版本-67##](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference/d2165e9af8a8afafa507e5d3d529ee082928b4db)
 ***
+本文相对于在CLI中使用 `chia -h` 命令所获得的帮助信息，将提供更进一步的解释。
 
+但并不意味着会更加全面，因为 ` -h` 的帮助信息已经相当清晰明了。建议查看本文及其他相关教程时，先研究一下 `-h` 的帮助信息。
 
-This page should provide additional high-level documentation and explanation beyond just `chia -h`.
+如果你想了解某个命令的选项有哪些，可以在后面加上 `-h` 参数。例如：
 
-This is not meant to be comprehensive, because often the `-h` (help) text is clear enough. We recommend fully investigating with the `-h` switch before looking elsewhere.
-
-If want to know what a command's options are, append `-h` at the end to see options and explanations.
-
-Some examples:
 * `chia -h`
 * `chia plots -h`
 * `chia plots check -h`
 * `chia start -h`
 
-As with the rest of this project, this doc is a work-in-progress. Feel free to browse the [source code](https://github.com/Chia-Network/chia-blockchain/tree/main/chia/cmds) or the [Chia Proof of Space Construction Document](https://www.chia.net/assets/Chia_Proof_of_Space_Construction_v1.1.pdf) for more insight in the meantime.
+本文与其余的篇章一样，跟随项目的发展动态保持更新中。在此期间，你可以浏览[项目源码](https://github.com/Chia-Network/chia-blockchain/tree/main/chia/cmds)或者查阅文档[Chia空间证明说明](https://www.chia.net/assets/Chia_Proof_of_Space_Construction_v1.1.pdf)。
 
-# Locate the `chia` binary executable
+## `chia` 可执行文件
 
-## Mac
+### Mac
+如果你是在 `/Applications` 目录中安装的Chia，你可以在目录：`/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon/chia` 找到chia的二进制文件。
 
-If you installed `Chia.app` in your `/Applications` directory, you can find the `chia` binary at `/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon/chia`.
-
-Do a sanity check in `Terminal.app` with
+使用 `Terminal.app` 并输入命令来检查是否有效：
 
 `/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon/chia -h`
 
-You can use that if you augment your `PATH` with
+你也可以将其添加到你的环境变量中去，这样你就可以直接使用 `chia -h` 命令：
 
 `
 PATH=/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon:$PATH
 `
 
-and then `chia -h` should work.
+### Windows
+有不止一个 `chia.exe` 可执行文件。一个是启动GUI客户端界面的 `Chia.exe` ，另一个是CLI命令工具的 `chia.exe` 。他们位于不同的位置，请注意区分一下文件名的大小写（Chia.exe & chia.exe）。
 
-
-## Windows
-
-There is more than one `chia.exe` binary; the GUI is `Chia.exe` (two of these!) and the CLI is `chia.exe`. They are found in different places. Note the big C versus the little c.
-
-The CLI one is the one referred to in this document, and for version 1.1.3 it can be found at
+命令行工具 `chia.exe` 位于：
 
 `~\AppData\Local\chia-blockchain\app-1.1.3\resources\app.asar.unpacked\daemon\chia.exe`
 
-# [init](https://github.com/Chia-Network/chia-blockchain/blob/master/src/cmds/init.py)
+## [init](https://github.com/Chia-3/chia-blockchain/blob/main/chia/cmds/init.py)
 
-Command: `chia init`
+命令: `chia init`
+首先, `init` 命令会检查 ~/.chia 目录下是否存在旧版本的信息。
 
-First, `init` checks for old versions of chia installed in your ~/.chia directory.
-
-If so, `init` migrates these old files to the new version:
-* config (including old SSL files)
+如果存在， `init` 命令就会将该目录的这些文件迁移（连接）至新版本下使用：
+* config (包含旧版的SSL文件)
 * db
 * wallet
-* Using config.yaml, updates wallet keys and ensures coinbase rewards go to the right wallet puzzlehash.
+* config.yaml(通过配置文件，加载钱包秘钥的位置，将耕种奖励地址及相关配置信息与旧版保持同步一致) 
 
-If no old version exists, `init`:
-* Creates a default chia configuration
-* Initializes a new SSL key and cert (for secure communication with the GUI)
+如果没有旧版本信息, `init` 命令就会：
+* 创建一个默认的chia配置文件
+* 初始化一个加密证书，以保证与GUI客户端安全通信。
 
-# start
+## start
 
-Command: `chia start {service}`
-
+命令: `chia start {服务}`
+*  `chia start node` ，将只启动chia的全节点服务进程。
+*  `chia start farmer` ，将启动农民、收割机、全节点以及钱包进程。
+*  
 * Service `node` will start only the full node.
 * Service `farmer` will start the farmer, harvester, a full node, and the wallet.
-* positional arguments:
+* 其它参数， `chia start {*}`:
   {all,node,harvester,farmer,farmer-no-wallet,farmer-only,timelord,timelord-only,timelord-launcher-only,wallet,wallet-only,introducer,simulator}
 
-**Flags**
+**标识变量(Flags)**
 
-`-r, --restart`: Restart of running processes 
+`-r, --restart`: 可以重启服务进程，例如：
+```
+chia start timelord -r
+```
 
-# plots
+## plots
 
-## [create](https://github.com/Chia-Network/chia-blockchain/blob/master/src/plotting/create_plots.py)
+### [create](https://github.com/Chia-Network/chia-blockchain/blob/main/chia/plotting/create_plots.py)
 
-Command: `chia plots create [add flags and parameters]`
+命令: `chia plots create [add flags and parameters]`
 
-**Flags**
+**标识变量(Flags)**
 
-`-k` [size]: Define the size of the plot(s). For a list of k-sizes and creation times on various systems check out: [k-Sizes](https://github.com/Chia-Network/chia-blockchain/wiki/k-sizes)
+`-k` [size]: 定义农田的格式.，在不同的设备上开垦不同格式农田所花费的时间是不同的，详情查阅文档[农田格式解析](k-sizes)
 
-`-n` [number of plots]: The number of plots that will be made, in sequence. Once a plot is finished, it will be moved to the final location `-d`, before starting the next plot in the sequence.
+`-n` [准备开垦的农田数量]: 此开垦为队列任务，当一块农田开垦完后边会开始开垦下一块农田，与此同时，农田会被拷贝到 `-d` 参数所指定的目录，
 
-`-b` [memory buffer size MiB]: Define memory/RAM usage. Default is 4608 (4.6 GiB). More RAM will marginally increase speed of plot creation. Please bear in mind that this is what is allocated to the plotting algorithm alone. Code, container, libraries etc. will require additional RAM from your system.
+`-b` [内存使用量，单位 MiB]: 定义内存的使用量。默认为 4608 MiB（4.6 GiB），使用更多的内存，对开垦速度有少量提升。
+Define memory/RAM usage. Default is 4608 (4.6 GiB). More RAM will marginally increase speed of plot creation. Please bear in mind that this is what is allocated to the plotting algorithm alone. Code, container, libraries etc. will require additional RAM from your system.
 
 `-f` [farmer pk]: This is your "Farmer Public Key". Utilise this when you want to create plots on other machines for which you do not want to give full chia account access. To find your Chia Farmer Public Key use the following command: `chia keys show`
 
@@ -108,7 +105,7 @@ Command: `chia plots create [add flags and parameters]`
 
 `-x` [exclude final dir]: Skips adding [final dir] to harvester for farming.
 
-### Example Plotting Commands
+##### Example Plotting Commands
 
 Example below will create a k32 plot and use 4GB (note - not GiB) of memory.
 
@@ -133,7 +130,7 @@ Example 3 below will create five k32 plots (`-n 5`) one at a time using 4GB `-b 
 
 * Plotting is designed to be as efficient as possible. However, to prevent grinding attacks, farmers should not be able to create a plot within the average block interval. That's why the minimum k-size is k32 on mainnet.
 
-## plotnft
+### plotnft
 Using the CLI, you can perform the same operations as with the GUI. There is a new command, called `chia plotnft`. Type `chia plotnft -h` to see all the available sub-commands:
 
 ```
@@ -159,7 +156,7 @@ To create a Plot NFT, use `chia plotnft create -u https://poolnamehere.com`, ent
 To switch pools, you can use `chia plotnft join`, and to leave a pool (switch to self farming), use `chia plotnft leave`.
 The `show` command can be used to check your current points balance. CLI plotting with `create_plots` is the same as before, but the `-p` is replaced with `-c`, and the pool contract address from `chia plotnft show` should be used here.
 
-## [check](https://github.com/Chia-Network/chia-blockchain/blob/master/src/plotting/check_plots.py)
+### [check](https://github.com/Chia-Network/chia-blockchain/blob/master/src/plotting/check_plots.py)
 
 Command: `chia plots check -n [num checks] -l -g [substring]`
 
@@ -181,7 +178,7 @@ Examples for using `-g`
 Each plot will take each challenge and:
 * Get the quality for the challenge (Is there a proof of space? You should expect 1 proof per challenge, but there may be 0 or more than 1.)
 * Get the full proof(s) for the challenge if a proof was present
-* Validate that the # of full proofs matches the # of expected quality proofs.
+* Validate that the ## of full proofs matches the ## of expected quality proofs.
 
 Finally, you'll see a report the final true proofs vs. expected proofs.
 
@@ -196,14 +193,14 @@ For more detail, you can read about the DiskProver commands in [chiapos](https:/
 **What does the ratio of full proofs vs expected proofs mean?**
 * If the ratio is >1, your plot was relatively lucky for this run of challenges.
 * If the ratio is <1, your plot was relatively unlucky.
-    * This shouldn't really concern you unless your ratio is <0.70 # If so, do a more thorough `chia plots check` by increasing your `-n` 
+    * This shouldn't really concern you unless your ratio is <0.70 ## If so, do a more thorough `chia plots check` by increasing your `-n` 
 
 The plots check challenge is a static challenge. For example if you run a plots check 20 times, with 30 tries against the same file, it will produce the same result every time. So while you may see a plot ratio << 1 for a plot check with `x` number of tries, it does not mean that the plot itself is worthless. It just means that given these static challenges, the plot is producing however many proofs. As the number of tries (`-n`) increases, we would expect the ratio to not be << 1. Since Mainnet is live, and given that the blockchain has new challenges with every signage point - just because a plot is having a bad time with one specific challenge, does not mean it has the same results versus another challenge.  "Number of plots" and "k-size" are much more influential factors at winning blocks than "proofs produced per challenge". 
 
 **In theory**, a plot with a ratio >> 1 would be more likely to win challenges on the blockchain. Likewise, a plot with a ratio << 1 would be less likely to win. However, in practice, this isn't actually going to be noticeable.  Therefore, don't worry if your plot check ratios are less than 1, unless they're _significantly_ less than 1 for _many_ `-n`. 
 
 
-# Other commands (not yet documented)
+## 其他命令 (not yet documented)
 
 ```sh
 $ chia
@@ -213,18 +210,18 @@ Options:
   -h, --help        Show this message and exit.
 
 Commands:
-  configure   Modify configuration
-  farm        Manage your farm
-  init        Create or migrate the configuration
-  keys        Manage your keys
-  netspace    Estimate total farmed space on the network
-  plots       Manage your plots
-  run_daemon  Runs chia daemon
-  show        Show node information
-  start       Start service groups
-  stop        Stop services
-  version     Show chia version
-  wallet      Manage your wallet
+  configure   修改配置文件
+  farm        耕种管理
+  init        创建或迁移配置文件
+  keys        私钥管理
+  netspace    全网空间算力
+  plots       农田管理
+  run_daemon  后台运行
+  show        查看节点信息
+  start       启动服务进程
+  stop        停止服务进程
+  version     查看chia版本信息
+  wallet      钱包管理
 
 ```
 To see what you can do with each of these commands, use the help flag -h. For example, `chia show -h`.
@@ -252,13 +249,13 @@ Total iterations since the start of the blockchain: 63291534050
 
 You can add and remove directories for your plots with `chia plots add -d 'your_dir'` or `chia plots remove -d 'your_dir'`, help can be found for respective add/remove with `chia plots add/remove -h`
 
-## Checking Logs and Status
+### 检查日志及运行状态
 
-You can check contents of your wallet with: `chia wallet`, and status of your farmer with `chia farm summary`.
+使用 `chia wallet show` 命令查看钱包信息， `chia farm summary` 命令查看耕种状态。
 
-Check harvester and farmer logs: `grep ~/.chia/mainnet/log/debug.log -e harvester`
+查询收割机及农民的日志信息： `grep ~/.chia/mainnet/log/debug.log -e harvester`
 
-Sample result:
+示例:
 
 ```
 17:08:03.191 harvester harvester_server        : INFO     <- harvester_handshake from peer 214b269a425b8223cb50fbd458dab056599348e255f07a018c13ea9efb509ee5 127.0.0.1
@@ -267,6 +264,4 @@ Sample result:
 17:08:03.227 harvester src.plotting.plot_tools : INFO     Found plot /home/user/slab1/plots/plot-k32-2021-01-11-17-26-bf2363828e469a3417b89eb98cfa9d694809e1ce8bef0ffd1d12853d4227aa0a.plot of size 32
 17:08:03.227 harvester src.plotting.plot_tools : INFO     Loaded a total of 1 plots of size 0.09895819725716137 TiB
 ```
-
-
-Maybe follow logs: `tail -F ~/.chia/mainnet/log/debug.log`. Chia is nice enough to rotate logs for you.
+也可以使用命令： `tail -F ~/.chia/mainnet/log/debug.log` ，查看Chia的实时日志信息。

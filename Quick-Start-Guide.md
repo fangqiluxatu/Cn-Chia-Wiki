@@ -107,11 +107,8 @@ sh install-timelord.sh
 chia start timelord &
 ```
 
-## 局部仿真模拟（暂定，这段有点迷🤣）
-你可以运行仿真模拟区块系统，会启动所有的服务（钱包、农民、收割机、时戳机）以及多个本地节点。注意：这个仿真系统仅限于本地运行，同时需要安装时戳机。新加入的节点只知道全节点的局域网IP，所以无法向外网广播正确的IP。这个功能只能在MacOS和Linux上使用。
-
-Alternatively run the local simulation
-You can instead run the simulation, which runs all servers and multiple full nodes, locally. Note the the simulation is local only and requires installation of timelords and VDFs. The introducer will only know the local ips of the full nodes, so it cannot broadcast the correct ips to external peers. This should work on MacOS and Linux.
+## 本地模拟区块网络系统
+你可以运行一个仿真模拟区块系统，会启动所有的服务（钱包、农民、收割机、时戳机）以及多个本地节点。注意：这个模拟系统仅限于局域网内运行，同时需要安装时戳机。新加入的节点只知道全节点的局域网IP，所以无法向外网广播正确的IP。这个功能只能在MacOS和Linux上使用。
 ```bash
 chia start simulator
 ```
