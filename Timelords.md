@@ -1,7 +1,7 @@
 ## 时戳机类型
 一共有两种时戳机类型：常规时戳机（regular timelord）、时戳压缩机（Bluebox timelord）。
 
-第一种是最基本且核心的时戳机，通过使用高频CPU来尽可能快地开展串行顺序型运算，即，在未知阶数的群组数中连续做平方运算([class group of unknown order](https://github.com/Chia-Network/vdf-competition/blob/master/classgroups.pdf))。此外，每一个VDF（在源程序中称之为 vdf_client ）还是时间证明的生成装置，用于验证正确完成迭代次数计算（阶）的证明。
+第一种是最基本且核心的时戳机，通过使用高频CPU来尽可能快地开展串行顺序型运算，即，在未知阶数的数组中连续做平方运算([class group of unknown order](https://github.com/Chia-Network/vdf-competition/blob/master/classgroups.pdf))。此外，每一个VDF（在源程序中称之为 vdf_client ）还是时间证明的生成装置，用于验证正确完成迭代次数计算（阶）的证明。
 
 第二种是时戳压缩机（Bluebox timelord）。蓝盒可以是很多设备，比如旧服务器，游戏主机等，从历史区块中查找未压缩的时间证明，这样区块网络得以快速运行。常规时戳机（regular timelord）使用更快的方式来生成时间证明，但是会导致证明文件太大，以至于类似于树莓派这样的设备同步验证区块网络时需要花费大量的时间。时戳压缩机（Bluebox timelord）挑选出未压缩的时间证明并重新创建，但这次会消耗更多的时间，最终生成更紧凑的证明。然后将这些压缩过的时间证明传播给区块网络的每一个节点，以便他们使用比之前更紧凑的时间证明，来加快同步验证区块的速度。
 

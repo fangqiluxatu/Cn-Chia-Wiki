@@ -1,5 +1,5 @@
 **本文参照GitHub中[XIU2/CloudflareSpeedTest](https://github.com/XIU2/CloudflareSpeedTest)的脚本工具及说明进行简化描述，详情请查阅原作者github。**
-这个问题是我在连接space矿池时遇到的，所以以下我会使用space.pool做示例。
+这个问题是我在连接space矿池时遇到的，所以以下我会使用space.pool及chia.net（是的，官网也用的cloudflare的服务器）做示例。
 
 # Linux
 **注意，修改 Hosts 需要 root（管理员）用户权限，因此如果你当前不是 root 用户，请使用 sudo su 切换。**
@@ -13,7 +13,8 @@ sudo gedit /etc/hosts
 
 # 在hosts里添加解析记录后保存退出
 1.0.0.1  pool.space
-1.0.0.1  asia1.pool.space 
+1.0.0.1  asia1.pool.space
+1.0.0.1  chia.net 
 
 # 如果是第一次使用，则建议创建新文件夹
 mkdir CloudflareST
@@ -34,7 +35,7 @@ chmod +x CloudflareST
 wget -N https://shell.xiu2.xyz/cfst_hosts.sh
 
 # 赋予执行权限
-chomd +x cfst_hosts.sh
+chmod +x cfst_hosts.sh
 
 # 运行脚本
 bash cfst_hosts.sh
