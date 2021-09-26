@@ -1,4 +1,4 @@
-翻译自[2021年8月31日版本-67##](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference/d2165e9af8a8afafa507e5d3d529ee082928b4db)
+翻译自[2021年8月31日版本-67#](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference/d2165e9af8a8afafa507e5d3d529ee082928b4db)
 ***
 本文相对于在CLI中使用 `chia -h` 命令所获得的帮助信息，将提供更进一步的解释。
 
@@ -91,67 +91,63 @@ chia start timelord -r
 
 `-a` [指纹(fingerprint)]: 密钥指纹用来选择将要使用的农民公钥及矿池公钥。这是为了方便在你的私钥本里选择要使用的账户。使用命令： `chia keys show` 查看你的私钥账户所对应的指纹密钥（纯数字）。
 
-`-t` [临时文件目录(tmp dir)]: 指定开垦农田时的缓存文件目录。
+`-t` [缓存目录(tmp dir)]: 指定开垦农田时的缓存文件目录。用以存储开垦过程中，第一阶段（前向传播运算）及第二阶段（反向传播运算）的缓存文件。保守起见，缓存文件目录通常需要2.5倍最终农田文件大小的空间，例如开垦K32格式农田（101 GiB）则需要252.5 GiB。
 
-`-t` [tmp dir]: Define the temporary directory for plot creation. This is where Plotting Phase 1 (Forward Propagation) and Phase 2 (Backpropagation) both occur. The `-t` dir requires the largest working space: normally about 2.5 times the size of the final plot.
+`-2` [第二缓存目录(tmp dir 2)]: 指定开垦农田时的第二缓存文件目录。用以存储开垦过程中，第三阶段（压缩）及第四阶段（生成检查点）的缓存文件。 `-2` 的路径默认为 `-t` 或者 `-d` 的目录。因此，根据实际情况，如果 `-t` 或者 `-d` 的目录空间不足时，建议手动设置一下 `-2` 的目录。 `-2` 目录所需空间最小为所开垦农田的文件大小，例如开垦K32格式农田（101 GiB）则需要101 GiB。.
 
-`-2` [tmp dir 2]: Define a secondary temporary directory for plot creation. This is where Plotting Phase 3 (Compression) and Phase 4 (Checkpoints) occur. Depending on your OS, `-2` might default to either `-t` or `-d`. Therefore, if either `-t` or `-d` are running low on space, it's recommended to set `-2` manually. The `-2` dir requires an equal amount of working space as the final size of the plot.
+`-d` [最终文件目录(final dir)]: 指定开垦完成的农田最终所储存的目录。 `-d` 需要有足够的空间以便存储所需开垦的农田文件。这个目录会自动添加到 `~/.chia/VERSION/config/config.yaml` 配置文件中去。可以使用命令 `chia plots remove -d` 将农田文件目录路径从配置文件中删除。
 
-`-d` [final dir]: Define the final location for plot(s). Of course, `-d` should have enough free space as the final size of the plot. This directory is automatically added to your `~/.chia/VERSION/config/config.yaml` file. You can use `chia plots remove -d` to remove a final directory from the configuration.
+`-r` [使用线程数(number of threads)]：2个线程是最优的选择，多线程仅在第一阶段有效。
 
-`-r` [number of threads]: 2 is usually optimal. Multithreading is only in phase 1 currently.
+`-u` [桶数(number of buckets)]:桶数越多，使用的内存越少，但对缓存目录磁盘的随机读写能力要求较高。因此，使用机械硬盘开垦的话，就减少桶数使用，使用SSD/NVME的话，就增加桶数。使用较小的桶数并没有什么明显的效果，所以建议使用默认桶数：128.
 
-`-u` [number of buckets]: More buckets require less RAM but more random seeks to disk. With spinning disks you want less buckets and with NVMe more buckets. There is no significant benefit from using smaller buckets - just use 128.
+`-e` [是否开启位域(bitfield plotting)]: 使用 `-e` 参数标记表示开垦过程中禁用位域排序，使用b17版本的开垦方式。自1.0.4版本起，开启位域排序（即，不添加 `-e` 参数标记）对开垦速度有提升。老版禁用位域的开垦方式，可以减少内存使用，但会增加12%的缓存文件。所以，使用SSD/NVME开垦农田可以添加 `-e` 参数标记（即，启用位于排序），而使用机械硬盘开垦的，即，5400转或者7200转的SATA硬盘，**禁用**位域排序是最合适的选择。
 
-`-e` [bitfield plotting]: Using the `-e` flag will disable the bitfield plotting algorithm, and revert back to the older b17 plotting style. After 1.0.4 it’s better to use bitfield for most cases (not using `-e`). Before 1.0.4 (obsolete) using the `-e` flag (bitfield disabled) lowers memory requirement, but also writes about 12% more data during creation of the plot. For now, SSD temp space will likely plot faster with `-e` (bitfield back propagation disabled) and for slower spinning disks, i.e SATA 5400/7200 rpm, **not** using `-e` (bitfield enabled) is a better option.
+`-x` [忽略最终目录(exclude final dir)]: 不将此次开垦任务的最终文件目录添加至正在耕种的农田目录。
 
-`-x` [exclude final dir]: Skips adding [final dir] to harvester for farming.
+## 开垦命令示例
+示例一，使用4 GB（注意不是GiB）内存开垦一个K32农田。
 
-## Example Plotting Commands
+`chia plots create -k 32 -b 4000 -t /缓存/文件/目录 -d /最终/文件/目录`
 
-Example below will create a k32 plot and use 4GB (note - not GiB) of memory.
+示例二,使用8 GB内存、2个线程、64桶数开垦一个K34农田。
 
-`chia plots create -k 32 -b 4000 -t /path/to/temporary/directory -d /path/to/final/directory`
+`chia plots create -k 34 -e -b 8000 -r 2 -u 64 -t /缓存/文件/目录 -d /最终/文件/目录`
 
-Example 2 below will create a k34 plot and use 8GB of memory, 2 threads and 64 buckets
+示例三，使用4 GB内存来启动一个队列任务，共开垦5个农田（`-n 5`），同时指定第二缓存目录。
 
-`chia plots create -k 34 -e -b 8000 -r 2 -u 64 -t /path/to/temporary/directory -d /path/to/final/directory`
-
-Example 3 below will create five k32 plots (`-n 5`) one at a time using 4GB `-b 4000` (note - not GiB) of memory and uses a secondary temp directory (`-2 /path/to/secondary/temp/directory`).
-
-`chia plots create -k 32 -b 4000 -n 5 -t /path/to/temporary/directory -2 /path/to/secondary/temp/directory -d /path/to/final/directory`
+`chia plots create -k 32 -b 4000 -n 5 -t /缓存/文件/目录 -2 /第二/缓存/目录/t -d /最终/文件/目录`
 
 
-**Additional Plotting Notes**
+**关于开垦的其他注意事项**
+* 开垦期间，往往在第一阶段（前向传播运算）和第三阶段（压缩）所消耗的时间最多。因此，为了尽可能地加快开垦速度， `-t` 及 `-2` 的目录就需要使用读写速度快的储存设备（NVME/SSD），`-d` 目录则使用一般的存储设备即可（机械硬盘）。 
 
-* During plotting, Phase 1 (Forward Propagation) and Phase 3 (Compression) tend to take the most time. Therefore, to maximize plotting speed, `-t` and `-2` should be on your fastest drives, and `-d` can be on a slow drive.
+* 开垦过程主要由4个阶段组成。第一阶段可以利用多线程。第二、三阶段无法使用多线程。设置 `-r` 的参数值大于2，即，一阶段参与开垦的线程数大于2，可以优化开垦的速度，例如， `-r 3` 。超过4个线程以后，开垦速度的增益效果将显著降低。相较于队列任务开垦农田，很多人会选择更高效的并行开垦模式。同时启动多个开垦任务程序即可进入并行开垦模式，不过建议程序之间设置30分钟以上间隔时间，使得开垦阶段的大量读写工作可以交错进行，以便更高效地利用磁盘的读写效率。 
 
-* There are 4 major phases to plotting. Phase 1 of plotting can utilize multi-threading. Phases 2-3 do not. You can better optimize your plotting by using the `-r` flag in your command and setting it to greater than 2, e.g,. `-r 2`. Above 4 threads there are diminishing returns. Many Chia users have determined it's more efficient to plot in parallel, rather than series. You can do this by just having multiple plotting instances open but staggering when they start 30min or more. 
-
+* 
 * It's objectively faster to plot on SSD's instead of HDD's. However, SSD's have significantly more limited lifespans, and early Chia testing has seemed to indicate that plotting on SSD's wears them out pretty quickly. Therefore, many Chia users have decided it's more "green" to plot in parallel on many HDD's at once.
 
 * Plotting is designed to be as efficient as possible. However, to prevent grinding attacks, farmers should not be able to create a plot within the average block interval. That's why the minimum k-size is k32 on mainnet.
 
-## plotnft
-Using the CLI, you can perform the same operations as with the GUI. There is a new command, called `chia plotnft`. Type `chia plotnft -h` to see all the available sub-commands:
+## 农田产权证（plotnft）
+关于plotnft，命令行工具能完成的操作，GUI客户端一样可以完成。这是新增的一个命令`chia plotnft`。输入 `chia plotnft -h` 查看有效的子命令。
 
 ```
 » chia plotnft -h
-Usage: chia plotnft [OPTIONS] COMMAND [ARGS]...
+用法: chia plotnft [选项] COMMAND [参数]...
 
-Options:
+选项:
   -h, --help  Show this message and exit.
 
-Commands:
-  claim           Claim rewards from a plot NFT
-  create          Create a plot NFT
-  get_login_link  Create a login link for a pool. To get the launcher id, use
-                  plotnft show.
+命令:
+  claim           从智能合约地址（农田产权证）领取爆块后的奖励（仅适用于自耕种）
+  create          创建一个农田产权证
+  get_login_link  创建一个矿池的登陆链接。查看启动器ID，使用命令 `chia plotnft show`
 
-  inspect         Get Detailed plotnft information as JSON
-  join            Join a plot NFT to a Pool
-  leave           Leave a pool and return to self-farming
-  show            Show plotnft information
+  inspect         获得JSON格式的plotnft详细信息
+  join            将一个农田产权证绑定某个矿池
+  leave           解绑矿池，切换至自耕种状态
+  show            查看plotnft详细信息
 ```
 
 To create a Plot NFT, use `chia plotnft create -u https://poolnamehere.com`, entering the URL of the pool you want to use. To create a plot NFT in self-farming mode, do `chia plotnft create -s local`.

@@ -1,10 +1,11 @@
-
-:hammer_and_wrench: **A work-in-progress** :hammer_and_wrench:
+翻译自[2021年5月12日版本-16#](https://github.com/Chia-Network/chia-blockchain/wiki/How-to-Check-If-Everything-is-Working-(or-Not)/55e29a11ec3475bde71fe685c493a3212bb10e17)
+***
+🔨 **持续更新中** 🔨
 
 This doc assumes you know how to use the CLI. Using the CLI is the best way to troubleshoot (and to do everything Chia too). The [Quick Start Guide](https://github.com/Chia-Network/chia-blockchain/wiki/Quick-Start-Guide) and [CLI Commands Reference](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference) have useful info to get you familiar with the CLI.
 
-## Where to Find Things
-The file structure for Linux, macOS, and Windows versions of Chia are similar. 
+## chia相关工具的位置
+下面是Chia软件的文件系统结构，在Windows、Linux、macOS上大同小异。 
 ```
 /home/user
 ├─ .chia/
@@ -25,17 +26,17 @@ The file structure for Linux, macOS, and Windows versions of Chia are similar.
 ```
 
 ### Linux & macOS
-* Chia config: `~/.chia/mainnet/config/config.yaml`
-* Chia logs: `~/.chia/mainnet/log/`
+* Chia配置文件: `~/.chia/mainnet/config/config.yaml`
+* Chia日志: `~/.chia/mainnet/log/`
 
 ### Windows
-* Chia config:  `C:\Users\%USERNAME%\.chia\mainnet\config\config.yaml`
-* Chia logs:  `C:\Users\%USERNAME%\.chia\mainnet\log\`
+* Chia配置文件:  `C:\Users\%USERNAME%\.chia\mainnet\config\config.yaml`
+* Chia日志:  `C:\Users\%USERNAME%\.chia\mainnet\log\`
 
-# Logs
-In `config.yaml` you can set the level of detail for your logs. 
+# 日志
+在 `config.yaml` 配置文件中可以设置日志的详细级别。
 
-Look for this section in `config.yaml`. It’s useful to change the logger setting `log_level` from `WARNING` to `INFO` to get the detail needed to troubleshoot.
+找到 `config.yaml` 的这个片段。将 `log_level` 的级别由 `WARNING` 改为 `INFO` ，这对问题的定位与排查有很大帮助。
 
 ```yaml
 logging: &id001

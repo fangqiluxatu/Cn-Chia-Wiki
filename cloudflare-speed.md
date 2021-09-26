@@ -9,7 +9,7 @@
 sudo su
 
 # 编辑hosts文件
-sudo gedit /etc/hosts
+sudo nano /etc/hosts
 
 # 在hosts里添加解析记录后保存退出
 1.0.0.1  pool.space
@@ -22,7 +22,7 @@ mkdir CloudflareST
 # 进入文件夹（后续更新，只需要从这里重复下面的下载、解压命令即可）
 cd CloudflareST
 
-# 下载 CloudflareST 压缩包,源码地址：https://github.com/XIU2/CloudflareSpeedTest/releases
+# 下载 CloudflareST 压缩包,源码地址：https://github.com/XIU2/CloudflareSpeedTest/releases ，这里注意一下你的CPU架构是AMD还是ARM的。
 wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v1.5.0/CloudflareST_linux_amd64.tar.gz
 
 # 解压
@@ -46,7 +46,7 @@ bash cfst_hosts.sh
 该脚本的作用为 CloudflareST 测速后获取最快 IP 并替换 Hosts 中的 Cloudflare CDN IP。
 
 第一次使用，请先将 Hosts 中所有 Cloudflare CDN IP 统一改为一个 IP。
-输入该 Cloudflare CDN IP 并回车（后续不再需要该步骤）:
+输入该 Cloudflare CDN IP 并回车（后续不再需要该步骤）:1.0.0.1
 ```
 在这里输入我们前面添加解析的那个IP，即：1.0.0.1
 
