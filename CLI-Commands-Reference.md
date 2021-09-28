@@ -124,10 +124,8 @@ chia start timelord -r
 
 * 开垦过程主要由4个阶段组成。第一阶段可以利用多线程。第二、三阶段无法使用多线程。设置 `-r` 的参数值大于2，即，一阶段参与开垦的线程数大于2，可以优化开垦的速度，例如， `-r 3` 。超过4个线程以后，开垦速度的增益效果将显著降低。相较于队列任务开垦农田，很多人会选择更高效的并行开垦模式。同时启动多个开垦任务程序即可进入并行开垦模式，不过建议程序之间设置30分钟以上间隔时间，使得开垦阶段的大量读写工作可以交错进行，以便更高效地利用磁盘的读写效率。 
 
-* 
-* It's objectively faster to plot on SSD's instead of HDD's. However, SSD's have significantly more limited lifespans, and early Chia testing has seemed to indicate that plotting on SSD's wears them out pretty quickly. Therefore, many Chia users have decided it's more "green" to plot in parallel on many HDD's at once.
-
-* Plotting is designed to be as efficient as possible. However, to prevent grinding attacks, farmers should not be able to create a plot within the average block interval. That's why the minimum k-size is k32 on mainnet.
+* 在SSD上开垦农田要比在HDD上速度快的多。尽管如此，SSD的寿命却是有限的，在早期官方测试表明，在SSD上开垦农田将会迅速消耗SSD的寿命（TBW）。因此，有很多用户会选择在多个HDD硬盘上同时开垦农田，可以减少硬件设备的磨损，也就更环保一些。
+* 开垦程序的设计是尽可能地高效完成农田。然而，为了防止“粉碎攻击”，平均区块生成的时间间隔之内，不允许有农民可以在这个时间内开垦完成农田。这也就是为什么，主网只支持K32及以上格式的农田。
 
 ## 农田产权证（plotnft）
 关于plotnft，命令行工具能完成的操作，GUI客户端一样可以完成。这是新增的一个命令`chia plotnft`。输入 `chia plotnft -h` 查看有效的子命令。
@@ -156,18 +154,19 @@ The `show` command can be used to check your current points balance. CLI plottin
 
 ## [check](https://github.com/Chia-Network/chia-blockchain/blob/main/chia/plotting/check_plots.py)
 
-Command: `chia plots check -n [num checks] -l -g [substring]`
+命令: `chia plots check -n [挑战次数] -l -g [子项]`
 
+默认检查 `config.yaml` 中所设置农田文件目录路径下所有的农田。使用命令 `chia plots show` 查看已添加的农田目录。`check`命令可以检查农田是否与你的私钥账户保持有效的关联，同时
 First, this looks in all plot directories from your config.yaml. You can check those directories with `chia plots show`. This command will check whether plots are valid given the plot's associated keys and your machine's stored Chia keys, as well as test the plot with challenges to identify found plots vs. expected number of plots.
 
-`-g` check only plots with directory or file name containing case-sensitive [substring].
-**If `-g` isn't specified all plots in every plot directory in your config.yaml will be checked.**
+添加`-g` 参数，可以检查指定目录下的，或者指定账户私钥关联的，也可以是指定格式的农田，等等。
+**如果未添加 `-g` 参数，那么所有 `config.yaml` 配置文件中所设置的耕种目录下的农田文件，都将被检查**
 
-Examples for using `-g`
+ `-g` 参数使用示例
 
-* Check plots within a long directory name like `/mnt/chia/DriveA` can use `chia plots check -g DriveA`
-* Check only k33 plots can use `chia plots check -g k33`
-* Check plots created on October 31, 2020 can use `chia plots check -g 2020-10-31`
+* 检查某个目录下的农田文件，例如 `/mnt/chia/DriveA` 目录，示例命令： `chia plots check -g DriveA`
+* 只检查K33格式的农田，示例命令： `chia plots check -g k33`
+* 检查2020年10月31日所创建的农田，示例命令： `chia plots check -g 2020-10-31`
 
 `-l` allows you to find duplicate plots by ID. It checks all plot directories listed in config.yaml and lists out any plot filenames with the same filename ending; `*-[64 char plot ID].plot`. You should use `-l -n 0` if you only want to check for duplicates.
 

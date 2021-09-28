@@ -1,8 +1,7 @@
 翻译自[2021年5月12日版本-16#](https://github.com/Chia-Network/chia-blockchain/wiki/How-to-Check-If-Everything-is-Working-(or-Not)/55e29a11ec3475bde71fe685c493a3212bb10e17)
 ***
 🔨 **持续更新中** 🔨
-
-This doc assumes you know how to use the CLI. Using the CLI is the best way to troubleshoot (and to do everything Chia too). The [Quick Start Guide](https://github.com/Chia-Network/chia-blockchain/wiki/Quick-Start-Guide) and [CLI Commands Reference](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference) have useful info to get you familiar with the CLI.
+本文档需要你会使用CLI工具。通过CLI工具来排查故障（以及使用Chia的所有功能）是最好的方式。查阅文档[快速开始](Quick-Start-Guide)以及[CLI命令行使用参考](CLI-Commands-Reference)可以熟悉使用CLI工具。
 
 ## chia相关工具的位置
 下面是Chia软件的文件系统结构，在Windows、Linux、macOS上大同小异。 
@@ -33,7 +32,7 @@ This doc assumes you know how to use the CLI. Using the CLI is the best way to t
 * Chia配置文件:  `C:\Users\%USERNAME%\.chia\mainnet\config\config.yaml`
 * Chia日志:  `C:\Users\%USERNAME%\.chia\mainnet\log\`
 
-# 日志
+## 日志
 在 `config.yaml` 配置文件中可以设置日志的详细级别。
 
 找到 `config.yaml` 的这个片段。将 `log_level` 的级别由 `WARNING` 改为 `INFO` ，这对问题的定位与排查有很大帮助。
@@ -44,20 +43,19 @@ logging: &id001
     log_level: INFO
     log_stdout: false
 ```
+使用 `grep` 命令（[Linux](https://man7.org/linux/man-pages/man1/grep.1.html), [macOS](https://ss64.com/osx/grep.html)），或者 在Windows的powershell中使用 `Select-String` ，来搜索日志中你想要的相关信息。
 
-You can run `grep`  ([Linux](https://man7.org/linux/man-pages/man1/grep.1.html), [macOS](https://ss64.com/osx/grep.html)) or `Select-String` ([Windows](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-string?view=powershell-7.1)) to search through your logs for relevant information. 
+## 是否正常运行？
 
-# Is It Working?
-
-If you want to quickly find errors, run this:
+如果你想快速找到错误信息，运行以下命令：
 * Linux/macOS: `cat ~/.chia/mainnet/log/debug.log | grep -i 'error'`
 * Windows: `Get-Content -Path "~\.chia\mainnet\log\debug.log" | Select-String -Pattern "error"`
 
-## Harvester
-The time it takes to do a proof challenge should be below 30 seconds. If you see higher times, something is wrong with your setup.
 
-Here are some commands you can use to examine `debug.log` for problems.
+### 收割机
+验证挑战证明的时间需要小于30秒。如果超过30秒，那说明你的设置是有问题的。
 
+下面的命令示例可以帮助你检查 `debug.log` 日志文件，以找到错误信息。
 * Linux/macOS: `tail ~/.chia/mainnet/log/debug.log | grep eligible`
 * Windows:
 	* `Select-String -Path “~\.chia\mainnet\log\debug*” -Pattern “eligible”`
@@ -68,9 +66,8 @@ Here are some commands you can use to examine `debug.log` for problems.
 
 
 
-## Plotting
+## 开垦的农田
+你可以查看[CLI命令行使用参考](CLI-Commands-Reference#check)中的 check 章节。
 
-You can find the documentation for the `check` command on the [CLI Commands Reference - check](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference#check) page
-
-* To check all your plots, run `chia plots check`. This will check all directories you have listed in your `config.yaml` to contain plots.
-* Use `chia plots check -h` to see the options for this command
+* 检查所有的农田，使用命令 `chia plots check`。将会检查 `config.yaml` 配置文件中所设置农田文件目录路径下所有的农田。
+* 使用命令 `chia plots check -h` 查看 check 命令的帮助信息。

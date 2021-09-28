@@ -9,7 +9,7 @@
 * [Chia官方答疑](Chia-FAQ)
 * [“农田开垦”基础知识](Chia-plotting-basics)
 * [“农田”格式解析](k-sizes)
-* [命令行使用参考](CLI-Commands-Reference)
+* [CLI命令行使用参考](CLI-Commands-Reference)
 * [Windows下注意事项](Windows-Tips-and-Tricks)
 * [如何排查客户端异常](How-to-Check-If-Everything-is-Working-(or-Not))
 * [SSD寿命概况](SSD-Endurance)
