@@ -66,7 +66,7 @@ logging: &id001
 
 
 
-## 开垦的农田
+## 农田状况
 你可以查看[CLI命令行使用参考](CLI-Commands-Reference#check)中的 check 章节。
 
 * 检查所有的农田，使用命令 `chia plots check`。将会检查 `config.yaml` 配置文件中所设置农田文件目录路径下所有的农田。

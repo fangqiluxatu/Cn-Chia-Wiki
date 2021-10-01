@@ -25,7 +25,7 @@
 * [ ] [多机集群耕种安全措施（Good Security Practices on Many Machines）](Good-Security-Practices-on-Many-Machines)
 * [ ] [Chialisp 官方文档（Chialisp Documentation (Official)）](https://chialisp.com)(待续)
 * [ ] [Chialisp 说明](ChiaLisp)
-* [ ] [时戳机和时戳机集群（Timelords and Cluster Timelords）](Timelords)
+* [x] [时戳机和时戳机集群（Timelords and Cluster Timelords）](Timelords)
 * [x] [部署时戳机(BUILD_TIMELORD)](Building-timelords)
 * [ ] [版本说明（Release Notes）](https://www.chia.net/releases/)
 * [ ] [RPC接口说明（RPC Interfaces）](RPC-Interfaces)

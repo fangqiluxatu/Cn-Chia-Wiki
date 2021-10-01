@@ -1,7 +1,8 @@
 翻译自[2021年8月17日版本-22#](https://github.com/Chia-Network/chia-blockchain/wiki/SSD-Endurance/05e2775dbd12dadcdca7cc97153c96c959fe75a5)
 ***
 
-## Estimated SSD wear out, endurance table
+## SSD寿命估算表
+
 
 There are various approaches to picking a great plotting SSD, and a lot will depend on the physical system it is going into for form factor and interface compatibility (NVMe/PCIe, SATA, or SAS). The one thing in common will be that you need high endurance, due to the fact that it takes almost ~1.3TiB of writes (post 1.0.4 version) per k-32 plot.
 

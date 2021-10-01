@@ -4,9 +4,7 @@
 
 Wiki会讲述一些关于chialisp的内容，这些都会合并到官方文档中。
 
-## Operators
-
-### `softfork`
+## 软分叉项目方注意事项
 
 The `softfork` operator takes at least one parameter `cost`. So `(softfork cost arg_1 ... arg_n)`.
 

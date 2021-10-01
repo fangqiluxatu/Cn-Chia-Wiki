@@ -2,7 +2,7 @@
 ***
 本文相对于在CLI中使用 `chia -h` 命令所获得的帮助信息，将提供更进一步的解释。
 
-但并不意味着会更加全面，因为使用 ` -h` 命令获得的帮助信息已经相当清晰明了。建议查看本文及其他相关教程时，先研究一下 `-h` 的帮助信息。
+但并不意味着会更加全面，因为使用 `-h` 命令获得的帮助信息已经相当清晰明了。建议查看本文及其他相关教程时，先研究一下 `-h` 的帮助信息。
 
 如果你想了解某个命令的选项有哪些，可以在后面加上 `-h` 参数。例如：
 
@@ -16,6 +16,7 @@
 ## `chia` 可执行文件
 
 ### Mac
+
 如果你是在 `/Applications` 目录中安装的Chia，你可以在目录：
 `/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon/chia` 找到chia的二进制文件。
 
@@ -30,6 +31,7 @@ PATH=/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon:$PATH
 `
 
 ### Windows
+
 有不止一个 `chia.exe` 可执行文件。一个是启动GUI客户端界面的 `Chia.exe` ，另一个是CLI命令工具的 `chia.exe` 。他们位于不同的位置，请注意区分一下文件名的大小写（Chia.exe & chia.exe）。
 
 命令行工具 `chia.exe` 位于：
@@ -42,20 +44,23 @@ PATH=/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon:$PATH
 首先, `init` 命令会检查 ~/.chia 目录下是否存在旧版本的信息。
 
 如果存在， `init` 命令就会将该目录的这些文件迁移（连接）至新版本下使用：
+
 * config (包含旧版的SSL文件)
 * db
 * wallet
-* config.yaml(通过配置文件，加载钱包秘钥的位置，将耕种奖励地址及相关配置信息与旧版保持同步一致) 
+* config.yaml(通过配置文件，加载钱包秘钥的位置，将耕种奖励地址及相关配置信息与旧版保持同步一致)
 
 如果没有旧版本信息, `init` 命令就会：
+
 * 创建一个默认的chia配置文件
 * 初始化一个加密证书，以保证与GUI客户端安全通信。
 
 ## start
 
 命令: `chia start {服务}`
-*  `chia start node` ，将只启动chia的全节点服务进程。
-*  `chia start farmer` ，将启动农民、收割机、全节点以及钱包进程。
+
+* `chia start node` ，将只启动chia的全节点服务进程。
+* `chia start farmer` ，将启动农民、收割机、全节点以及钱包进程。
 *  
 * Service `node` will start only the full node.
 * Service `farmer` will start the farmer, harvester, a full node, and the wallet.
@@ -65,6 +70,7 @@ PATH=/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon:$PATH
 **标识变量(Flags)**
 
 `-r, --restart`: 可以重启服务进程，例如：
+
 ```
 chia start timelord -r
 ```
@@ -106,6 +112,7 @@ chia start timelord -r
 `-x` [忽略最终目录(exclude final dir)]: 不将此次开垦任务的最终文件目录添加至正在耕种的农田目录。
 
 ## 开垦命令示例
+
 示例一，使用4 GB（注意不是GiB）内存开垦一个K32农田。
 
 `chia plots create -k 32 -b 4000 -t /缓存/文件/目录 -d /最终/文件/目录`
@@ -118,16 +125,17 @@ chia start timelord -r
 
 `chia plots create -k 32 -b 4000 -n 5 -t /缓存/文件/目录 -2 /第二/缓存/目录/t -d /最终/文件/目录`
 
-
 **关于开垦的其他注意事项**
-* 开垦期间，往往在第一阶段（前向传播运算）和第三阶段（压缩）所消耗的时间最多。因此，为了尽可能地加快开垦速度， `-t` 及 `-2` 的目录就需要使用读写速度快的储存设备（NVME/SSD），`-d` 目录则使用一般的存储设备即可（机械硬盘）。 
 
-* 开垦过程主要由4个阶段组成。第一阶段可以利用多线程。第二、三阶段无法使用多线程。设置 `-r` 的参数值大于2，即，一阶段参与开垦的线程数大于2，可以优化开垦的速度，例如， `-r 3` 。超过4个线程以后，开垦速度的增益效果将显著降低。相较于队列任务开垦农田，很多人会选择更高效的并行开垦模式。同时启动多个开垦任务程序即可进入并行开垦模式，不过建议程序之间设置30分钟以上间隔时间，使得开垦阶段的大量读写工作可以交错进行，以便更高效地利用磁盘的读写效率。 
+* 开垦期间，往往在第一阶段（前向传播运算）和第三阶段（压缩）所消耗的时间最多。因此，为了尽可能地加快开垦速度， `-t` 及 `-2` 的目录就需要使用读写速度快的储存设备（NVME/SSD），`-d` 目录则使用一般的存储设备即可（机械硬盘）。
+
+* 开垦过程主要由4个阶段组成。第一阶段可以利用多线程。第二、三阶段无法使用多线程。设置 `-r` 的参数值大于2，即，一阶段参与开垦的线程数大于2，可以优化开垦的速度，例如， `-r 3` 。超过4个线程以后，开垦速度的增益效果将显著降低。相较于队列任务开垦农田，很多人会选择更高效的并行开垦模式。同时启动多个开垦任务程序即可进入并行开垦模式，不过建议程序之间设置30分钟以上间隔时间，使得开垦阶段的大量读写工作可以交错进行，以便更高效地利用磁盘的读写效率。
 
 * 在SSD上开垦农田要比在HDD上速度快的多。尽管如此，SSD的寿命却是有限的，在早期官方测试表明，在SSD上开垦农田将会迅速消耗SSD的寿命（TBW）。因此，有很多用户会选择在多个HDD硬盘上同时开垦农田，可以减少硬件设备的磨损，也就更环保一些。
-* 开垦程序的设计是尽可能地高效完成农田。然而，为了防止“粉碎攻击”，平均区块生成的时间间隔之内，不允许有农民可以在这个时间内开垦完成农田。这也就是为什么，主网只支持K32及以上格式的农田。
+* 开垦程序的设计是尽可能地高效完成农田。然而，为了防止“粉碎攻击”，在平均区块生成的时间间隔之内，不允许有农民可以在这个时间间隔内完成开垦农田。这也就是为什么，主网只支持K32及以上格式的农田。
 
 ## 农田产权证（plotnft）
+
 关于plotnft，命令行工具能完成的操作，GUI客户端一样可以完成。这是新增的一个命令`chia plotnft`。输入 `chia plotnft -h` 查看有效的子命令。
 
 ```
@@ -148,9 +156,11 @@ chia start timelord -r
   show            查看plotnft详细信息
 ```
 
-To create a Plot NFT, use `chia plotnft create -u https://poolnamehere.com`, entering the URL of the pool you want to use. To create a plot NFT in self-farming mode, do `chia plotnft create -s local`.
-To switch pools, you can use `chia plotnft join`, and to leave a pool (switch to self farming), use `chia plotnft leave`.
-The `show` command can be used to check your current points balance. CLI plotting with `create_plots` is the same as before, but the `-p` is replaced with `-c`, and the pool contract address from `chia plotnft show` should be used here.
+使用命令：`chia plotnft create -u https://矿池地址` 创建一个农田产权证，输入你想加入的矿池的地址。也可以创建一个自耕种的农田产权证，使用命令：`chia plotnft create -s local`。
+
+切换矿池使用命令：`chia plotnft join` ,离开矿池切换至自耕种使用命令：`chia plotnft leave` 。
+
+ `chia plotnft show` 命令可以查看矿池耕种所获得的积分详情。开垦矿池协议农田的命令跟之前一样，但需要注意的是，需要将 `-p` 矿池公钥替换成 `-c` 矿池协议智能合约地址，使用命令 `chia plotnft show` 查看矿池协议智能合约地址（Pool contract address，xch开头）。
 
 ## [check](https://github.com/Chia-Network/chia-blockchain/blob/main/chia/plotting/check_plots.py)
 
@@ -168,34 +178,35 @@ First, this looks in all plot directories from your config.yaml. You can check t
 * 只检查K33格式的农田，示例命令： `chia plots check -g k33`
 * 检查2020年10月31日所创建的农田，示例命令： `chia plots check -g 2020-10-31`
 
-`-l` allows you to find duplicate plots by ID. It checks all plot directories listed in config.yaml and lists out any plot filenames with the same filename ending; `*-[64 char plot ID].plot`. You should use `-l -n 0` if you only want to check for duplicates.
+`-l` 参数可以帮助你找出重复的农田文件（已添加至`config.yaml`配置文件中的），使用命令：`chia plots check -l -n 0`,如果有重复的农田，将会输出：`*-[64 char plot ID].plot` ，即重复农田的地址及文件名称。
 
-`-n` represents the number of challenges given. If you don't include an `-n` integer, the default is 30. For instance, if `-n` is 30, then 30 challenges will be given to each plot. The challenges count from 5 (minimum) to `-n`, and are not random.
+`-n` 为需要给定的挑战次数. 如果没有设置 `-n` 的参数值，那么默认为30，然后每一块农田将会进行30次挑战，来找出符合测试的证明。挑战次数的参数值最小为5，且不是随机的。
 
-Each plot will take each challenge and:
-* Get the quality for the challenge (Is there a proof of space? You should expect 1 proof per challenge, but there may be 0 or more than 1.)
-* Get the full proof(s) for the challenge if a proof was present
-* Validate that the ## of full proofs matches the ## of expected quality proofs.
+每一个农田都将进行挑战测试:
 
-Finally, you'll see a report the final true proofs vs. expected proofs.
+* 获取农田的挑战质量（每个农田在每次挑战中可能没有符合的证明，也可能有多个，这个看运气。）
+* 获取符合挑战的证明。
+* 验证测试所获得的证明数与预期的是否匹配。
 
-Therefore, if `-n` is 20, you would expect 20 proofs, but your plot may have more or fewer.
+最后会输出一份报告，将会列出测试所获得证明数与预期证明数的对比。
 
-Running the command with `-n 10` or `-n 20` is good for a very minor check, but won't actually give you much information about if the plots are actually high-quality or not.
+因此，如果 `-n` 参数值是20，那么测试预期每一块农田有20个证明，但实际可能会大于20，也可能小于20。
 
-Consider using `-n 30` to get a statistically better idea.
+运行命令时将 `-n` 参数值设为10或者20是最佳的最小测试数。
 
-For more detail, you can read about the DiskProver commands in [chiapos](https://github.com/Chia-Network/chiapos/blob/master/src/prover_disk.hpp)
+ `-n` 参数值为30可以获得一个更具有参考意义的挑战测试，以此来了解你的农田质量。
 
-**What does the ratio of full proofs vs expected proofs mean?**
-* If the ratio is >1, your plot was relatively lucky for this run of challenges.
-* If the ratio is <1, your plot was relatively unlucky.
-    * This shouldn't really concern you unless your ratio is <0.70 ## If so, do a more thorough `chia plots check` by increasing your `-n` 
+想了解更多相关信息，你可以查阅[chiapos](https://github.com/Chia-Network/chiapos/blob/master/src/prover_disk.hpp)中的 `prover_disk.hpp` 源代码。
 
-The plots check challenge is a static challenge. For example if you run a plots check 20 times, with 30 tries against the same file, it will produce the same result every time. So while you may see a plot ratio << 1 for a plot check with `x` number of tries, it does not mean that the plot itself is worthless. It just means that given these static challenges, the plot is producing however many proofs. As the number of tries (`-n`) increases, we would expect the ratio to not be << 1. Since Mainnet is live, and given that the blockchain has new challenges with every signage point - just because a plot is having a bad time with one specific challenge, does not mean it has the same results versus another challenge.  "Number of plots" and "k-size" are much more influential factors at winning blocks than "proofs produced per challenge". 
+**测试所得证明与预期证明的比率有什么含义？**
 
-**In theory**, a plot with a ratio >> 1 would be more likely to win challenges on the blockchain. Likewise, a plot with a ratio << 1 would be less likely to win. However, in practice, this isn't actually going to be noticeable.  Therefore, don't worry if your plot check ratios are less than 1, unless they're _significantly_ less than 1 for _many_ `-n`. 
+* 如果比率大于 1 ，在本次挑战测试中，农田的幸运值较高。
+* 如果比率小于 1 ，在本次挑战测试中，农田的幸运值较低。
+  * 幸运值比率小于1的话不用担心。如果比率小于0.7，可以通过增加 `-n` 的参数值，来做一次更加彻底的农田检查。
 
+农田挑战测试是一个静态的挑战。比如，如果你对同一块农田进行了20次检查任务，每次都指定了30次挑战，那么每次你都会获得相同的结果。因此当你在做了x次挑战测试以后，可能会发现农田的幸运值比例一直会小于1，但这并不表明这块农田是没有价值的，这只能说明这块农田在这些静态挑战中运气不好，它还是包含了有很多证明的。随着挑战测试次数 (`-n`) 的增加，这个幸运期望值将不会一直小于1。由于主网的挑战是实时变动的，每次区块奖励伴随着新的挑战，农田在一次挑战中无法找到符合的证明，并不意味着它会在后面的挑战中失败。所以，“农田数量多少”和“农田格式大小”才是赢取区块奖励的重要原因，“农田内证明的质量及幸运值”并非关键。
+
+**理论上**，农田测试挑战幸运值大于 1 的话，将更有可能赢取区块奖励。同样的，小于1则赢取奖励的概率相对较小。尽管如此，实际上幸运值影响并不明显。因此，在进行普通挑战测试时，不用担心农田的幸运者比率小于 1。除非测试时，`-n`的次数 _相当多_ ，且农田的幸运者也 _一直小于1_ 。
 
 ## 其他命令 (not yet documented)
 
@@ -221,6 +232,7 @@ $ chia
   wallet      钱包管理
 
 ```
+
 想要查看上面这些命令有哪些用途，使用 `-h` 查看帮助信息。比如： `chia show -h`。
 
 使用命令 `chia show -s` 检查全节点的状态,将会看到类似如下所述信息。如果你的节点已同步，顶部会显示 `Full Node Synced` ，代表已同步至最新区块高度。
@@ -249,6 +261,7 @@ Total iterations since the start of the blockchain: 3169553883803
    876930 | 8a4d607fecd35c74038b911597933ded1d3d81d663d35f51cf6ed8b8694079ae
 
 ```
+
 通过 `chia plots add -d 'your_dir'` 或者 `chia plots remove -d 'your_dir'` 命令，可以添加或者删除所需耕种的农田目录， `chia plots add/remove -h` 命令可以查看两者的区别之处。
 
 ## 检查日志及运行状态
@@ -266,4 +279,5 @@ Total iterations since the start of the blockchain: 3169553883803
 17:08:03.227 harvester src.plotting.plot_tools : INFO     Found plot /home/user/slab1/plots/plot-k32-2021-01-11-17-26-bf2363828e469a3417b89eb98cfa9d694809e1ce8bef0ffd1d12853d4227aa0a.plot of size 32
 17:08:03.227 harvester src.plotting.plot_tools : INFO     Loaded a total of 1 plots of size 0.09895819725716137 TiB
 ```
+
 也可以使用命令： `tail -F ~/.chia/mainnet/log/debug.log` ，查看Chia的实时日志信息。
