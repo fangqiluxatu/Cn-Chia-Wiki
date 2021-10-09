@@ -17,11 +17,11 @@
 * [x] [“农田”格式解析（Plot Sizes (k-sizes)）](k-sizes)
 * [x] [CLI命令行使用参考（CLI Commands Reference）](CLI-Commands-Reference)
 * [x] [Windows下注意事项（Windows Tips & Tricks）](Windows-Tips-and-Tricks)
-* [x] [如何排查客户端异常（How to Check if Everything is Working (or Not)）](How-to-Check-If-Everything-is-Working-(or-Not))
+* [x] [如何排查异常（How to Check if Everything is Working (or Not)）](How-to-Check-If-Everything-is-Working-(or-Not))
 * [x] [SSD寿命概况（SSD Endurance）](SSD-Endurance)（使用SSD进行P图的需要重点关注）
 * [ ] [P图设备（Reference Plotting Hardware）](Reference-Plotting-Hardware)
 * [ ] [挖矿设备（Reference Farming Hardware）](Reference-Farming-Hardware)
-* [ ] [多机集群耕种（Farming on Many Machines）](Farming-on-many-machines)
+* [x] [多机集群耕种（Farming on Many Machines）](Farming-on-many-machines)
 * [ ] [多机集群耕种安全措施（Good Security Practices on Many Machines）](Good-Security-Practices-on-Many-Machines)
 * [ ] [Chialisp 官方文档（Chialisp Documentation (Official)）](https://chialisp.com)(待续)
 * [ ] [Chialisp 说明](ChiaLisp)

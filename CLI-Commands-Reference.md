@@ -1,4 +1,5 @@
 翻译自[2021年8月31日版本-67#](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference/d2165e9af8a8afafa507e5d3d529ee082928b4db)
+
 ***
 本文相对于在CLI中使用 `chia -h` 命令所获得的帮助信息，将提供更进一步的解释。
 
