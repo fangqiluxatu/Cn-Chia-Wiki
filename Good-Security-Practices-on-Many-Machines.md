@@ -1,29 +1,31 @@
-(This is basically repeating what @mariano54 said in [this discussion](https://github.com/Chia-Network/chia-blockchain/discussions/1116#discussioncomment-420398).)
+翻译自[2021年5月3日版本-3#](https://github.com/Chia-Network/chia-blockchain/wiki/Good-Security-Practices-on-Many-Machines/553dea52c8a38e8dd12234213b6b2302ec5fa91f)
+***
 
-Security is about making better choices. You can never be 100% secure, but you can always make better choices to become more secure.
+（本文是基于@mariano54在[github讨论话题中](https://github.com/Chia-Network/chia-blockchain/discussions/1116#discussioncomment-420398)的回复总结而成。）
 
-# Keep Your Keys Separate
+保证耕种过程的安全是非常必要的。当然了，我们无法做到100%的安全，但还是要尽可能的选择安全的方式来进行耕种。
 
-In other words, _only use the keys specific to your machine's purpose_. 
-* Your master/farming key should not be in your plotting machine(s). 
-* Your master/farming key should not be in your harvester machine(s).
+## 独立使用私钥
 
-## Farming On Multiple Machines
+换句话说，_只在必须要登陆账户的主机上使用。_
 
-### Plotting On Multiple Machines
-Buried in the [Farming on many machines](https://github.com/Chia-Network/chia-blockchain/wiki/Farming-on-many-machines) wiki page is this relevant tidbit:
-> When creating plots on the other harvesters, use `chia plots create -f farmer_key -p pool_key`, inserting the farmer and pool keys from your main machine. Alternatively, you could copy your private keys over by using chia keys add, but this is less secure.
+* 你的耕种账户（私钥）不要在开垦机（P图机）上登陆。
+* 你的耕种账户（私钥）不要在收割机上登陆。
 
-### Harvesting On Multiple Machines
-Follow the instructions on setting up certificates on harvesters on the [Farming on many machines](https://github.com/Chia-Network/chia-blockchain/wiki/Farming-on-many-machines) wiki page.
+## 多机耕种
 
-# Keep Your Wallet Separate
+### 多机开垦农田
 
-One way to not get your wallet hacked is to not have it accessible to the internet. Here is how to do this: [Chia Keys Management](https://github.com/Chia-Network/chia-blockchain/wiki/Chia-Keys-Management)
+在[多机集群耕种](Farming-on-many-machines)文档中的前情提要有提过：
+> 当你想在其它收割机上开垦农田的话，使用命令： `chia plots create -f farmer_key -p pool_key`，填写对应账户的农民公钥（-f）及矿池私钥（-p）。也可以在收割机上使用命令 `chia keys add` 输入助记词来添加账户，不过这样不安全。
 
-> Your reward address for chia rewards should be a separate key as well, kept in an offline machine. You can generate an address on a different computer, and put this address in the config.yaml (farmer.xch_target_address and pool.xch_target_address), so if your farming machine gets hacked, you don't lose past rewards. ([Source](https://github.com/Chia-Network/chia-blockchain/discussions/1116#discussioncomment-420398))
+### 多机集群收割
+参考[多机集群耕种] (Farming-on-many-machines) 文档，正确配置收割机的加密证书文件即可。
 
-## How to Find Your Keys
-_Use the following command in a safe place. Your private and public keys will be visible._
+# 独立使用钱包
+有一种方式可以防止你的钱包不被黑客攻击，那就是不将钱包联网。详见文档[Chia私钥管理]Chia-Keys-Management)。
+> 建议将获取Chia区块奖励的地址单独设置成一个离线的钱包地址。你可以在一台离线的计算机上生成私钥，将获取的钱包地址填入耕种机的`config.yaml`（修改farmer.xch_target_address 以及 pool.xch_target_address）。这样的话，如果耕种机被黑客侵入，就不需要担心代币奖励的安全问题了。
 
-You'll need to [use the CLI](https://github.com/Chia-Network/chia-blockchain/wiki/CLI-Commands-Reference). Use this command to list all your keys: `chia keys show`
+## 如何已登录的私钥
+_请在安全的系统环境下使用此命令，因为你的公钥及私钥都将会显示出来。_
+你需要了解一下[CLI命令行工具的用法](CLI-Commands-Reference.md)。使用命令：`chia keys show`可查看本机所有已登录的账户（私钥）。使用命令 `chia keys show --show-mnemonic-seed`可以查看账户的公钥、私钥及助记词信息。

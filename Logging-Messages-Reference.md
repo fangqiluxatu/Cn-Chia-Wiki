@@ -1,22 +1,24 @@
-# 日志文件（debug.log）
+翻译自[2021年5月6日版本-2#](https://github.com/Chia-Network/chia-blockchain/wiki/Logging-Messages-Reference/59d6c3324ccfb396d1c3498ec50084700c4a164f)
+***
 
-A Chia blockchain node consists of several components that each handle different aspects of farming, harvesting, the wallet and general management of a node.  Each component creates entries in a single log file `debug.log`.  
+# 日志文件（debug.log）
+一个Chia区块网络的节点由耕种、收割机、钱包和节点这几个不同的进程所组成。每个进程都将会产生日志信息，并被记录在`debug.log`日志文件内。
 
 ## 日志文件路径
-|OS|Location|
+|系统|日志文件路径|
 |---|---|
 |Linux|`~/.chia/mainnet/log/debug.log`|
-|Windows|`%systemdrive% %homepath% \.chia\mainnet\debug.log` (C:\Users\<username>\.chia…)|
+|Windows|`%systemdrive% %homepath% \.chia\mainnet\debug.log` (C:\Users\<username>\.chia\mainnet\config)|
 |MacOS|`/Users/<username>/.chia/mainnet/log/debug.log`|
 
 ## 日志文件管理
-By default, Chia allows debug.log to grow to 20MB, and then rotates the file by closing debug.log, renaming it to debug.log.1, and renames any existing older log files to debug.log.x, to a maximum of 7 old log files.  If a log rotation is required and all 7 old log files exist, the oldest log file is overwritten with the next earliest file; resulting in a maximum of 160MB of the most recent messages being stored.  
+`debug.log`日志文件默认最大为20MB，当日志文件记录到20MB时会自动重命名为`debug.log.1`,并开始新的记录，记满后依次自动命名为`debug.log.x`，chia系统最多可以保留7个历史日志文件，在此期间，它会自动循环更新覆盖成最新的7个历史日志文件。这也就是说，最多可以保存160MB的日志信息。
 
 ## 日志级别详情
-Chia is shipped with the debug.log only containing messages at the WARN or ERROR level.  Many of the messages needed to fully monitor a node are only visible at the INFO level.  Changes to the logging level can be done in the `config.yaml` file in the `mainnet/config` folder.
+Chia默认只记录`WARN`及`ERROR`等级的日志。想要查阅节点的全部日志信息的话，需要将`config.yaml`日志文件中的`log_level`参数值设置为`INFO`。
 
 ## 修改日志级别的输出
-You are looking for the first reference to logging in the file that looks like this:
+打开`config.yaml`日志文件，在`farmer`片段中，如下：
 ```
 farmer:
   logging: &id001
@@ -24,37 +26,37 @@ farmer:
     log_level: WARN
     log_stdout: false
 ```
-Change the log_level to INFO, save the file, and restart the node.
+修改`log_level`的参数值为INFO，保存文件并重新启动节点。
 
-## Node Components:
-|Component|Function|
+## 节点组件的架构:
+|组件服务|功能|
 |---|---|
-|farmer_server | Signage stuff about signs and things|<br>
-|harvester_server|Gathers and shares plot information|<br> 
-|timelord_server|Manages Verifiable Delay Functions for the node|<br>
-|wallet_server|Controls wallet functions|<br>
-|full_node_server|This component manages the node|<br>
+|农民(farmer_server) | 签名交易确认以及打包区块数据|<br>
+|收割机(harvester_server)|收集并向耕种（农民）服务提供农田信息|<br> 
+|时戳机(timelord_server)|管理节点的可验证单线程延迟函数（VDF）功能|<br>
+|钱包(wallet_server)|钱包管理功能|<br>
+|全节点(full_node_server)|与主网的区块网络进行同步|<br>
 
-## Log message format:
-|Field|Content|
+## 日志消息的格式:
+|字段|内容|
 |---|---|
-|Date/time | in ISO format, in local timezone|<br>
-|Node Component | see the list above|<br>
-|Log Level | ERROR, WARN, INFO|<br>
-|Directional Arrow |<br>
-|Message |see below<br>
+|时间(Date/time) | 本机当地时间，ISO国际标准时间格式|<br>
+|组件服务(Node Component) | 参照上表所列的组件服务|<br>
+|日志级别(Log Level) | ERROR, WARN, INFO|<br>
+|方向箭头(Directional Arrow) |<br>
+|信息(Message) |参照下面的介绍<br>
 
-## Log messages confirming node health:
-1. “x plots were eligible for farming” – this message from harvester shows how the node responds to challenges.  The x value shows how many plots passed the initial filter, [more on filters here.](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ#what-is-the-plot-filter-and-why-didnt-my-plot-pass-it)  
-> * The block prefix is shown, and the “Found y proofs.” The y value shows how many plots were accepted as proofs, and usually the value is zero. Most of the time if there is a proof you win, but not always as described [in the FAQ.](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ#is-it-possible-to-have-a-proof-but-not-get-a-reward)  
-> * Next is “Time: x.xxx s.” which shows how long the node took to respond to the challenge.  The network requires a response in less than 28 seconds from the time the challenge was originated, so a recommended response time is less than 5 seconds. If this value is greater than 3 seconds a warning will be displayed in the GUI.
-> * Finally “Total x plots” shows the number of plots recognized by the node.  If this doesn't look right [check your plots are valid.](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ#how-do-i-know-if-my-plots-are-ok)
-2. “Updated Wallet peak to height x, weight y” message from the wallet_blockchain component.  Value x is the current height of the blockchain, and should match the Height shown in the `chia show -s` command.  This indicates that the node wallet is fully synced with the network.  If that is not the case [check here for a common solution.](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ#why-is-my-wallet-not-synced-why-can-i-not-connect-to-wallet-from-the-gui)
-3. <other key messages>
+## 记录节点运行状态:
+1. “x plots were eligible for farming” – 此日志信息来自于收割机，表示本机耕种节点对于区块网络挑战的响应情况。“x”为通过初步筛选的农田数量。查看FAQ中关于[农田筛选器](FAQ#what-is-the-plot-filter-and-why-didnt-my-plot-pass-it)的解释。
+> * 此处显示区块的高度, “Found y proofs.” - “y”值为多少块农田找到了符合当前区块的挑战证明，这个数值一般为0。一般来讲，如果农田找到了符合挑战的证明，那基本就能赢得区块奖励，但实际上这并非绝对正确，具体查看此[问答解释](FAQ#is-it-possible-to-have-a-proof-but-not-get-a-reward)。x
+> * “Time: x.xxx s.” - which shows how long the node took to respond to the challenge.  The network requires a response in less than 28 seconds from the time the challenge was originated, so a recommended response time is less than 5 seconds. If this value is greater than 3 seconds a warning will be displayed in the GUI.
+> * Finally “Total x plots” shows the number of plots recognized by the node.  If this doesn't look right [check your plots are valid.](FAQ#how-do-i-know-if-my-plots-are-ok)
+1. “Updated Wallet peak to height x, weight y” message from the wallet_blockchain component.  Value x is the current height of the blockchain, and should match the Height shown in the `chia show -s` command.  This indicates that the node wallet is fully synced with the network.  If that is not the case [check here for a common solution.](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ#why-is-my-wallet-not-synced-why-can-i-not-connect-to-wallet-from-the-gui)
+2. <other key messages>
 
-## Other normal log messages:
+## 一些正常的日志信息参考:
 
-|Component	|Message	|Direction	|Destination	|Cross component|Comment|
+|组件服务	|消息	|方向	|目标	|相关的组件服务|注释|
 |---|---|---|---|---|---|
 mempool_manager	|add_spendbundle took x seconds|||||
 mempool_manager	|It took x to pre validate transaction|||||
@@ -102,7 +104,7 @@ farmer_server|new_signage_point|from|localhost|to full_node||
 farmer_server|farming_info |from|localhost|to full_node||
 farmer_server|new_signage_point_harvester|to|localhost|from harvester||
 
-| Source | Level | Message | Description |
+| 源程序 | 日志级别 | 日志信息 | 说明 |
 |  ---      | --- | --- | --- |
 |daemon asyncio  | ERROR |   Task exception was never retrieved future: `<Task finished coro=<WebSocketServer.statechanged() done, defined at src\daemon\server.py:316> exception=ValueError('list.remove(x): x not in list')>`
 |full_node asyncio                 | ERROR |   SSL error in data received protocol: `<asyncio.sslproto.SSLProtocol object at 0x7f762544a8>`

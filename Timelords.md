@@ -5,7 +5,6 @@
 
 第二种是时戳压缩机（Bluebox timelord）。蓝盒可以是很多设备，比如旧服务器，游戏主机等，从历史区块中查找未压缩的时间证明，这样区块网络得以快速运行。常规时戳机（regular timelord）使用更快的方式来生成时间证明，但是会导致证明文件太大，以至于类似于树莓派这样的设备同步验证区块网络时需要花费大量的时间。时戳压缩机（Bluebox timelord）挑选出未压缩的时间证明并重新创建，但这次会消耗更多的时间，最终生成更紧凑的证明。然后将这些压缩过的时间证明传播给区块网络的每一个节点，以便他们使用比之前更紧凑的时间证明，来加快同步验证区块的速度。
 
-## 
 ## 最快的时戳机
 目前已知有3个最快的时戳机。
 
@@ -24,8 +23,6 @@ The Company plans to run a few Timelords around the world - and some backups too
 
 ### 常规时戳机（regular timelord）
 
-
-
 Due to restrictions on how [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B) handles 128 bit numbers and how Python relies upon MSVC, it is not possible to build and run Timelords of all types on Windows - yet. We have a plan to use GCC and some tools to enable vdf_client on Windows in a way that will be compatible with a Windows install of chia-blockchain. However it's a bit convoluted to get it working right. On MacOS x86_64 and all Linux distributions, building a Timelord is as easy as running `sh install-timelord.sh` in the venv of a `git clone` style chia-blockchain install. Try `./vdf_bench square_asm 400000` once you've built Timelord to give you a sense of your optimal and unloaded ips. Each run of `vdf_bench` can be surprisingly variable and, in production, the actual ips you will obtain will usually be about 20% lower due to load of creating proofs. The default configuration for Timelords is good enough to just let you start it up. Set your log level to INFO and then grep for "Estimated IPS:" to get a sense of what actual ips your Timelord is achieving. We will shortly modify the Timelord build process to support MacOS ARM64 as well - which is a cakewalk compared to Windows...
 
 ### 时戳压缩机（Bluebox timelord）
@@ -34,18 +31,14 @@ For now, Blueboxes are also restricted to basically anything but Windows. Our pl
 
 ## 未来计划
 
-
-## The Future of Timelords
-
 Having an open source ASIC Timelord that everyone can buy inexpensively is the Company's goal. We had originally expected that we would proceed from general purpose CPUs to FPGAs and then ASICs. It turns out that squaring in class groups of unknown order at 1024 bit widths is both FPGA hard and slightly ASIC hard. It also was a pleasant surprise that Intel's AVX-512 IFMA was almost perfectly created for this application. As such we will be fostering ASIC efforts over the medium term. We are happy to lose money on an ongoing project to create and enhance an open source PCI card that would be available for say $250 for anyone who wishes to run the fastest Timelords in the world too.
 
 ## 时戳机作恶风险
-## Timelords and Attacks
 
 One of the things that is great about the [Chia new consensus](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit) is that it makes it almost impossible for a Farmer with a maliciously faster Timelord to selfishly Farm. Due to the way new consensus works, a Farmer with a faster Timelord is basically compelled to prove time for all the farmers winning blocks around him also. Having an "evil" faster Timelord can give a benefit when attempting to 51% attack the network, so it is still important that over time we push the Timelord speeds as close to the maximum speeds of the silicon processes available. We expect to have the time and the resources to do that right and make open source hardware versions widely available.
 
 ## 专业术语
-* VDF：可验证延迟函数，或称之为 "时间证明"
+* VDF：可验证单线程延迟函数，或称之为 "时间证明"
 * 时戳机启动器(Timelord launcher)：用于自行启动 "vdf client" 的小程序，以便其能执行 VDF 运算。
 * VDF客户端(VDF client)：一个执行完一次 VDF 运算就会自动的C++进程。
 * 时戳机(Timelord)：时戳机与各个节点进行通信，并将 VDF 任务分配给不同的 vdf clients ， vdf clients 则通过HTTP连接到时戳机。所以你可以独立运行一个时戳机来作为时戳机启动器。

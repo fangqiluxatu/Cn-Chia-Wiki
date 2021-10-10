@@ -22,7 +22,7 @@
 * [ ] [P图设备（Reference Plotting Hardware）](Reference-Plotting-Hardware)
 * [ ] [挖矿设备（Reference Farming Hardware）](Reference-Farming-Hardware)
 * [x] [多机集群耕种（Farming on Many Machines）](Farming-on-many-machines)
-* [ ] [多机集群耕种安全措施（Good Security Practices on Many Machines）](Good-Security-Practices-on-Many-Machines)
+* [x] [多机集群耕种安全措施（Good Security Practices on Many Machines）](Good-Security-Practices-on-Many-Machines)
 * [ ] [Chialisp 官方文档（Chialisp Documentation (Official)）](https://chialisp.com)(待续)
 * [ ] [Chialisp 说明](ChiaLisp)
 * [x] [时戳机和时戳机集群（Timelords and Cluster Timelords）](Timelords)

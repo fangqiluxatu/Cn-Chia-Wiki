@@ -60,9 +60,9 @@ or
 ## 源代码编译安装
 如果你是通过安装包安装的，可以跳过此步骤。
 
-当你完成安装以后，请开启 **[python的虚拟环境](https://docs.python-guide.org/dev/virtualenvs/)**来运行相应安装目录下的Chia软件。进入虚拟环境目录后，输入命令 `.   ./activate`来激活虚拟空间并使用。这两个点不要漏了，当你正确执行命令后，你的CLI命令行界面会提示类似的`(venv) username@machine:~$`，前面会加上``(venv)``前缀，代表已处于虚拟环境下。
+当你完成安装以后，请开启 **[python的虚拟环境](https://docs.python-guide.org/dev/virtualenvs/)**来运行相应安装目录下的Chia软件。进入虚拟环境目录后，输入命令 `. ./activate`来激活虚拟空间并使用。这两个点不要漏了，当你正确执行命令后，你的CLI命令行界面会提示类似的`(venv) username@machine:~$`，前面会加上``(venv)``前缀，代表已处于虚拟环境下。
 
-如果你想退出虚拟环境，输入命令 `deactivate` 。如果你不想使用`.   ./activate`方式运行虚拟空间，也可以进入 `venv/bin/` 目录执行 `./activate` 命令来进入虚拟环境。
+如果你想退出虚拟环境，输入命令 `deactivate` 。如果你不想使用`. ./activate`方式运行虚拟空间，也可以进入 `venv/bin/` 目录执行 `./activate` 命令来进入虚拟环境。
 
 ### 迁移或创建配置文件
 ```bash
@@ -100,7 +100,7 @@ chia plots check -n 30
 
 *注释 ： 如果你想在Linux系统上运行一个时戳机，查阅[构建时戳机](Building-timelords)文档。关于时戳压缩机（Bluebox timelord）的更多信息即将更新。* 
 
-时戳机依靠函数（VDF或者称为时间证明，可验证延迟函数）来执行顺序验证，并将符合的时间证明添加到区块中去以保证区块的真实性、有效性，运行时戳机需要具有多线程高性能的CPU。在chia-blockchain目录执行下列命令，完成安装并运行时戳机。
+时戳机依靠函数（VDF或者称为时间证明，可验证单线程延迟函数）来执行顺序验证，并将符合的时间证明添加到区块中去以保证区块的真实性、有效性，运行时戳机需要具有多线程高性能的CPU。在chia-blockchain目录执行下列命令，完成安装并运行时戳机。
 ```bash
 . ./activate
 sh install-timelord.sh

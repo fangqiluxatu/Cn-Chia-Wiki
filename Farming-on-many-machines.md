@@ -1,7 +1,7 @@
 翻译自[2021年9月15日版本-61#](https://github.com/Chia-Network/chia-blockchain/wiki/Farming-on-many-machines/67d9b3b3507b9263880756145abb8cd3205788c4)
+***
 
 本文标题也可以是：
-
 # 如何进行多机收割耕种，而不是单机耕种？
 本篇指南可以帮助你如何在每一台收割机上只运行收割程序，而不用运行chia的全部程序，例如：全节点、钱包及耕种程序等。这样可以使得你的耕种系统架构简单、安全、易操作、可扩展性高，同时收割机所需的配置（网络带宽、cpu、磁盘空间、内存等）也会更小，在耕种过程中，在应对挑战时可以更快更有效地提供证明文件。
 
@@ -15,7 +15,7 @@
 主网其他节点  --------   耕种主机 (CA) ------  收割机 2 (证书 B)
                                      \_____  收割机 3 (证书 C)
 ```
-## 前提条件
+## 前情提要
 * 首先需要确认你所有的机子是否已经安装了Chia，且已使用命令：`chia init` 进行初始化。
 * 当你想在其它收割机上开垦农田的话，使用命令： `chia plots create -f farmer_key -p pool_key`，填写对应账户的农民公钥（-f）及矿池私钥（-p）。也可以在收割机上使用命令 `chia keys add` 输入助记词来添加账户，不过这样不安全。开垦完农田以后，运行 `chia plots check` 来检查确认农田正常可用。
 * 拷贝**耕种主机**的CA目录（位于：`~/.chia/mainnet/config/ssl/ca`）到每一个收割机上（任意你指定的位置）。需要注意的是，如果涉及到大版本更新，`CA`目录要重新拷贝，以确保收割机在连接时不回报错。
@@ -62,5 +62,4 @@ harvester:
  ```
 日志信息中的`new_signage_point_harvester` 表示耕种机向收割机发送主网的挑战信息，`farming_info`为从收割机收到的回馈信息。`new_proof_of_space`意味着你的收割机找到了一个符合挑战的证明。总的来说，日志中的`farming_info`以及`new_signage_point_harvester`是远多于`new_proof_of_space`的。
 
-如何查看日志信息，可以查阅日志：[如何排查异常]
-Here's how to find your logs: [Where to Find Things](How-to-Check-If-Everything-is-Working-(or-Not))
+如何查看日志信息，可以查阅日志：[如何排查异常](How-to-Check-If-Everything-is-Working-(or-Not))。
