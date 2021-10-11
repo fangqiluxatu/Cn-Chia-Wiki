@@ -3,22 +3,22 @@
 
 ## Table of Contents
 
-- [Vocabulary](#vocabulary)
+- [专用名词](#专用名词)
   
-- [Plotting](#plotting)
+- [开垦农田](#开垦农田)
  
-- [Full Node](#full-node) - Your Main Computer
+- [全节点](#全节点) - 成为Chia网络的节点
 
-- [Farming](#farming) - The Farmer and Harvester
+- [耕种](#耕种) - 农民与收割机
 
-- [Wallet](#wallet) - Wallet and Transactions
+- [钱包](#钱包) - 钱包及转账
 
 
-- [Support/Miscellaneous](#support-miscellaneous)
+- [更多帮助信息](#更多帮助信息)
 
 ***
 
-# Vocabulary
+# 专用名词
 
 ## What are harvesters, farmers, full nodes, and timelords?
 
@@ -38,7 +38,7 @@ A VDF, also known as a proof of time, is a sequential operation that takes a pre
 
 XCH is the currency symbol for Chia. TXCH is the currency symbol currently being used for testnet chias. TXCH has no value and is only used for testing purposes. Chias and testnet chias can be divided up to 12 decimal places (trillionths). The smallest unit of chia, a trillionth of a chia, is called a mojo, as a tribute to [Mojo Nation](https://en.wikipedia.org/wiki/Mnet_(peer-to-peer_network)#Evil_Geniuses_for_a_Better_Tomorrow), a decentralized file storage platform created in the early 2000s by Zooko Wilcox, Bram Cohen, and others.
 
-# Plotting
+# 开垦农田
 
 ## What is k?
 
@@ -97,11 +97,11 @@ No. As long as you plot at least k=32, those plots will be eligible to win on ma
 
 Yes. 
 
-## How do I know if my plots are OK?
+## 如何确认我的农田是否有效？
 
 Run `chia plots check -n 30` to try 30 sample challenges for each plot. Each of your plots should return a number around 30, which means it found around 100% of the attempted proofs of space. If you're still worried try `-n 100` as more random attempts will give you a more valid assessment that the plots is fine. It really is ok if your plot is within 80%-120%. If some of your plots are missing for some reason you may need to add the directory they are in to your config.yaml file. That can be done in the GUI with the MANAGE PLOT DIRECTORIES button or on the command line with `chia plots add -d [directory]`.
 
-# Full Node
+# 全节点
 
 ## What is this UPnP Error?
 
@@ -140,7 +140,7 @@ It can take a few minutes to start receiving peers and several hours to complete
 This is usually a system clock issue, which is causing the display of "Not synced", even though you are. Your clock must be set to the exact time, and cannot be more than 5 minutes off. Check your phone and your computer and ensure the time is the same.
 
 
-# Farming
+# 耕种
 
 ## How do I tell if I'm farming correctly?
 
@@ -229,7 +229,7 @@ Known problem: After your wallet is resynced, any previous outgoing transactions
 * XCH/USDT
 
 
-# Support/Miscellaneous
+# 更多帮助信息
 
 ## What are the minimum officially supported OS versions?
 

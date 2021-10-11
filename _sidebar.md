@@ -13,7 +13,7 @@
 * [Windows下注意事项](Windows-Tips-and-Tricks)
 * [如何排查异常](How-to-Check-If-Everything-is-Working-(or-Not))
 * [SSD寿命概况](SSD-Endurance)
-* [开垦农田的设备](Reference-Plotting-Hardware)
+* [开垦设备](Reference-Plotting-Hardware)
 * [耕种设备](Reference-Farming-Hardware)
 * [多机集群耕种](Farming-on-many-machines)
 * [多机集群耕种安全措施](Good-Security-Practices-on-Many-Machines)

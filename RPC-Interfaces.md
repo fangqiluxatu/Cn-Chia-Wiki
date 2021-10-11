@@ -1,7 +1,9 @@
-The chia node and services come with a JSON rpc api server that allows you to access information and control the services. These are accessible via HTTP, WebSockets, or a python client. The ports can be configured in `~/.chia/mainnet/config/config.yaml`. The rpc ports should not be exposed to the internet. 
-TLS certificates are used to secure the communication.
+翻译自[2021年9月5日版本-39#](https://github.com/Chia-Network/chia-blockchain/wiki/RPC-Interfaces/c982fb3a7c68471c5f1cf3562a7c460258c268bd)
+***
+## 前情提要
+Chia节点及服务进程提供了JSON-RPC的api接口，允许开发者通过HTTP、WebSockets或者python使用这些接口，以便查看信息或者管理服务进程。相关服务进程的网络端口可以在 `~/.chia/mainnet/config/config.yaml`配置文件中查看。不建议将RPC端口暴露在外网中，使用过程中请用TLS证书以保护通信安全。
 
-### Default Ports:
+### 默认端口:
 - Daemon: 55400
 - Full Node: 8555
 - Farmer: 8559
@@ -27,15 +29,16 @@ If you are using the Websockets API, you can go directly through the daemon, whi
 ```
 
 ### Python
-Most of the rpc methods are accessible through the different client objects in src/rpc.
-For examples of usage, see the command line implementation (chia wallet, chia show, etc).
+大多数RPC的可以通过调用[src/rpc源码目录下的客户端](https://github.com/Chia-Network/chia-blockchain/tree/main/chia/rpc)来使用，具体用法可以参照CLI命令行工具的使用方式（例如chia wallet, chia show,等）
 
 ### Javascript
-A javascript client can be found here: https://github.com/freddiecoleman/chia-client.
+这是使用Javascript实现的一个案例: https://github.com/freddiecoleman/chia-client.
 
-# Some examples:
-More examples can be seen [here](https://github.com/Chia-Network/chia-blockchain/wiki/RPCExamples).
+## 一些示例
+更多相关示例请查看[此文档](RPCExamples).
+
 ### Get blockchain state
+获取Chia主网状态信息
 ```bash
 # Request
 
@@ -67,7 +70,7 @@ curl --insecure --cert ~/.chia/mainnet/config/ssl/full_node/private_full_node.cr
 ```
 
 ### Get next address
-
+获取钱包地址
 ```bash
 # Request
 
@@ -85,6 +88,7 @@ curl --insecure --cert ~/.chia/mainnet/config/ssl/wallet/private_wallet.crt \
 
 ```
 ### Get Wallet Balance
+获取钱包余额
 ```bash
 # Request
 
@@ -107,7 +111,7 @@ curl --insecure --cert ~/.chia/mainnet/config/ssl/wallet/private_wallet.crt \
 (
 ```
 
-# Full Api Reference
+# API参考
 
 ## Full Node
 ### get_blockchain_state
@@ -290,6 +294,19 @@ curl --insecure --cert ~/.chia/mainnet/config/ssl/wallet/private_wallet.crt \
 > Response
 > ```json
 > {"mempool_item": {...}}
+> ```
+
+### get_puzzle_and_solution
+> Retrieves a coin's spend record by its name/id.
+>
+> Params
+> ```
+> name: coin name
+> height: height that the coin was spent
+> ```
+> Response
+> ```json
+> {"coin_spend": {...}}
 > ```
 
 ## Wallet

@@ -49,9 +49,9 @@ farmer:
 ## 记录节点运行状态:
 1. “x plots were eligible for farming” – 此日志信息来自于收割机，表示本机耕种节点对于区块网络挑战的响应情况。“x”为通过初步筛选的农田数量。查看FAQ中关于[农田筛选器](FAQ#what-is-the-plot-filter-and-why-didnt-my-plot-pass-it)的解释。
 > * 此处显示区块的高度, “Found y proofs.” - “y”值为多少块农田找到了符合当前区块的挑战证明，这个数值一般为0。一般来讲，如果农田找到了符合挑战的证明，那基本就能赢得区块奖励，但实际上这并非绝对正确，具体查看此[问答解释](FAQ#is-it-possible-to-have-a-proof-but-not-get-a-reward)。x
-> * “Time: x.xxx s.” - which shows how long the node took to respond to the challenge.  The network requires a response in less than 28 seconds from the time the challenge was originated, so a recommended response time is less than 5 seconds. If this value is greater than 3 seconds a warning will be displayed in the GUI.
-> * Finally “Total x plots” shows the number of plots recognized by the node.  If this doesn't look right [check your plots are valid.](FAQ#how-do-i-know-if-my-plots-are-ok)
-1. “Updated Wallet peak to height x, weight y” message from the wallet_blockchain component.  Value x is the current height of the blockchain, and should match the Height shown in the `chia show -s` command.  This indicates that the node wallet is fully synced with the network.  If that is not the case [check here for a common solution.](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ#why-is-my-wallet-not-synced-why-can-i-not-connect-to-wallet-from-the-gui)
+> * “Time: x.xxx s.” - 表示响应区块挑战时所消耗的时间。Chia主网需要区块网络中的农民在28秒内找到并提交符合挑战的证明，所以，建议你的耕种机响应时间小于5秒。如果这个值大于3秒，GUI客户端的界面报警提示。
+> * “Total x plots” - 表示你的耕种机验证了多少块农田。如果此处有疑问，可以查看问答的章节：[检查农田是否有效](FAQ#how-do-i-know-if-my-plots-are-ok)。
+1. “Updated Wallet peak to height x, weight y” - 此日志信息是“钱包”服务组件产生的。“x”值为钱包的当前区块高度，它需要与区块网络的区块高度一致，可以使用命令：`chia show -s` 查看当前区块高度。如果一致，则表示钱包已与主网完全同步。如有疑问，请查看问答中阐明的[常见解决方式](FAQ#why-is-my-wallet-not-synced-why-can-i-not-connect-to-wallet-from-the-gui)
 2. <other key messages>
 
 ## 一些正常的日志信息参考:

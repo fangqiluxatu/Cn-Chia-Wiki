@@ -19,8 +19,8 @@
 * [x] [Windows下注意事项（Windows Tips & Tricks）](Windows-Tips-and-Tricks)
 * [x] [如何排查异常（How to Check if Everything is Working (or Not)）](How-to-Check-If-Everything-is-Working-(or-Not))
 * [x] [SSD寿命概况（SSD Endurance）](SSD-Endurance)（使用SSD进行P图的需要重点关注）
-* [ ] [P图设备（Reference Plotting Hardware）](Reference-Plotting-Hardware)
-* [ ] [挖矿设备（Reference Farming Hardware）](Reference-Farming-Hardware)
+* [ ] [开垦设备（Reference Plotting Hardware）](Reference-Plotting-Hardware)
+* [ ] [耕种设备（Reference Farming Hardware）](Reference-Farming-Hardware)
 * [x] [多机集群耕种（Farming on Many Machines）](Farming-on-many-machines)
 * [x] [多机集群耕种安全措施（Good Security Practices on Many Machines）](Good-Security-Practices-on-Many-Machines)
 * [ ] [Chialisp 官方文档（Chialisp Documentation (Official)）](https://chialisp.com)(待续)
@@ -28,10 +28,12 @@
 * [x] [时戳机和时戳机集群（Timelords and Cluster Timelords）](Timelords)
 * [x] [部署时戳机(BUILD_TIMELORD)](Building-timelords)
 * [ ] [版本说明（Release Notes）](https://www.chia.net/releases/)
-* [ ] [RPC接口说明（RPC Interfaces）](RPC-Interfaces)
+* [x] [RPC接口说明（RPC Interfaces）](RPC-Interfaces)
 * [ ] [节点同步问题-8444端口（Sync Issues - Port 8444）](Resolving-Sync-Issues---Port-8444)
-* [ ] [日志（Logging Messages Reference）](Logging-Messages-Reference)
+* [x] [日志（Logging Messages Reference）](Logging-Messages-Reference)
 * [x] [madMAx快速P图使用指南](madMAx)
 * [ ] [矿池协议API](Chia-Pool-Protocol-1.0)
 * [ ] [Chia的DEFI愿景](A-Vision-for-DeFi-in-Chia)
+
+
 

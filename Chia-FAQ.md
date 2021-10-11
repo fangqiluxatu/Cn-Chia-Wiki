@@ -1,14 +1,14 @@
 翻译自[官网](https://www.chia.net/faq/)
 ***
 
-# FAQ
-## What is Chia?
+# 常见问题
+## Chia是什么?
 Chia was incorporated in August of 2017 to develop an improved blockchain and smart transaction platform. We are building the Chia Network to improve the global financial and payments systems. Chia is the first enterprise-grade digital money. Chia is using the first new Nakamoto consensus algorithm since Bitcoin. Called Proof of Space and Time, it was created by Bram Cohen, the best network protocol engineer alive and the inventor of BitTorrent. Chialisp is Chia’s new smart transaction programming language that is powerful, easy to audit, and secure. Reference smart transactions currently available are: atomic swaps, authorized payees, recoverable wallets, multisig wallets, and rate-limited wallets.
 
 ## Where can I get answers to questions about running Chia?
 You should first read the repository FAQ, check out the wealth of information on the repository wiki and join us on Keybase in the #testnet or #beginner channels. We have also created a good summary of the basics of creating plots for Chia.
 
-## What is Proof of Space and Time?
+## 什么是时空证明（POST）?
 Proof of Space is a cryptographic technique where provers show that they allocate unused hard drive space for storage space. In order to be used as a consensus method, Proof of Space must be tied to Proof of Time. PoT ensures that block times have consistency in the time between them and increases the overall security of the blockchain.
 
 ## How does Proof of Space and Proof of Time work?
@@ -111,8 +111,8 @@ Or, for example, if services like Venmo or Cash App aren’t available where you
 
 The technology is completely open source and accessible, and anyone can build a new wallet without our permission or assistance. However, we intend to help wallet, exchange, and merchant processing partners with support and integration services, joint marketing and lending for liquidity.
 
-## Why are you named Chia?
+## 为何取名为Chia?
 We’re green money! Our founder Bram Cohen started the company knowing he wanted to reduce the energy dependence of blockchains through a “green” option. The concept of farming seemed to be the best metaphor for filling unused disk space and monitoring it for winning sprouts. This led us to look for a grain that had the properties we wanted to embody with our new Network. The team wanted a name that would be short and impactful. Everyone was amused that it was also a grain associated with a whimsical meme. Chia Network was born.
 
-## How do I contact you with more questions?
-You can email us at hello@chia.net or join us on Keybase.
+## 更多问题该如何咨询？
+发送邮件至 hello@chia.net ，或者加入官方社区的Keybase讨论组。
