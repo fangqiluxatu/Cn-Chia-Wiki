@@ -14,7 +14,6 @@ sudo nano /etc/hosts
 # 在hosts里添加解析记录后保存退出
 1.0.0.1  pool.space
 1.0.0.1  asia1.pool.space
-1.0.0.1  chia.net 
 
 # 如果是第一次使用，则建议创建新文件夹
 mkdir CloudflareST

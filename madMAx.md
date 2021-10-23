@@ -1,5 +1,5 @@
 # madMAx43v3r的快速P图程序（chia-plotter (pipelined multi-threaded)）
-这里介绍github上madMAx43v3r所开源的多线程队列模式开垦程序（以下简称快P）。下载地址是：https://github.com/madMAx43v3r/chia-plotter ，以下根据原作者的README，对程序的使用及注意事项做简要说明。
+这里介绍github上madMAx43v3r所开源的多线程队列模式开垦程序（以下简称快P）。下载地址是：https://github.com/Chia-Network/chia-plotter-madmax ，以下根据原作者的README，对程序的使用及注意事项做简要说明。
 ## 简述
 这是重新构建的一版Chia开垦（P图）程序，类似于使用显卡来多线程渲染图片的方式，不过本程序设计的是依靠CPU处理器的多线程来进行加速开垦。
 

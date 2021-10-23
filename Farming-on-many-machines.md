@@ -17,19 +17,18 @@
 ```
 ## 前情提要
 * 首先需要确认你所有的机子是否已经安装了Chia，且已使用命令：`chia init` 进行初始化。
-* 当你想在其它收割机上开垦农田的话，使用命令： `chia plots create -f farmer_key -p pool_key`，填写对应账户的农民公钥（-f）及矿池私钥（-p）。也可以在收割机上使用命令 `chia keys add` 输入助记词来添加账户，不过这样不安全。开垦完农田以后，运行 `chia plots check` 来检查确认农田正常可用。
-* 拷贝**耕种主机**的CA目录（位于：`~/.chia/mainnet/config/ssl/ca`）到每一个收割机上（任意你指定的位置）。需要注意的是，如果涉及到大版本更新，`CA`目录要重新拷贝，以确保收割机在连接时不回报错。
+* 当你想在其它收割机上开垦农田的话，使用命令： `chia plots create -f farmer_key -p pool_key`，填写对应账户的农民公钥（-f）及矿池公钥（-p）（新版矿池协议的农田则不需要 `-p` 矿池公钥，而替换成plotnft的智能合约地址，即`-c`）。也可以在收割机上使用命令 `chia keys add` 输入助记词来添加账户，不过这样不安全。开垦完农田以后，运行 `chia plots check` 来检查确认农田正常可用。
+* 拷贝**耕种主机**的CA目录（位于：`~/.chia/mainnet/config/ssl/ca`）到每一个收割机上（任意你指定的位置）。需要注意的是，如果涉及到大版本更新，`CA`目录要重新拷贝，以确保收割机在连接时不会报错。
 
 ## 安装步骤
-每台收割机遵循以下步骤进行操作：
+*注释：第四步中 `chia init -c [所复制CA的目录]` 的目录要指定你从耕种主机所拷贝`CA`目录，而不是收割机的默认`CA`目录，例如： `chia init -c D:\ca`（Windows）或者 `chia init -c /home/user/ca`（Linux）。当你运行完`chia init -c [所复制CA的目录]`命令后，所拷贝的`CA`目录文件就可以删除了。运行`chia init -c`过程中如遇到`UNPROTECTED SSL FILE`权限问题，可使用命令：`chia init --fix-ssl-permissions` 修复。*
 
-*注释：第四步中 `chia init -c [目录]` 的目录要指定你从耕种主机所拷贝`CA`目录，而不是收割机的默认`CA`目录，例如： `chia init -c D:\ca`或者 `chia init -c /home/user/ca`。当你运行完`chia init -c [目录]`命令后，所拷贝的`CA`目录文件就可以删除了。*
-
-1. 确认**耕种主机**的IP地址，8447端口（farmer-耕种进程的端口）是否已经开放，以便收割机连接。
+每台收割机遵循需以下步骤进行操作：
+1. 固定并确认**耕种主机**的IP地址，8447端口（`farmer` - 耕种进程的端口）是否已经开放，以便收割机连接。
 2. 使用命令：`chia stop all -d`关闭chia所有的后台进程。
 3. 备份每台收割机的配置文件（`~/.chia/mainnet/config/config.yaml` ）。
 4. 收割机上运行命令 `chia init -c [directory]` ，收割机将会创建新的证书。
-5. 打开收割机的配置文件 `~/.chia/mainnet/config/config.yaml` ，修改farmer_peer（不是 `full_node`）对应的参数值，改为耕种主机的IP地址。
+5. 打开收割机的配置文件 `~/.chia/mainnet/config/config.yaml` ，修改farmer_peer（是`harvester`片段的`farmer_peer`，而不是 `full_node`片段的）对应的参数值，改为耕种主机的IP地址。
 例如：
 ``` 
 harvester:
@@ -42,6 +41,7 @@ harvester:
 ```
 6. 在耕种主机上运行：`chia start farmer -r`，在所有的收割机上运行： `chia start harvester -r`，然后你可以在耕种主机的日志信息中查到新的连接信息，或者在耕种主机上使用命令：`chia farm summary`查看耕种状态的相关信息。
 7. 使用命令 `chia stop harvester`可以关闭收割机进程。
+
 
 *注意:*
 

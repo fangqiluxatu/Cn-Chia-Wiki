@@ -35,5 +35,15 @@
 * [ ] [矿池协议API](Chia-Pool-Protocol-1.0)
 * [ ] [Chia的DEFI愿景](A-Vision-for-DeFi-in-Chia)
 
+尽管我们已经对Chia的共识算法进行了较多改善，但共识草案仍具有参考价值。希望你能阅览[Chia的共识草案](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit)并发表自己的见解。
 
+阅览下列文档需要你对BTC或者ETH的协议较为熟悉。这些文档阐述了最初版本的Chia主网（或者说是共识网络）如何开枝散叶（形成去中心化网络），如何处理各种交易转账，脚本编写，内存池的缓存机制。其中的基础代码是使用Python实现的，几个关键的组件（签名，空间证明，时间证明）是用C++编写的，clvm则使用了Rust及Python。
+
+* [ ] [共识算法概述(Consensus algorithm summary)](Consensus-Algorithm-Summary)
+* [ ] [Block format](Block-Format)
+* [ ] [Network Architecture](Network-Architecture)
+* [ ] [Networking and Serialization](Networking-and-Serialization)
+* [ ] [Protocols](Protocols)
+* [ ] [Codebase and Testing](Codebase-and-Testing)
+* [ ] [Keys in Chia](Chia-Keys-Architecture)
 
