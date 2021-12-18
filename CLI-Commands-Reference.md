@@ -10,6 +10,7 @@
 * `chia -h`
 * `chia plots -h`
 * `chia plots check -h`
+* `chia plotters madmax -h`
 * `chia start -h`
 
 本文与其余的篇章一样，跟随项目的发展动态保持更新中。在此期间，你可以浏览 [项目源码](https://github.com/Chia-Network/chia-blockchain/tree/main/chia/cmds) 或者查阅文档 [《精通Chia之空间证明》](https://www.chia.net/assets/Chia_Proof_of_Space_Construction_v1.1.pdf)。
@@ -75,7 +76,70 @@ PATH=/Applications/Chia.app/Contents/Resources/app.asar.unpacked/daemon:$PATH
 ```
 chia start timelord -r
 ```
+## plotters
+In 1.2.11 the option to use different plotters was introduced. The plotters supported include [Bladebit](https://github.com/Chia-Network/bladebit), [madMAx](https://github.com/madMAx43v3r/chia-plotter), and the original reference chiapos plotter. Each plotter has slightly different hardware requirements and may need slightly different options specified. Learn more about the alternative plotters here: [Alternative Plotters](https://github.com/Chia-Network/chia-blockchain/wiki/Alternative--Plotters)
 
+### madmax
+For details on settings and usage of madMAx please refer to the original [madMAx Github repository](https://github.com/madMAx43v3r/chia-plotter), or run the help command `chia plotters madmax -h`.
+
+```
+usage: chia madmax [-h] [-k SIZE] [-n COUNT] [-r THREADS] [-u BUCKETS] [-v BUCKETS3] [-t TMPDIR] [-2 TMPDIR2] [-d FINALDIR] [-w]
+                   [-p POOL_KEY] [-f FARMERKEY] [-c CONTRACT] [-G] [-K RMULTI2]
+Madmax Plotter
+optional arguments:
+  -h, --help            show this help message and exit
+  -k SIZE, --size SIZE  K value.
+  -n COUNT, --count COUNT
+                        Number of plots to create (default = 1)
+  -r THREADS, --threads THREADS
+                        Num threads.
+  -u BUCKETS, --buckets BUCKETS
+                        Number of buckets.
+  -v BUCKETS3, --buckets3 BUCKETS3
+                        Number of buckets for phase 3+4 (default = 256)
+  -t TMPDIR, --tmp_dir TMPDIR
+                        Temporary directory 1.
+  -2 TMPDIR2, --tmp_dir2 TMPDIR2
+                        Temporary directory 2.
+  -d FINALDIR, --final_dir FINALDIR
+                        Final directory.
+  -w, --waitforcopy     Wait for copy to start next plot
+  -p POOL_KEY, --pool-key POOL_KEY
+                        Pool Public Key (48 bytes)
+  -f FARMERKEY, --farmerkey FARMERKEY
+                        Farmer Public Key (48 bytes)
+  -c CONTRACT, --contract CONTRACT
+                        Pool Contract Address (64 chars)
+  -G, --tmptoggle       Alternate tmpdir/tmpdir2 (default = false)
+  -K RMULTI2, --rmulti2 RMULTI2
+                        Thread multiplier for P2 (default = 1)
+```
+
+### bladebit
+`chia plotters bladebit -h`
+
+```
+usage: chia bladebit [-h] [-r THREADS] [-n COUNT] [-f FARMERKEY] [-p POOL_KEY] [-c CONTRACT] [-i ID] [-w] [-m] [-d FINALDIR] [-v]
+Bladebit Plotter
+optional arguments:
+  -h, --help            show this help message and exit
+  -r THREADS, --threads THREADS
+                        Num threads.
+  -n COUNT, --count COUNT
+                        Number of plots to create (default = 1)
+  -f FARMERKEY, --farmerkey FARMERKEY
+                        Farmer Public Key (48 bytes)
+  -p POOL_KEY, --pool-key POOL_KEY
+                        Pool Public Key (48 bytes)
+  -c CONTRACT, --contract CONTRACT
+                        Pool Contract Address (64 chars)
+  -i ID, --id ID        Plot id
+  -w, --warmstart       Warm start
+  -m, --nonuma          Disable numa
+  -d FINALDIR, --final_dir FINALDIR
+                        Final directory.
+  -v, --verbose         Set verbose
+```
 ## plots
 
 ### [create](https://github.com/Chia-Network/chia-blockchain/blob/main/chia/plotting/create_plots.py)

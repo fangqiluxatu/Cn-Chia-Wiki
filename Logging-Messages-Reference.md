@@ -104,7 +104,7 @@ farmer_server|new_signage_point|from|localhost|to full_node||
 farmer_server|farming_info |from|localhost|to full_node||
 farmer_server|new_signage_point_harvester|to|localhost|from harvester||
 
-| 源程序 | 日志级别 | 日志信息 | 说明 |
+| 服务进程 | 日志级别 | 日志信息 | 说明 |
 |  ---      | --- | --- | --- |
 |daemon asyncio  | ERROR |   Task exception was never retrieved future: `<Task finished coro=<WebSocketServer.statechanged() done, defined at src\daemon\server.py:316> exception=ValueError('list.remove(x): x not in list')>`
 |full_node asyncio                 | ERROR |   SSL error in data received protocol: `<asyncio.sslproto.SSLProtocol object at 0x7f762544a8>`

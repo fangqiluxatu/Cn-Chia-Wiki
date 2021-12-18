@@ -216,7 +216,7 @@ Chia软件的配置信息都在config.yaml里。
 config.yaml的文件路径：c:/Users/ (Your username)/.chia/mainnet/config.yaml
 
 修改配置文件之前先关闭Chia软件。
-使用记事本打开配置文件，在中间可以看到 * log_level: WARNING *这个参数，关闭config文件。运行Chia一段时间，打开log文件，你需要重点关注是否有WARNING相关信息的出现。
+使用记事本打开配置文件，在中间可以看到 `log_level: WARNING` 这个参数,关闭config文件。运行Chia一段时间，打开log文件，你需要重点关注是否有WARNING相关信息的出现。
 
 log文件的路径：c:/Users/ (Your username)/.chia/mainnet/log/debug.log  日志文件的信息是非常有用的，当一个日志文件达到20MB了，会自动创建一个新的日志文件继续记录。如果你觉得日志文件太多了，可以删除这些历史日志。
 

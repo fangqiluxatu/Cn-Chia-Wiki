@@ -5,21 +5,21 @@
 ## Chia是什么?
 Chia was incorporated in August of 2017 to develop an improved blockchain and smart transaction platform. We are building the Chia Network to improve the global financial and payments systems. Chia is the first enterprise-grade digital money. Chia is using the first new Nakamoto consensus algorithm since Bitcoin. Called Proof of Space and Time, it was created by Bram Cohen, the best network protocol engineer alive and the inventor of BitTorrent. Chialisp is Chia’s new smart transaction programming language that is powerful, easy to audit, and secure. Reference smart transactions currently available are: atomic swaps, authorized payees, recoverable wallets, multisig wallets, and rate-limited wallets.
 
-## Where can I get answers to questions about running Chia?
+## 如何咨询Chia相关问题？
 You should first read the repository FAQ, check out the wealth of information on the repository wiki and join us on Keybase in the #testnet or #beginner channels. We have also created a good summary of the basics of creating plots for Chia.
 
 ## 什么是时空证明（POST）?
 Proof of Space is a cryptographic technique where provers show that they allocate unused hard drive space for storage space. In order to be used as a consensus method, Proof of Space must be tied to Proof of Time. PoT ensures that block times have consistency in the time between them and increases the overall security of the blockchain.
 
-## How does Proof of Space and Proof of Time work?
+## 时空证明的工作机制是怎样的？
 Proof of space can be thought of as a way to prove that you are keeping some storage unused on your hard-disk drive. Users of the Chia blockchain will “seed” unused space on their hard-disk drive by installing software which stores a collection of cryptographic numbers on the disk into “plots.” These users are called “farmers.” When the blockchain broadcasts a challenge for the next block, farmers can scan their plots to see if they have the hash that is closest to the challenge. A farmer’s probability of winning a block is the percentage of the total space that a farmer has compared to the entire network.
 
 Proof of time requires a small period of time to pass between blocks. Proof of time is implemented by a Verifiable Delay Function that takes a certain amount of time to compute, but is very fast to verify. The key idea of a VDF is that they require sequential computation, and since having many parallel machines does not yield any benefit, electricity waste is minimized. There will likely be relatively few VDF servers (“Timelords”), as the fastest one will always finish first and it takes only one fast and fair Timelord on the network to complete a block and move the chain forward.
 
-## What is Chialisp?
+## Chialisp 是什么？
 Chia has a newly developed, innovative blockchain programming language called Chialisp, which is powerful, easy to audit, and secure. Chialisp is a superior on-chain smart transaction development environment that will unlock the security, transparency, and ease of use that cryptocurrencies promise.
 
-## Where can I learn more about Chialisp?
+## 怎样学习了解更多关于 Chialisp 的内容？
 Documentation can be found at Chialisp.com.
 
 ## Why is Chia better?
@@ -116,3 +116,6 @@ We’re green money! Our founder Bram Cohen started the company knowing he wante
 
 ## 更多问题该如何咨询？
 发送邮件至 hello@chia.net ，或者加入官方社区的Keybase讨论组。
+
+## What are the rules and guidelines around using Chia's Trademarks and Copyrighted Materials on my own site or project?
+Chia, like all companies, has an obligation to protect and enforce it’s Trademarks and Copyrights in the relevant jurisdictions. We do this both to ensure that we properly maintain our own responsible trademark use, as well as to prevent bad actors from attempting to leverage Chia’s property in an effort to scam the ecosystem or cause other harm. That said, we do want to make it possible for people to talk about Chia, and build tools and platforms that support it’s growth openly. To this effect we have several guidelines that we hope will help you better understand some “Do’s and Don’ts” as you go about this. (And if you are ever unsure, you are always welcome to email us at hello@chia.net with questions about this subject!)

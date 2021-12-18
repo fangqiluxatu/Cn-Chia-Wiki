@@ -17,6 +17,8 @@
 * [耕种设备](Reference-Farming-Hardware)
 * [多机集群耕种](Farming-on-many-machines)
 * [多机集群耕种安全措施](Good-Security-Practices-on-Many-Machines)
+* [私钥的安全存储及迁移](Passphrase-Protected-Chia-Keys-and-Key-Storage-Migration)
+* [新型强力农田开垦程序](Alternative--Plotters.md)
 * [Chialisp 官方文档](https://chialisp.com/)
 * [Chialisp 说明](ChiaLisp)
 * [时戳机和时戳机集群](Timelords)
