@@ -6,7 +6,7 @@
 * [FAQ-实时更新](FAQ)
 * [矿池协议FAQ](Pooling-FAQ)
 * [矿池指南](Pooling-User-Guide)
-* [Chia官方答疑](Chia-FAQ)
+* [Chia公司的官方答疑](Chia-FAQ)
 * [“农田开垦”基础知识](Chia-plotting-basics)
 * [“农田”格式解析](k-sizes)
 * [CLI命令行使用参考](CLI-Commands-Reference)
@@ -19,7 +19,6 @@
 * [多机集群耕种安全措施](Good-Security-Practices-on-Many-Machines)
 * [私钥的安全存储及迁移](Passphrase-Protected-Chia-Keys-and-Key-Storage-Migration)
 * [新型强力农田开垦程序](Alternative--Plotters.md)
-* [Chialisp 官方文档](https://chialisp.com/)
 * [Chialisp 说明](ChiaLisp)
 * [时戳机和时戳机集群](Timelords)
 * [部署时戳机](Building-timelords)
@@ -27,6 +26,8 @@
 * [RPC接口](RPC-Interfaces)
 * [节点同步问题-8444端口](Resolving-Sync-Issues---Port-8444)
 * [日志](Logging-Messages-Reference)
+<!--
 * [madMAx快速P图使用指南](madMAx)
 * [矿池协议API](Chia-Pool-Protocol-1.0)
 * [Chia的DEFI愿景](A-Vision-for-DeFi-in-Chia)
+* -->

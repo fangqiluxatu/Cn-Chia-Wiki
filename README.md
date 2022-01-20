@@ -25,7 +25,6 @@
 * [x] [多机集群耕种安全措施（Good Security Practices on Many Machines）](Good-Security-Practices-on-Many-Machines)
 * [ ] [私钥的安全存储及迁移（Passphrase-Protected-Chia-Keys-and-Key-Storage-Migration）](Passphrase-Protected-Chia-Keys-and-Key-Storage-Migration.md)
 * [ ] [新型强力的农田开垦程序（Alternative--Plotters）](Alternative--Plotters.md)
-* [ ] [Chialisp 官方文档（Chialisp Documentation (Official)）](https://chialisp.com)(待续)
 * [ ] [Chialisp 说明](ChiaLisp)
 * [x] [时戳机和时戳机集群（Timelords and Cluster Timelords）](Timelords)
 * [x] [部署时戳机(BUILD_TIMELORD)](Building-timelords)
@@ -33,6 +32,8 @@
 * [x] [RPC接口说明（RPC Interfaces）](RPC-Interfaces)
 * [ ] [节点同步问题-8444端口（Sync Issues - Port 8444）](Resolving-Sync-Issues---Port-8444)
 * [x] [日志（Logging Messages Reference）](Logging-Messages-Reference)
+
+<!--
 * [x] [madMAx快速P图使用指南](madMAx)
 * [ ] [矿池协议API](Chia-Pool-Protocol-1.0)
 * [ ] [Chia的DEFI愿景](A-Vision-for-DeFi-in-Chia)
@@ -48,4 +49,4 @@
 * [ ] [Protocols](Protocols)
 * [ ] [Codebase and Testing](Codebase-and-Testing)
 * [ ] [Keys in Chia](Chia-Keys-Architecture)
-
+-->
