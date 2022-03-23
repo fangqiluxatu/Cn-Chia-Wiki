@@ -1,4 +1,4 @@
-翻译自[2021年9月26日版本-79#](https://github.com/Chia-Network/chia-blockchain/wiki/Beginners-Guide/12f8a89f3fac29b25ee2f3df1efdd53e6f1c469e)
+翻译自[2021年9月27日版本-79#](https://github.com/Chia-Network/chia-blockchain/wiki/Beginners-Guide/12f8a89f3fac29b25ee2f3df1efdd53e6f1c469e)
 ***
 
 # 新手指南

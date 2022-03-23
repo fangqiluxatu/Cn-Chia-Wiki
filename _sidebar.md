@@ -26,6 +26,7 @@
 * [RPC接口](RPC-Interfaces)
 * [节点同步问题-8444端口](Resolving-Sync-Issues---Port-8444)
 * [日志](Logging-Messages-Reference)
+* [madmax使用指南](madMAx)
 <!--
 * [madMAx快速P图使用指南](madMAx)
 * [矿池协议API](Chia-Pool-Protocol-1.0)

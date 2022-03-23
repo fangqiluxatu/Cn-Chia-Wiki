@@ -1,4 +1,4 @@
-翻译自[2021年8月17日版本-173#](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ/08b5b10bff1cdd416b59d6a8428ff31180f6ecc8)
+翻译自[2022年1月12日版本-185#](https://github.com/Chia-Network/chia-blockchain/wiki/FAQ/a72d3f4d45b05abf68da3f4f81692e76252c262c)
 ***
 
 ## Table of Contents
@@ -13,6 +13,8 @@
 
 - [钱包](#钱包) - 钱包及转账
 
+- [Offers](#Offers) - Decentralized peer-to-peer trading of assets
+
 - [更多帮助信息](#更多帮助信息)
 
 ***
@@ -22,9 +24,10 @@
 ## 什么是收割机，农民，全节点以及时戳机？
 相关名词的含义，可以通过查阅文档[Chia区块网络架构](Network-Architecture)，[Chia共识文档](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit)以及[时戳机](Timelords)进行学习了解。
 
+
 ## 什么是空间证明？
 
-A proof of space is a proof that a farmer has allocated a portion of their storage in a way that is very difficult to create in real time but efficient to pre-compute and store on a hard drive. The [Chia Proof of Space Construction document](https://www.chia.net/assets/Chia_Proof_of_Space_Construction_v1.1.pdf) goes deeply into the math and implementation considerations to mitigate [Hellman's Time - Memory tradeoff](https://pdfs.semanticscholar.org/f0ba/66072ac10d9898b8a79171ec726d45ec804b.pdf) problem. A plot is a large set of proofs of space. A harvester can harvest multiple plots on the same machine. A farmer can then control [multiple harvesters across many machines](https://github.com/Chia-Network/chia-blockchain/wiki/Farming-on-many-machines) to manage the whole "farm."
+A _proof of space_ is a proof that a farmer has allocated a portion of their storage in a way that is very difficult to create in real-time but efficient to pre-compute and store on a hard drive. The [Chia Proof of Space Construction document](https://www.chia.net/assets/Chia_Proof_of_Space_Construction_v1.1.pdf) goes deeply into the math and implementation considerations to mitigate [Hellman's Time - Memory tradeoff](https://pdfs.semanticscholar.org/f0ba/66072ac10d9898b8a79171ec726d45ec804b.pdf) problem. A plot is a large set of proofs of space. A harvester can harvest multiple plots on the same machine. A farmer can then control [multiple harvesters across many machines](https://github.com/Chia-Network/chia-blockchain/wiki/Farming-on-many-machines) to manage the whole "farm."
 
 Farming uses substantially less electricity than Proof of Work for the same unit of security. You can learn more at [chiapower.org](https://chiapower.org).
 
@@ -35,6 +38,10 @@ A VDF, also known as a proof of time, is a sequential operation that takes a pre
 ## 什么是 XCH, TXCH 以及 mojos ？
 
 XCH is the currency symbol for Chia. TXCH is the currency symbol currently being used for testnet chias. TXCH has no value and is only used for testing purposes. Chias and testnet chias can be divided up to 12 decimal places (trillionths). The smallest unit of chia, a trillionth of a chia, is called a mojo, as a tribute to [Mojo Nation](https://en.wikipedia.org/wiki/Mnet_(peer-to-peer_network)#Evil_Geniuses_for_a_Better_Tomorrow), a decentralized file storage platform created in the early 2000s by Zooko Wilcox, Bram Cohen, and others.
+
+## Chia 与 chia 有什么不同之处？
+* **Chia** - depending on context, this can refer to Chia Network the company, the Chia software (Chia client), or the Chia blockchain
+* **chia** - lowercase _chia_ refers to the Chia token, XCH. Similarly, _mojos_ are lowercase. 
 
 # 开垦农田
 
@@ -48,20 +55,24 @@ You can see some example plot sizes, times to plot, and working space needed bas
 
 ## 需要开垦什么格式的农田？
 
-Plots created with Beta 8 (July, 2020) and newer versions of the Chia software will work on mainnet at launch. The minimum plot size is k=32. 
+The minimum plot size is k=32. There is only one reason why you might want to plot larger than k=32: to maximize the total utilization of a given drive or space. A couple of k=33 plots with a majority of k=32 plots can reduce the amount of leftover unused space on a drive. 
 
-There is only one reason why you might want to plot larger than k=32 and that would be to maximize the total utilization of a given drive or space. A couple of k=33 plots with a majority of k=32 plots can reduce the amount of leftover unused space on a drive. 
+The reason k=32 was chosen as the minimum plot size was to prevent a short-range replotting attack, which is detailed in our [consensus doc](https://docs.chia.net/docs/03consensus/consensus_intro). The gist of the attack is that if someone can create a plot in less than ~30 seconds, they could create a new plot that passes the filter for each signage point, and then delete the new plot immediately afterward. This would effectively emulate storing 512 plots, thus turning Chia into PoW.
 
-The Chia dev team will continue to enhance the plotter though many of the theoretical methods to speed up plotting have been implemented. Bram believes we may be able to cut plot time in half once more - but that's likely the maximum improvement in plotting speed remaining. The goal is to keep it so that the top-of-the-line hardware takes at least 1 hour to plot the minimum k-size, and Phase 1 takes at least ~10 minutes so there is no way to cheat the system.
+* Note that this attack does not create a winning plot; it only creates a plot that passes the filter.
+
+This attack won't be economically feasible for some time, if ever. Two potential mitigation techniques are to lower the plot filter (thus reducing the benefit of the attack), or to increase the minimum plot size (thus making the attack more difficult to perform).
+
+k=32 is expected to be the minimum plot size until at least 2026. If and when that size is increased, you will be given ample notice to replot before the change is made effective.
 
 ## 推荐的开垦方案
 
-We think you will want to use used Data Center grade NVMe SSD drives to create your plots. Regular consumer NVMe SSD generally has too low of a [TBW](https://www.enterprisestorageforum.com/storage-hardware/ssd-lifespan.html) rating. One of our community members keeps this handy [SSD Endurance document](https://github.com/Chia-Network/chia-blockchain/wiki/SSD-Endurance) up to date so you can compare various SSDs. You should never use your root/OS SSD to plot as it can lead to drive failure and loss of booting. You can plot directly to hard drives and get good results, especially if you plot in parallel to different drives. You can use non-root SSD over Thunderbolt 3 and migrate your plots off to whatever storage you want to keep them on long term. You could even load them on a Raspberry Pi 3 or 4 with outdated USB 2.0 drives attached and they will harvest and farm just fine. PC World offers this great [background on current storage technologies](https://www.pcworld.com/article/2899351/everything-you-need-to-know-about-nvme.html) but this graph gives you a quick view of why we recommend NVMe SSD:
+We think you will want to use used Data Center grade NVMe SSD drives to create your plots. Regular consumer NVMe SSD generally has too low of a [TBW](https://www.enterprisestorageforum.com/storage-hardware/ssd-lifespan.html) rating. One of our community members keeps this handy [SSD Endurance document](https://github.com/Chia-Network/chia-blockchain/wiki/SSD-Endurance) up to date so you can compare various SSDs. You should never use your root/OS SSD to plot as it can lead to drive failure and loss of booting. You can plot directly to hard drives and get good results, especially if you plot in parallel to different drives. You can use non-root SSD over Thunderbolt 3 and migrate your plots off to whatever storage you want to keep them on long term. You could even load them on a Raspberry Pi 4 with outdated USB 2.0 drives attached and they will harvest and farm just fine. PC World offers this great [background on current storage technologies](https://www.pcworld.com/article/2899351/everything-you-need-to-know-about-nvme.html) but this graph gives you a quick view of why we recommend NVMe SSD:
 ![NVMe SSD vs SATA](images/plotting-nvme-ssd.png "NVMe SSD is 5.5 times faster than SATA SSD")
 
 ## 可以同时开垦多个农田吗？
 
-Yes and starting with Beta 19 you can either use the GUI or CLI. Over the short run you have a bit more control of plotting using the CLI. There are [tips for Windows users](https://github.com/Chia-Network/chia-blockchain/wiki/Windows-Tips-and-Tricks) and Mac users can find their CLI commands in the [Quick Start Guide](https://github.com/Chia-Network/chia-blockchain/wiki/Quick-Start-Guide#macos). You may have better results if you stagger the start time of parallel plotting processes depending on your hardware setup.
+Yes, using either the GUI or CLI. Over the short run you have a bit more control of plotting using the CLI. There are [tips for Windows users](https://github.com/Chia-Network/chia-blockchain/wiki/Windows-Tips-and-Tricks) and Mac users can find their CLI commands in the [Quick Start Guide](https://github.com/Chia-Network/chia-blockchain/wiki/Quick-Start-Guide#macos). You may have better results if you stagger the start time of parallel plotting processes depending on your hardware setup.
 
 ## 开垦完的农田可以在别的电脑上用吗？
 
@@ -79,9 +90,9 @@ If you see something like `Caught plotting error: Not enough memory for sort in 
 
 This is a RAM problem with your machine. It can be how your swap file is configured. It is often your overclock, or XMP settings and even can be a faulty RAM stick. Chia plotting is better than memtest at surfacing broken or mis-configured RAM.
 
-## 开垦过程中，设备关机了怎么办？
+## 开垦过程中，设备关机或者重启了怎么办？
 
-Unfortunately, resuming a plot is not yet supported but likely will be later in 2021. We suggest that you disable power saving mode - especially for external drives - and try to limit other possible causes of interruptions. Plotting a k=32 is going to take between 6 and 20 hours, depending on your hardware, so these interruptions can be painful. They are also a part of why we don't recommend plotting plots larger than k=32 as each increment in k generally doubles the time to complete a single plot.
+Unfortunately, resuming a plot is not supported. We suggest that you disable power saving mode - especially for external drives - and try to limit other possible causes of interruptions. Plotting a k=32 could take multiple hours, depending on your hardware, so these interruptions can be painful. They are also a part of why we don't recommend plotting plots larger than k=32 as each increment in k generally doubles the time to complete a single plot.
 
 ## 开垦农田必须连接主网或者同步至最新区块吗？
 
@@ -152,7 +163,11 @@ Also, your node needs to be synced for you to farm properly. In the GUI, check t
 
 ## 10TB的算力有机会赢得主网的区块奖励吗？
 
-Starting with the new consensus algorithm and rewards schedule change in Beta 27, there are 4608 chances per day to win 2 TXCH (and thus XCH on mainnet.) If you have 10TB and there are 200PB of total storage on mainnet then you would expect to win ~0.46 TXCH per day on average. The math is .010 PB/200 PB * 4608 * 2 = 0.46. That means that over a long enough period of time you will expect to average out to generally winning every 4-5 days.
+[ChiaCalculator.com](https://chiacalculator.com "Chia Calculator") does a good job at running the numbers.
+
+First, the bad news. Statistically, it would take multiple years to win a reward with a 10-TB farm. ("So you're saying there's a chance...")
+
+Now, the good news. You can join a pool and collect regular rewards, no matter your farm's size! See our [Pooling User Guide](https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-User-Guide) for more info.
 
 ## 什么是农田筛选机，为什么我的农田无法通过初筛？
 
@@ -172,7 +187,9 @@ There is a possible attack where an attacker who can co-ordinate N deep from the
 
 ## 随着主网的发展和总算力的提升，已开垦农田的幸运值是否会有变化？需不需要定期进行更换？或者开垦更高格式的农田？
 
-No, your plots are virtually unaffected by the passage of time, aside from hardware errors. Even in the presence of bit flips due to aging hardware, plots remain mostly effective. The only cases where you would need to re-plot are: 1. if you are joining/leaving a pool or are switching pools (the pool public key is hard-coded into the plot) or 2. if hardware speeds advance to the point of a certain k value becoming obsolete (e.g., `k=32` becomes too fast to plot and we ban them, forcing you to replace them with `k≧33` plots). For case 1., you are free to have any mix of solo plots and pool plots if you do not want to re-plot. For case 2., `k=32` is not expected to become outdated until sometime between 2026-2031.
+No, your plots are virtually unaffected by the passage of time, aside from hardware errors. Even in the presence of bit flips due to aging hardware, plots remain mostly effective. The only cases where you would need to re-plot are: 1. if you are using solo plots (not NFT plots) and wish to join a pool (please see note below) or 2. if hardware speeds advance to the point of a certain k value becoming obsolete (e.g., `k=32` becomes too fast to plot and we ban them, forcing you to replace them with `k≧33` plots). For case 1., you are free to have any mix of solo plots and pool plots if you do not want to re-plot. For case 2., `k=32` is not expected to become outdated until sometime between 2026-2031.
+- Note on case 1:
+We have added a Pooling Protocol that replaces the hard-coded "Pool Public Key" of a plot, with a plotNFT's "Pool Contract Address" - more on this subject can be read here: https://github.com/Chia-Network/chia-blockchain/wiki/Pooling-FAQ
 
 ## 找到了符合挑战的证明，但没有赢得区块奖励，会是什么原因造成的？
 
@@ -183,13 +200,13 @@ It is unlikely, but it is possible. There are multiple reasons why this might be
 
 ## 如何进行转账或者收款操作？
 
-The Wallets page in the GUI will show you your receive address and provide an interface for you to spend your chia funds. You can also obtain a new wallet receive address any time you would like and those funds will all come to the same place as they are based on [HD Keys](https://www.investopedia.com/terms/h/hd-wallet-hierarchical-deterministic-wallet.asp).
+The Wallets page in the GUI will display your receive address and provide an interface for you to spend your chia funds. You can also obtain a new wallet receive address any time you would like and those funds will all come to the same place as they are based on [HD Keys](https://www.investopedia.com/terms/h/hd-wallet-hierarchical-deterministic-wallet.asp).
 
-There is growing wallet functionality available on the command line. Try `chia wallet -h`. Wallet software also provides features related to coloured coins, and trade offers. You can get a receive address on the cli with `chia keys show`.
+There is growing wallet functionality available on the command line. Try `chia wallet -h`. Wallet software also provides features related to [coloured coins](https://www.chia.net/2020/04/29/coloured-coins-launch.en.html), and trade offers. You can get a receive address on the cli with `chia keys show`.
 
 ## Chia的代币机制是怎样的？
 
-The coin (or [UTXO](https://river.com/learn/bitcoins-utxo-model/)) model is a Bitcoin style transaction model which is also used in Chia. Your wallet keeps track of a set of coins, where each coin can be any amount of XCH. When spending a coin (making a transaction), you have to spend the entire amount, and split that coin into multiple outputs, called coin additions. One addition is to the recipient of the transaction, and the other one is to you, as change. The change usually goes to a new address, so you will not see it in your normal address on Chia explorer, but your wallet will keep track of it and include it in the balance.  Each block in Chia is a list of removals (coins spent) and additions (coins created). There are no transactions in the blockchain, which is why you cannot lookup transactions in the block explorers. 
+The coin (or [UTXO](https://river.com/learn/bitcoins-utxo-model/)) model is a Bitcoin-style transaction model which is also used in Chia. Your wallet keeps track of a set of coins, where each coin can be any amount of XCH. When spending a coin (making a transaction), you have to spend the entire amount, and split that coin into multiple outputs, called coin additions. One addition is to the recipient of the transaction, and the other one is to you, as change. The change usually goes to a new address, so you will not see it in your normal address on Chia explorer, but your wallet will keep track of it and include it in the balance. Each block in Chia is a list of removals (coins spent) and additions (coins created). There are no transactions in the blockchain, which is why you cannot lookup transactions in the block explorers.
 
 ## 什么是派生型私钥（Hierarchical Deterministic keys）？
 
@@ -197,11 +214,11 @@ HD or Hierarchical Deterministic keys are a type of public key/private key schem
 
 ## 需要多少个区块才能确认一笔chia的转账操作？
 
-The new consensus uses correlated randomness (an idea introduced in [Proof-of-Stake Longest Chain Protocols: Security vs Predictability](http://tselab.stanford.edu/downloads/PoS_LC_SBC2020.pdf)) to prevent double dipping, and this converges much faster than a chain like Bitcoin. unless there is an attack or network split there is never a reorg. One still needs to wait for more than 6 blocks to get comparable confidence as one would get in Bitcoin for 6 blocks because in Chia the transactions are somewhat decoupled from the proofs (to prevent grinding), and as a consequence the farmers who contributed the x last blocks can collude to rewrite the transactions of the last x blocks. So you should wait for some x blocks, where x is large enough so you're confident that *at least one* of the x (randomly chosen) farmers who contributed the last x blocks will not collude (i.e., be malicious or get bribed). As this is a different type of attack as the one used to justify the 6 blocks Bitcoin rule, one can not just give a number that would correspond to the same confidence in Chia, but the 32 blocks (approx. 10 minutes) suggested in the current [new consensus document](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit) (the "Farmer bribe foliage reorg attack " section on page 23) seems conservative.
+The new consensus uses correlated randomness (an idea introduced in [Proof-of-Stake Longest Chain Protocols: Security vs Predictability](http://tselab.stanford.edu/downloads/PoS_LC_SBC2020.pdf)) to prevent double dipping, and this converges much faster than a chain like Bitcoin. Unless there is an attack or network split there is never a reorg. One still needs to wait for more than 6 blocks to get comparable confidence as one would get in Bitcoin for 6 blocks. Indeed, in Chia the transactions are somewhat decoupled from the proofs (to prevent grinding), and as a consequence the farmers who contributed the x last blocks can collude to rewrite the transactions of the last x blocks. So you should wait for some x blocks, where x is large enough so you're confident that *at least one* of the x (randomly chosen) farmers who contributed the last x blocks will not collude (i.e., be malicious or get bribed). As this is a different type of attack than the one used to justify the 6 blocks Bitcoin rule, one cannot just give a number that would correspond to the same confidence in Chia, but the 32 blocks (approx. 10 minutes) suggested in the current [new consensus document](https://docs.google.com/document/d/1tmRIb7lgi4QfKkNaxuKOBHRmwbVlGL4f7EsBDr_5xZE/edit) (the "Farmer bribe foliage reorg attack " section on page 23) seems conservative.
 
 ## 为什么钱包无法同步？GUI界面中无法连接至钱包该怎么办？
 
-In these cases, your wallet database might be corrupt. Try the following steps:
+In these cases, your wallet database might be corrupted. Try the following steps:
 1. Shut down Chia and all Chia processes, check the task manager to see if they are all shut down. _Note that this will cancel running plots_, so be careful.
 2. Restart your computer
 3. Delete the `~/.chia/mainnet/wallet/db` folder
@@ -217,7 +234,7 @@ Your pending transaction can take a few minutes if blocks are full. If it's not 
 4. Start the application and wait for the wallet to sync up
 5. After your wallet is fully synced to the same height as the Full Node, your Wallet Balance will be correct.
 
-Known problem: After your wallet is resynced, any previous outgoing transactions will appear as incoming transaction at the block height you made the outgoing transaction.
+Known problem: After your wallet is resynced, any previous outgoing transaction will appear as incoming transaction at the block height you made the outgoing transaction.
 
 ## 在哪可以交易Chia代币？
 [Gate.io](https://www.gate.io/)
@@ -232,6 +249,76 @@ Known problem: After your wallet is resynced, any previous outgoing transactions
 [AEX]](https://www.aex.com/)
 * XCH/USDT
 
+Visit [chia.net/buy-xch](http://chia.net/buy-xch) for instructions on buying Chia with USDS and [offers](​​https://chialisp.com/docs/puzzles/offers) using the Chia light wallet and [Offers](https://chia.net/offers).
+
+There are also several exchanges that offer XCH. You can see a list of exchanges supporting XCH [here](https://chialinks.com/exchanges/). This list is for informational purposes only. It is up to the reader to do their own research on the best exchange for their needs.
+
+
+# Offers
+
+## What are Chia Offers?
+
+Chia Offers enable a decentralized, peer-to-peer trading of assets on the Chia blockchain. For more information, see our:
+* [Technical reference document](https://chialisp.com/docs/puzzles/offers)
+* [GUI (graphical user interface) tutorial](https://chialisp.com/docs/tutorials/offers_gui_tutorial)
+* [Video - Offers GUI Demo](https://youtu.be/Z2FoZSNtttM)
+* [CLI (command line interface) tutorial](https://chialisp.com/docs/tutorials/offers_cli_tutorial)
+
+## After creating an offer file, why does my spendable balance differ more than the amount specific in the offer?
+
+When you create an offer, [coins are reserved](https://chialisp.com/docs/puzzles/offers#on-chain-vs-off-chain) to ensure that when the offer has been accepted and written on to the blockchain, the transaction can be completed. Chia’s wallet will reserve the largest coin to fulfill an offer, and when that coin is reserved, it will lower the spendable balance by the total coin amount.
+
+## I plan on making many offers and I want to ensure that my coins aren’t locked up?
+
+To create smaller coins, send money to your own wallet in smaller denominations. For more info, see our [reference doc](https://docs.chia.net/docs/puzzles/offers#coin-set-utxo).
+
+## When canceling an offer, when should I check the “cancel on blockchain” checkbox?
+
+You should use this option if the offer file has left your computer. If you don’t use this option, someone who sees your offer could still accept it. See our [reference doc](https://chialisp.com/docs/puzzles/offers#cancellation) for more info.
+
+## If I cancel my offer on the blockchain, will other people be able to fulfill it?
+
+No, canceling on the blockchain ensures that your offer can no longer be fulfilled. 
+
+## I’m accepting an offer, but it shows a Unknown CAT, what should I do?
+
+You should always check the ID of the asset(s) being offered before accepting any offers. First make sure you have a CAT wallet set up for the assets that you are trading for and are getting that information from a reputable source. Second, when you view the offer in the wallet, ensure the amounts and the CATs match up to what you are expecting. For more info, see our [GUI tutorial](https://chialisp.com/docs/tutorials/offers_gui_tutorial#taker-accepts-an-unknown-cat-offer).
+
+## Where can I share my offers?
+
+Once you’ve created the offer, you’ll need to find someone who will take the other side of it. You can share your offers through the following methods:
+* Send your offer file directly to another user
+* [HashGreen](https://hash.green/dex) - a decentralized exchange (DEX) that has been built upon Chia’s Offers
+* [Offerbin](http://offerbin.io) - an open marketplace for Chia Offers
+* [Keybase - chia_offers](https://keybase.io/team/chia_offers) - #offers-trading channel is a forum where Chia Offers can be posted and accepted
+
+## Why am I seeing the following error when trying to share an offer to Keybase: “Failed to upload offer to Keybase:...”?
+
+Please ensure that you have joined the chia_offers group first before hitting the “share” button.
+
+## Why do I see this error in Keybase when I click to Join Chia_Offers - “This team does not exist or it has no public information available”?
+
+Ignore this error as this is a Keybase error, so long as you click on “Join Chia_offers”, you will get successfully added to the team to post or view offers.
+
+## Why don’t I see the offers option in my wallet?
+
+You are probably running the wallet that comes installed with the full node. Be sure to download the standalone lightwallet [here](https://www.chia.net/download/#light-wallet-beta) (and be sure not to install on the same machine as your full node). We will be integrating the new capabilities of the standalone light wallet into the full node so you can farm and use all the new features of the wallet Soon™.
+
+## How do I know if I’m getting the right exchange value for an offer?
+
+Prices in cryptocurrencies fluctuate all the time. You can review any of the existing DEXes like Hashgreen or Offerbin to see what trading pairs are trading for in the open market. Alternatively you can find a reputable website that will give you the currency valuation for more popular and well known currencies like USDS.
+
+## Will my Offers sync across different Chia wallets on different machines?
+
+No, Offers are created and stored locally on each machine. Any accepted offers will only be seen by other computers through the transaction history list.
+
+## Can my coin be spent on another computer with a wallet that uses the same keys, even if I am running two wallets on two different computers and I have an open Offer on one computer?
+
+Yes, the coin can be spent from another computer. Coins are reserved locally on the computer where the offer was created. If that coin is spent from another computer, then the offer will be canceled. In general, it is recommended that you don’t use two machines to access the same wallet that offers are being made from.
+
+## What is the Duck Sauce CAT?
+
+The duck sauce CAT was the internal codename for the Stably USDS token until it was announced. Please be sure you have the correct TAIL for the Stably USDS token: 
 
 # 更多帮助信息
 
@@ -244,7 +331,7 @@ Known problem: After your wallet is resynced, any previous outgoing transactions
 
 ## 我可以在树莓派 3 或 4 上运行Chia吗？
 当然可以，相关介绍可以查阅此[文档](Raspberry-Pi)。想要运行Chia全节点、收割机、农民耕种进程的话，至少需要树莓派3或者4，且使用64位操作系统。
-This project requires a 64 bit OS so a Pi 3 or Pi 4. One can install and run harvesters, farmers, and full nodes on the Pi. Plotting on a Pi is feasible now with Chacha8 instead of AES but the Pi isn't quick. Modern desktops and laptops plot in the 0.07 - 0.10 GiB/minute range and the Pi 4 plots at 0.025 GiB/minute. Pi is also not a candidate for Timelords or VDF clients...
+Raspberry Pi 4 is supported, but Pi 3 is not. Here are the [instructions](https://github.com/Chia-Network/chia-blockchain/wiki/Raspberry-Pi). This project requires a 64-bit OS. One can install and run harvesters, farmers, and full nodes on the Pi. Plotting on a Pi is feasible now with Chacha8 instead of AES, but the Pi isn't quick. Modern desktops and laptops plot in the 0.07 - 0.10 GiB/minute range and the Pi 4 plots at 0.025 GiB/minute. Pi is also not a candidate for Timelords or VDF clients...
 
 ## 如何升级Chia软件以及保存私钥和农田？
 
@@ -257,3 +344,7 @@ This is the Repository FAQ which focuses on how to use the software.  We have re
 ## 如何为Chia项目做力所能及的贡献？
 
 You should check out [CONTRIBUTING.md](https://github.com/Chia-Network/chia-blockchain/blob/master/CONTRIBUTING.md) in the repository but the quick answer is to please base your pull requests off the dev branch. The dev branch will only accept rebase merges or squash merges. You can help [translate the application](https://crowdin.com/project/chia-blockchain/) as well. Translating the GUI is especially useful and pretty easy to do with our Crowdin [Chia-Blockchain-GUI](https://crowdin.com/project/chia-blockchain) tool.
+
+## 白头发老头Gene在每次的AMA中用的什么牌子的麦克风（神经，问这个干嘛，出来挨打）? 
+
+白老头用的麦克风是[Electro-Voice RE20](https://products.electrovoice.com/na/en/re20)。

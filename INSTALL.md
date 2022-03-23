@@ -1,5 +1,10 @@
-翻译自[2021年7月31日版本-202#](https://github.com/Chia-Network/chia-blockchain/wiki/INSTALL/a9bfa264ac671465685d104e0841474c39c2b5cd)
+翻译自[2022年01月03日版本-208#](https://github.com/Chia-Network/chia-blockchain/wiki/INSTALL/00fda5a8737ea53ab403f3635935363af4f4c92c)
 ***
+
+**请确认你的chia客户端是从官网（chia.net）下载的，而不是其他第三方地址。**
+
+官方安装程序可以在官网[下载界面](https://www.chia.net/download/)以及本wiki导航中下载。
+
 根据你的操作系统来选择相应的Chia客户端安装方式。
 安装完后，按照[快速开始](Quick-Start-Guide)里的教程来运行软件。同时还需要关注[版本](releases)的变化信息以及[常见问题](FAQ)的答疑。
 
@@ -7,10 +12,10 @@
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 
 ## 最低配置
-Chia所能支持的最低配置设备是树莓派4。
+Chia所能支持的最低配置设备是树莓派4(内存4GB)。
 * 四核处理器 1.5Ghz （必须是64位操作系统）
-* 2GB内容
-* 系统python版本为3.7及以上
+* 4GB 内存
+* 系统python版本为3.7，3.8以及3.9（当前已知最高版本为3.10）。
 
 
 ## 支持的硬盘格式
@@ -56,7 +61,7 @@ npm run electron &
 
 ## Ubuntu/Debian
 
-这里有编译好的测试版带图形界面的[安装包](https://download.chia.net/latest/x86_64-Ubuntu-gui),仅供X86架构64位系统的Ubuntu 18.04及以上桌面版，还有Debian Buster及以上带GUI的版本使用。同时也提供了ARM架构64位系统的[带GUI安装包](https://download.chia.net/latest/ARM64-Ubuntu-gui) ，适用于树莓派Ubuntu及Debian的64位系统。
+这里有编译好的带图形界面的[安装包](https://download.chia.net/latest/x86_64-Ubuntu-gui),仅供X86架构64位系统的Ubuntu 18.04及以上桌面版，还有Debian Buster及以上带GUI的版本使用。同时也提供了ARM架构64位系统的[带GUI安装包](https://download.chia.net/latest/ARM64-Ubuntu-gui) ，适用于树莓派Ubuntu及Debian的64位系统。
 
 二进制命令行工具在以下路径： `/usr/lib/chia-blockchain/resources/app.asar.unpacked/daemon/`
 
@@ -79,6 +84,7 @@ sh install.sh
 
 . ./activate
 
+***NOTE: As of December 2021, we are aware of issues with the install UI script for the current version, please download an installer instead at chia.net/download***
 # 安装带GUI的Chia软件需要系统带有桌面。
 # 无法以root身份安装并运行带GUI的Chia软件
 
@@ -159,6 +165,7 @@ cd chia-blockchain
 sh install.sh
 . ./activate
 
+***NOTE: As of December 2021, we are aware of issues with the install UI script for the current version, please download an installer instead at chia.net/download***
 # 安装带GUI的Chia软件需要系统带有桌面。
 # 无法以root身份安装并运行带GUI的Chia软件
 

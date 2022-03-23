@@ -71,4 +71,41 @@ bash cfst_hosts.sh
 ```
 
 # Windows
-windows及其他详细设定（例如定时任务）可以参照原博主的[介绍](https://github.com/XIU2/CloudflareSpeedTest/issues/42)，非常详尽了。后续只需要做个定时任务，即可自动修改最佳连接的解析地址。
+下载地址https://github.com/XIU2/CloudflareSpeedTest/releases
+根据自己的系统选择，一般是64位的windows，选择：CloudflareST_windows_amd64.zip，解压缩文件。
+```
+#编辑hosts文件(C:\Windows\System32\drivers\etc\hosts)，添加初始IP解析信息。
+1.0.0.1  pool.space
+1.0.0.1  asia1.pool.space
+
+#点击解压后文件夹中的cfst_hosts.bat，运行脚本。
+首次运行时，脚本会提示以下内容：
+该脚本的作用为 CloudflareST 测速后获取最快 IP 并替换 Hosts 中的 Cloudflare CDN IP。
+
+第一次使用，请先将 Hosts 中所有 Cloudflare CDN IP 统一改为一个 IP。
+输入该 Cloudflare CDN IP 并回车（后续不再需要该步骤）:1.0.0.1
+```
+
+在这里输入我们前面添加解析的那个IP，即：1.0.0.1
+
+随后脚本就会开始测速、备份 Hosts 文件、替换 IP 等操作，提示内容大概如下：
+
+```
+开始测速...
+# XIU2/CloudflareSpeedTest vX.X.X
+
+开始延迟测速（模式：TCP IPv4，端口：443）：
+27936 / 27936 [-------------------------------------------------------------------------------------------------] 100.00%
+...
+完整测速结果已写入 result.csv 文件，请使用记事本/表格软件查看。
+
+旧 IP 为 1.0.0.1
+新 IP 为 Y.Y.Y.Y
+
+开始备份 Hosts 文件（hosts_backup）...
+已复制         1 个文件。
+
+开始替换...
+完成...
+```
+最后，使用windows自带的[定时任务功能](https://blog.csdn.net/wd2011063437/article/details/79168735) ,将cfst_hosts.bat脚本添加进任务，每天执行一次即可。
